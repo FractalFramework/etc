@@ -91,4 +91,26 @@ Fils from dav's lib don't have to be modified too.
     //not useful
     //echo '</html>';
 
+### The path of the information
+
+The `module` is strictly restricted to build the index and give the four variables it needs.
+
+The `blocks` contains basic fnctions that not need to be in a separated file.
+The `call()` of the `blocks` let root the request between :
+- present functions in `blocks`
+- specific classes
+- a root to specific classes not necessary named like how we call them (like *home*).
+
+The information continue, for example to the `posts`.
+Here, some constructors (it's a *controller*) assume to bring values to the templater.
+
+Coming from `ajax.php`, the path on the information is the same.
+`ajax.js` is exclusively restricted to call `blocks` and send the result in the variable `content` of the main `index.php`.
+
+Every functions of the software are following this path.
+
+## Caracterstics
+
+- All the verbose of the software is externalized.
+- The treatment is sparated between the constructors (models and controllers) and the display (views).
 
