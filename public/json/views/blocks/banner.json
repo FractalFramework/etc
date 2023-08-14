@@ -1,0 +1,31 @@
+[
+    [
+        "div",
+        {
+            "class":"banner",
+            "style":"background-image:url({logo});"
+        },
+        [
+            [
+                "h1",
+                {
+                    "class":"blog-title"
+                },
+                "{name}"
+            ],
+            [
+                "div",
+                {
+                    "class":"blog-subtitle"
+                },
+                [
+                    [
+                        "h2",
+                        {"class":"slogan"},
+                        "{slogan}"
+                    ]
+                ]
+            ]
+        ]
+    ]
+]

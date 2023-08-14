@@ -1,0 +1,17 @@
+[
+    {
+        "tagb":["title","hello"]
+    },
+    {
+        "link":["shortcut icon","/favicon.ico"]
+    },
+    {
+        "css":"styles"
+    },
+    {
+        "js":"lib"
+    },
+    {
+        "js":"ajax"
+    }
+]

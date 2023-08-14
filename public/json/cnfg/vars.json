@@ -1,0 +1,8 @@
+{
+    "dev":"1",
+    "db":"etc",
+    "templater":"1",
+    "savecss":"1",
+    "savehtml":"1",
+    "usrhome":"1"
+}

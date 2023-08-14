@@ -1,0 +1,7 @@
+RewriteEngine On
+#RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^./]+)/([^./]+)/([^./]+)$ /index.php?a=$1&b=$2&c=$3 [L]
+RewriteRule ^([^./]+)/([^./]+)$ /index.php?a=$1&b=$2 [L]
+RewriteRule ^([^./]+)$ /index.php?a=$1 [L]
+RewriteRule ^/$ /index.php [L]
+RewriteRule ^$ /index.php [L]

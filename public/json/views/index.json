@@ -1,0 +1,30 @@
+[
+    [
+        "div",
+        {
+            "id":"page"
+        },
+        [            
+            [
+                "header",
+                {},
+                "{banner}"
+            ],
+            [
+                "nav",
+                {"id":"menu"},
+                "{menu}"
+            ],
+            [
+                "div",
+                {"id":"content"},
+                "{content}"
+            ],
+            [
+                "footer",
+                {},
+                "{footer}"
+            ]
+        ]
+    ]
+]

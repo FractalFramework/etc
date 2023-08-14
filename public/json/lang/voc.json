@@ -1,0 +1,32 @@
+{
+    "contact":"Vous pouvez nous contacter, mais oui mais oui",
+    "send":"envoyer par la poste",
+    "received":"oké, bien reçu, on s'en occupe tout de suite !",
+
+    "login":"c'est l'heure de montrer patte blanche",
+    "go":"allez hop !",
+    "redo":"on reprend tout depuis le début",
+    "name":"nom prénoms et papiers svp !",
+    "password":"la clef dans la serrure",
+    "mail":"ce serait sympa que tu me files ton mail",
+    "message":"alors vas-y, raconte moi tout",
+    "loged":"voilà, ça c'est fait",
+    "bad_password":"très bien. recommence.",
+    "inexistant_user":"euh comment dire, désolé mais tu rentres pas",
+    "register?":"nan mais si tu veux je te crée un compte",
+    "registered":"ayé on te connaîtra maintenant",
+    "notregistered":"enh bah comment dire, non",
+
+    "hello":"saluuuuuut",
+    "logout":"ouais c'est ça, bonjour et au revoir !",
+    "loged_out":"Adios ! Hasta la vista !",
+    "new_post":"je vais écrire un nouvel article. Manque plus que les idées.",
+    "excerpt":"petit résumé de la situation pour ceux qui n'ont pas de temps à perdre",
+    "title":"grand titre en grand qui sera répété plein de fois et vu par tous",
+    "category":"classer dans...",
+
+    "search":"chercher un truc",
+    "posts":"articles en pagaille",
+    "post":"oooh"
+
+}
