@@ -137,16 +137,16 @@ Several styles of treatments of the results can be entrusted to javascript befor
 
 These few lines of code build css sheets from Json definitions.
 
-`{
-    "body":{
-        "background-color":"#444",
-        "font-family":"arial",
-        "color":"#ddd"
-    },
-    "a":{
-        "cursor":"pointer"
+    {
+        "body":{
+            "background-color":"#444",
+            "font-family":"arial",
+            "color":"#ddd"
+        },
+        "a":{
+            "cursor":"pointer"
+        }
     }
-}`
 
 ## head
 
@@ -159,23 +159,23 @@ The protocole is based on the View logic.
 
 This is enough to launch the classic headers, although they can be adapted.
 
-`[
-    {
-        "tagb":["title","hello"]
-    },
-    {
-        "link":["shortcut icon","/favicon.ico"]
-    },
-    {
-        "css":"styles"
-    },
-    {
-        "js":"lib"
-    },
-    {
-        "js":"ajax"
-    }
-]`
+    [
+        {
+            "tagb":["title","hello"]
+        },
+        {
+            "link":["shortcut icon","/favicon.ico"]
+        },
+        {
+            "css":"styles"
+        },
+        {
+            "js":"lib"
+        },
+        {
+            "js":"ajax"
+        }
+    ]
 
 ## json
 
@@ -197,8 +197,8 @@ The latter have the sole aim of speeding up code composition, in particular by a
 
 This resolve all the html cases :
 
-`function atr($r){$ret=''; if($r)foreach($r as $k=>$v)if($v)$ret.=' '.$k.'="'.$v.'"'; return $ret;}
-function tag($b,$p,$d){return '<'.$b.atr($p).'>'.$d.'</'.$b.'>';}`
+    function atr($r){$ret=''; if($r)foreach($r as $k=>$v)if($v)$ret.=' '.$k.'="'.$v.'"'; return $ret;}
+    function tag($b,$p,$d){return '<'.$b.atr($p).'>'.$d.'</'.$b.'>';}
 
 Ajax buttons are also dependent on javascript files.
 
@@ -259,8 +259,8 @@ We can switch of basename during the script.
 
 We can create and modify a database : 
 
-`$db=['name'=>'var','role'=>'int','mail'=>'var','pswd'=>'password','slogan'=>'var','logo'=>'var'];
-sql::create('admin',self::$db,1);`
+    $db=['name'=>'var','role'=>'int','mail'=>'var','pswd'=>'password','slogan'=>'var','logo'=>'var'];
+    sql::create('admin',self::$db,1);
 
 For each table, the `id` is implicit.
 
@@ -291,15 +291,14 @@ This is a templater.
 
 It not need anything else than itself to work.
 
-`
-//we call the template
-$ra=json::call('views/index');
+    //we call the template
+    $ra=json::call('views/index');
 
-//we call the variables
-$r=app::call($p);
+    //we call the variables
+    $r=app::call($p);
 
-//we build the view
-$ret=view::com($ra,$r);`
+    //we build the view
+    $ret=view::com($ra,$r);`
 
 More simple, `::call()` do all that :
 
@@ -309,26 +308,26 @@ For your information, a templater is not a complex thing. It deleguate the rende
 
 Actually, the templater consists only in that code :
 
-`static function build($r,$ra,$rc){$ret='';
-foreach($r as $k=>$v){[$c,$p,$d]=$v;
-	if(is_array($d))$d=self::build($d,$ra,$rc);
-	else $d=str_replace($rc,$ra,$d);
-	if($p)foreach($p as $ka=>$va)
-		$p[$ka]=str_replace($rc,$ra,$va);
-	$ret.=tag($c,$p,$d)."\n";}
-return $ret;}`
+    `static function build($r,$ra,$rc){$ret='';
+    foreach($r as $k=>$v){[$c,$p,$d]=$v;
+        if(is_array($d))$d=self::build($d,$ra,$rc);
+        else $d=str_replace($rc,$ra,$d);
+        if($p)foreach($p as $ka=>$va)
+            $p[$ka]=str_replace($rc,$ra,$va);
+        $ret.=tag($c,$p,$d)."\n";}
+    return $ret;}
 
 It uses `tag()` function, which build the html.
 
 The json used as definitions of the structure of the html, looks like this :
 
-`[
     [
-        "div",
-        {"id":"content"},
-        "{content}"
+        [
+            "div",
+            {"id":"content"},
+            "{content}"
+        ]
     ]
-]`
 
 That create a `tag('div',['id'=>'content'],$content)`.
 Which finally constructs the html : `<div id="content">$content</div>`.
