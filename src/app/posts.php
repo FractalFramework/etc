@@ -27,7 +27,7 @@ class posts{
         return $ret;
     }
 
-    static function post($p){
+    static function read($p){
         [$a,$b]=vals($p,['a','b']);
         $r=sql::read('id,title,category,excerpt,content,date','posts','a',['id'=>$a]);
         $r['date']=date('ymd',strtotime($r['date']));

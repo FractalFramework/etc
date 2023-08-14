@@ -1,8 +1,9 @@
 <?php
 class json{
+    static $json_location='public/json/';
 
     static function file($a){
-        return 'public/json/'.$a.'.json';}
+    return self::$json_location.$a.'.json';}
 
     static function error(){
     return match(json_last_error()){
@@ -15,9 +16,9 @@ class json{
     default=>6};}//'Erreur inconnue'
 
     static function er($r,$a=''){
-        $e=self::error(); if(!$e)return;
-        if($r)return json_encode(array_combine(array_keys($r),array_fill(0,count($r),$e)));
-        else return 'error in: '.self::file($a);}
+    $e=self::error(); if(!$e)return;
+    if($r)return json_encode(array_combine(array_keys($r),array_fill(0,count($r),$e)));
+    else return 'error in: '.self::file($a);}
 
     static function build($r){
     $rt=json_encode($r,JSON_HEX_TAG);
@@ -25,11 +26,11 @@ class json{
     return $rt;}
 
     static function call($a){$r=[];
-        $f=self::file($a).' ';
-        if(is_file($f)){
-            $d=file_get_contents($f);
-            $r=json_decode($d,true);
-            if($e=self::er($r,$a))echo $e;}
-        else er('not loaded: '.$f);
-        return $r;}
+    $f=self::file($a).' ';
+    if(is_file($f)){
+        $d=file_get_contents($f);
+        $r=json_decode($d,true);
+        if($e=self::er($r,$a))echo $e;}
+    else er('not loaded: '.$f);
+    return $r;}
 }

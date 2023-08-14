@@ -5,6 +5,7 @@ $g=ses::gets();
 boot::call();
 
 css::build('styles');
+
 head::json('cnfg/headers');
 head::add('jscode','state='.json_encode($g).';');
 echo head::run();

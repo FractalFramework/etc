@@ -1,5 +1,12 @@
 <?php
+/*
+head::json('cnfg/headers');//json defs
+echo head::run();
+*/
+
 class head{static $r=[]; static $rid='';
+    static $js_location='/dav';
+    static $css_location='/public';
     static function add($k,$v){self::$r[][$k]=$v;}
     static function json($a){self::$r=json::call($a);}
     static function ra($r){foreach($r as $k=>$v)self::$r[][$k]=$v;}
@@ -9,11 +16,11 @@ class head{static $r=[]; static $rid='';
     static function csscode($d){return tag('style',['type'=>'text/css'],$d)."\n";}
     static function jscode($d){return tag('script',['type'=>'text/javascript'],$d)."\n";}
     static function css($d){$c=self::$rid;
-    return taga('link',['href'=>'/public/css/'.$d.'.css'.$c,'rel'=>'stylesheet'])."\n";}
+    return taga('link',['href'=>self::$css_location.'/css/'.$d.'.css'.$c,'rel'=>'stylesheet'])."\n";}
     static function js($d){$c=self::$rid; $b=ses('dev');
-    return tag('script',['src'=>'/public/js/'.$d.'.js'.$c],'')."\n";}
+    return tag('script',['src'=>self::$js_location.'/js/'.$d.'.js'.$c],'')."\n";}
     static function link($d,$v){return taga('link',['rel'=>$d,'href'=>$v])."\n";}
-    static function relod($v){echo self::jscode('window.location="'.$v.'"');}
+    static function relod($v){echo self::jscode('window.css_location="'.$v.'"');}
 
     static function build(){$r=self::$r; $rt=[]; if(ses('dev'))self::$rid='?'.randid();
     if($r)foreach($r as $k=>$v){$va=current($v); $ka=key($v); $rt[]=match($ka){

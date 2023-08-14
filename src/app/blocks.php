@@ -39,6 +39,7 @@ class blocks{
         if(method_exists($a,'call'))return $a::call($p);
         return match($a){//todo:resolve blocks in #body
             'home'=>posts::call($p),
+            'post'=>posts::read($p),
             'create'=>posts::create($p),
             default=>posts::call($p),
         };

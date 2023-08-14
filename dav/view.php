@@ -1,8 +1,10 @@
 <?php
 class view{
+static $json_views='views/';
+static $templates_location='templates/';
 
 static function file($a){
-return 'templates/'.$a.'.html';}
+return self::$templates_location.$a.'.html';}
 
 static function save($a,$d){
 	$f=self::file($a);
@@ -10,7 +12,7 @@ static function save($a,$d){
     file_put_contents($f,$d);}
 
 static function save_empty($a){
-    $r=json::call('views/'.$a); $d='';
+    $r=json::call(self::$json_views.$a); $d='';
     if($r)$d=self::build($r,[],[]);
     self::save($a,$d);}
 
@@ -29,7 +31,7 @@ if($r)$ret=self::build($r,$ra,$rc);
 return $ret;}
 
 static function call($a,$ra,$o=''){
-$r=json::call('views/'.$a); $ret='';
+$r=json::call(self::$json_views.$a); $ret='';
 if($r)$ret=self::com($r,$ra);
 if($o or ses::cnfg('savehtml'))self::save_empty($a);
 return $ret;}
