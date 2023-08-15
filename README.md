@@ -15,14 +15,14 @@ This is an exercice for a little cms based of the library of dav.
 
 It must display articles, list of articles, a contact, a login, and some attempted features for a personal website.
 
-## resolution of urls
+## Resolution of urls
 
 From the root, the index only serve to resolve all the urls.
 Two fils are in the root :
 - index.php
 - ajax.php
 
-## structure of the directories
+## Structure of the directories
 
 - /dav
 - /img

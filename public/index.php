@@ -10,7 +10,7 @@ head::json('cnfg/headers');
 head::add('jscode','state='.json_encode($g).';');
 echo head::run();
 
-$ret=module::call();
+$ret=main::call($g);
 
 //dev
 $ret.=tag('div',['class'=>'popup'],"").n();

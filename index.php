@@ -9,3 +9,4 @@ define('root',__DIR__);
 require('dav/lib.php');
 new sql(['localhost','root','dev','etc']);
 require('public/index.php');
+sql::$qr=null;

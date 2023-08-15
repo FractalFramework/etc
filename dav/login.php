@@ -11,16 +11,25 @@ class login{
         return $ret;
     }
 
+    static function form($p){
+        [$a,$b]=vals($p,['a','b']);
+        $ret=h3(voc('login'));
+        $ret.=bj(voc('go'),'content|login,call||mail,pswd',['class'=>'btsav']);
+        $ret.=div(input('mail',$a,'',['type'=>'mail']).label('mail',voc('knownmail'),'btn'));
+        $ret.=div(input('pswd',$b,'',['type'=>'password']).label('name',voc('password'),'btn'));
+        return $ret;
+    }
+
     static function response($p){
         [$a,$b]=vals($p,['mail','pswd']);
-        $ex_name=sql::read('id','users','v',['name'=>$a]);
-        $ex_pswd=sql::read('id','users','v',['name'=>$a,'pswd'=>'password('.$b.')']);
-        if($ex_pswd){
-            self::auth($ex_pswd);
+        $uid=sql::read('id','users','v',['mail'=>$a]);
+        $ok=sql::call('select id from users where name="'.$a.'" and pswd=password("'.$b.'")','v');
+        if($ok){
+            self::auth($uid);
             $ret=div(voc('loged'),'frame-green');
         }
-        elseif($ex_name){
-            $ret=div(voc('bad_password'),'frame-red');
+        elseif($uid){
+            $ret=div(voc('bad_password'),'frame-blue');
             $ret.=div(bh(voc('redo'),'login',['class'=>'btn']));
             $ret.=hidden('mail',$a);
             $ret.=div(input('pswd',$b,'',['type'=>'password']).label('name',voc('password'),'btn'));
@@ -36,15 +45,6 @@ class login{
         }
         return $ret;
     }
-
-    static function form($p){
-        [$a,$b]=vals($p,['a','b']);
-        $ret=h3(voc('login'));
-        $ret.=bj(voc('go'),'content|login,call||mail,pswd',['class'=>'btsav']);
-        $ret.=div(input('mail',$a,'',['type'=>'mail']).label('mail',voc('mail'),'btn'));
-        $ret.=div(input('pswd',$b,'',['type'=>'password']).label('name',voc('password'),'btn'));
-        return $ret;
-    }
     
     static function auth($id=''){
         if(!$id)$id=1;//assume first user
@@ -53,17 +53,23 @@ class login{
         ses('uid',$r['id']);
         ses('usr',$r['name']);
         ses('auth',$r['auth']);
+        //auth(6);
         ses::$r['usr']=$r;
         cookie('uid',$r['id']);
         //ses::usr('name');
     }
     
+    static function recognize(){//called from boot
+        $uid=cookie('uid');
+        if($uid)self::auth($uid);
+    }
+    
     static function logout(){
         sesz('usr');
         sesz('uid');
+        sesz('auth');
         setcookie('uid','',0);
-        echo cookie('uid');
-        //echo ses('uid');
+        //cookie('uid',0);
         return div(voc('loged_out'),'frame-white');
     }
     
@@ -72,15 +78,10 @@ class login{
         $ret.=div(bj(voc('logout'),'content|login,logout',['class'=>'btn']));
         return $ret;
     }
-    
-    static function recognize(){
-        $uid=cookie('uid');
-        if($uid)self::auth($uid);
-    }
 
     static function call($p){
         [$a,$b]=vals($p,['mail','pswd']);
-        if(ses('uid'))$ret=self::loged($p);
+        if(ses('uid'))$ret=self::loged();
         elseif($a && $b)$ret=self::response($p);
         else $ret=self::form($p);
         return $ret;

@@ -9,6 +9,7 @@
     "name":"nom prénoms et papiers svp !",
     "password":"la clef dans la serrure",
     "mail":"ce serait sympa que tu me files ton mail",
+    "knownmail":"c'est quoi déjà ton mail ?",
     "message":"alors vas-y, raconte moi tout",
     "loged":"voilà, ça c'est fait",
     "bad_password":"très bien. recommence.",
@@ -27,6 +28,19 @@
 
     "search":"chercher un truc",
     "posts":"articles en pagaille",
-    "post":"oooh"
+    "post":"oooh",
+    "forbiden_access":"hola oh tu te crois où ?",
+
+    "home_bt":"maison",
+    "contact_bt":"con&tacte",
+    "search_bt":"cherche donc",
+    "login_bt":"rentre dedans",
+    "create_bt":"nouveau truc",
+    "user_bt":"profil personnel",
+    "tracks_title":"Bavardages",
+    "tracks_nb_title":"bafouille(s)",
+    "let_track_title":"ajoute ton grain de sel",
+    "new_track":"dis-le, mais dis-le !",
+    "pending_track":"on va vérifier quand même si tu ne dis pas trop de c**ner*es"
 
 }

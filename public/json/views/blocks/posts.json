@@ -23,6 +23,11 @@
                         "span",
                         {"class":"category"},
                         "{category}"
+                    ],
+                    [
+                        "span",
+                        {"class":"info"},
+                        "{tracks_nb} {tracks_nb_title}"
                     ]
                 ]
             ],

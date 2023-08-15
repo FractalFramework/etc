@@ -132,7 +132,7 @@ function split_right($s,$v,$n=''){if($n)$p=mb_strrpos($v,$s); else $p=mb_strpos(
 if($p!==false)return [mb_substr($v,0,$p),mb_substr($v,$p+1)]; else return ['',$v];}
 
 //dates
-function mkday($d='',$p=''){return date($p?$p:'ymd.Hi',is_numeric($d)?$d:time());}
+function day($d='',$p=''){return date($p?$p:'ymd.Hi',is_numeric($d)?$d:time());}
 function sqldate(){return date('Y-m-d H:i:s');}//%A%d%B%G%T
 function time_ago($dt){$dy=time()-$dt; if($dy<86400){$fuseau=3;
 $h=intval(date('H',$dy))-$fuseau; $i=intval(date('i',$dy)); $s=intval(date('s',$dy));

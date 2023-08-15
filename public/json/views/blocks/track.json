@@ -1,15 +1,11 @@
 [
     [
-        "article",
+        "div",
         {
-            "id":"post{id}}"
+            "id":"track{id}}",
+            "class":"track"
         },
         [
-            [
-                "h2",
-                {},
-                "{title}"
-            ],
             [
                 "div",
                 {"class":"infos"},
@@ -23,28 +19,13 @@
                         "span",
                         {"class":"date"},
                         "{date}"
-                    ],
-                    [
-                        "span",
-                        {"class":"category"},
-                        "{category}"
                     ]
                 ]
             ],
             [
                 "div",
-                {"class":"excerpt"},
-                "{excerpt}"
-            ],
-            [
-                "div",
                 {"class":"content"},
                 "{content}"
-            ],
-            [
-                "div",
-                {"id":"tracks{id}"},
-                "{tracks}"
             ]
         ]
     ]

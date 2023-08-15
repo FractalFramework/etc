@@ -1,0 +1,27 @@
+[    
+    [
+        "h3",
+        {"class":"tracks_title"},
+        "{tracks_title}"
+    ],
+    [
+        "span",
+        {"class":"info"},
+        "{tracks_nb} {tracks_nb_title}"
+    ],
+    [
+        "div",
+        {},
+        "{tracks}"
+    ],
+    [
+        "h4",
+        {"class":"track_form"},
+        "{let_track_title}"
+    ],
+    [
+        "div",
+        {"id":"let_track"},
+        ""
+    ]
+]
