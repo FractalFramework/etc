@@ -14,20 +14,21 @@ function sep(){return "&nbsp;";}
 function sti(){return "&#8239";}
 function thin(){return "&thinsp;";}
 
-function atj($d,$j){return $d.'('.implode_j($j).');';}
-function bh($v,$h,$p=[]){return tag('a',['href'=>'/'.$h,'onclick'=>'return bh(this)']+$p,$v);}
-function bj($v,$j,$p=[]){return tag('a',['onclick'=>'bj(this)','data-bj'=>$j,'title'=>$j]+$p,$v);}
-function bt($v,$j,$pj=[],$c='',$p=[]){return tag('button',['onclick'=>atj($j,$pj),'class'=>$c]+$p,$v);}
-function btj($v,$j,$pj=[],$c='',$p=[]){return tag('a',['onclick'=>atj($j,$pj),'class'=>$c]+$p,$v);}
-
 function atr($r){$ret=''; if($r)foreach($r as $k=>$v)if($v)$ret.=' '.$k.'="'.$v.'"'; return $ret;}
 function tag($b,$p,$d){return '<'.$b.atr($p).'>'.$d.'</'.$b.'>';}
 function taga($b,$p){return '<'.$b.atr($p).' />';}
 function tagb($b,$d){return '<'.$b.'>'.$d.'</'.$b.'>';}
 function tagc($b,$c,$d){return '<'.$b.atr(['class'=>$c]).'>'.$d.'</'.$b.'>';}
+function lk($v,$u,$c='',$p=[]){return tag('a',['href'=>$u,'class'=>$c]+$p,$v);}
 function div($v,$c='',$d='',$s=''){return tag('div',['class'=>$c,'id'=>$d,'style'=>$s],$v);}
 function span($v,$c='',$d='',$s=''){return tag('span',['class'=>$c,'id'=>$d,'style'=>$s],$v);}
 function h3($v,$c=''){return tag('h3',['class'=>$c],$v);}
+
+function atj($d,$j){return $d.'('.implode_j($j).');';}
+function bt($v,$j,$pj=[],$c='',$p=[]){return tag('button',['onclick'=>atj($j,$pj),'class'=>$c]+$p,$v);}
+function btj($v,$j,$pj=[],$c='',$p=[]){return tag('a',['onclick'=>atj($j,$pj),'class'=>$c]+$p,$v);}
+function bj($v,$j,$p=[]){return tag('a',['onclick'=>'bj(this)','data-bj'=>$j,'title'=>$j]+$p,$v);}
+function bh($v,$h,$p=[]){return tag('a',['href'=>'/'.$h,'onclick'=>'return bh(this)']+$p,$v);}
 
 function input($d,$v,$s='',$p=[]){
 if($p['type']??''){$vy=$p['type']; unset($p['type']);} else $vy='text';
@@ -136,7 +137,7 @@ function day($d='',$p=''){return date($p?$p:'ymd.Hi',is_numeric($d)?$d:time());}
 function sqldate(){return date('Y-m-d H:i:s');}//%A%d%B%G%T
 function time_ago($dt){$dy=time()-$dt; if($dy<86400){$fuseau=3;
 $h=intval(date('H',$dy))-$fuseau; $i=intval(date('i',$dy)); $s=intval(date('s',$dy));
-$nbh=$h>1?$h.' h ':''; $nbi=$i>0?$i.' min ':''; return $nbh.$nbi;} else return mkday('',$dt);}
+$nbh=$h>1?$h.' h ':''; $nbi=$i>0?$i.' min ':''; return $nbh.$nbi;} else return day('',$dt);}
 
 #core
 function rdiv($r){

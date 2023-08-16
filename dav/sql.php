@@ -159,6 +159,13 @@ static function drop($b){return 'drop table '.$b;}
 static function trunc($b){return 'truncate table '.$b;}
 static function alter($b,$n){return 'alter table '.$b.' auto_increment='.$n;}
 static function show($b){return 'show tables like "'.$b.'"';}
+static function ex($b){$rq=self::qr('show tables like "'.$b.'"'); return $rq?1:0;}
+static function backup($b,$d=''){$bb='z_'.$b.'_'.$d;
+	if(self::ex($bb))self::drop($bb);
+	self::qr('create table '.$bb.' like '.$b);
+	//self::qr('alter table '.$bb.' add primary key (id)');
+	self::qr('insert into '.$bb.' select * from '.$b);
+	return $bb;}
 
 /*static function build_password($d){
 $rq=\Slim::getInstance()->request();
@@ -197,17 +204,34 @@ self::qr('CREATE INDEX '.$b.'_'.$c.'_'.$k.'_ix ON '.$b.'('.$c.'_'.$k.');');}
 static function modifjsonvar($b,$c,$k,$v,$q=''){//impact colattr
 self::qr('UPDATE '.$b.' SET '.$c.' = JSON_REPLACE('.$c.', "$.'.$k.'", "'.$v.'") '.self::where($q,$b).';');}
 
+static function trigger($b,$ra){
+	if(!self::ex($b))return;
+	$rb=self::cols($b); $rnew=[]; $rold=[];
+	if(isset($rb['id']))unset($rb['id']); if(isset($rb['up']))unset($rb['up']);
+	if($rb){$rnew=array_diff_assoc($ra,$rb); $rold=array_diff_assoc($rb,$ra);}//old
+	if($rnew or $rold){//pr([$rnew,$rold]);
+		$bb=self::backup($b,date('ymdHis')); self::drop($b);
+		$rtwo=array_intersect_assoc($ra,$rb);//common
+		$rak=array_keys($ra); $rav=array_values($ra);
+		$rnk=array_keys($rnew); $rnv=array_values($rnew); $nn=count($rnk);
+		$rok=array_keys($rold); $rov=array_values($rold); $no=count($rok);
+		$na=count($rnew); $nb=count($rold); $ca=array_keys($rtwo); $cb=array_keys($rtwo);
+		if($na==$nb)for($i=0;$i<$nn;$i++)if($rnv[$i]==$rov[$i] or $rnv[$i]!='int'){
+			$ca[]=$rnk[$i]; $cb[]=$rok[$i];}
+		return 'insert into '.$b.'(id,'.implode(',',$ca).',up) select id,'.implode(',',$cb).',up from '.$bb;}}
+
 //['id'=>'int','ib'=>'int','val'=>'var'];
 static function create($b,$r,$up=''){
 if(!is_array($r) or !$b)return; reset($r);
 if($up=='z' && auth(6))self::drop($b);
-//if($up){$sql=self::trigger($b,$r); if($sql)self::qr($sql);}
-$sql='create table if not exists `'.$b.'` (
+if($up){$sql=self::trigger($b,$r); }
+self::qr('create table if not exists `'.$b.'` (
 	`id` int(11) NOT NULL auto_increment,'.self::create_cols($r).'
 	`up` timestamp on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (`id`)
-) ENGINE=InnoDB collate utf8mb4_unicode_ci;';
-self::qr($sql,1);}
+) ENGINE=InnoDB collate utf8mb4_unicode_ci;',$up);
+if(isset($sql))self::qr($sql,1);
+}
 
 }
 ?>

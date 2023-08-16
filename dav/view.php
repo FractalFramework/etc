@@ -6,6 +6,13 @@ static $templates_location='templates/';
 static function file($a){
 return self::$templates_location.$a.'.html';}
 
+static function vars($r){static $rv=[];
+foreach($r as $k=>$v)
+	if(is_array($v[2]))self::vars($v[2]);
+	elseif(substr($v[2],0,1)=='{'){//todo: multiples vars
+		$rv[]=substr($v[2],1,-1);}
+return $rv;}
+
 static function save($a,$d){
 	$f=self::file($a);
 	mkdir_r($f);

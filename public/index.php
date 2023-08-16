@@ -7,7 +7,8 @@ boot::call();
 css::build('styles');
 
 head::json('cnfg/headers');
-head::add('jscode','state='.json_encode($g).';');
+head::add('jscode','state='.json_encode($g).';
+var jbase="content|blocks,call"');
 echo head::run();
 
 $ret=main::call($g);
@@ -16,5 +17,5 @@ $ret=main::call($g);
 $ret.=tag('div',['class'=>'popup'],"").n();
 if(ses('dev'))echo div(rdiv(ses::$er),'small').n();
 
-echo tagb('body',$ret);
+echo tag('body',[],$ret);
 //echo '</html>';
