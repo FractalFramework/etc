@@ -22,7 +22,7 @@ class posts{
         $ret.=div(textarea('exc','',64,2));
         $ret.=div(label('msg',voc('message'),'btn'));
         $ret.=div(textarea('msg','',64,12));
-        $ret.=bj(voc('send'),'tgmail|blocks,contactsave||name,mail,msg',['class'=>'btsav']);
+        $ret.=bj(voc('send'),'tgmail|contact,save||name,mail,msg',['class'=>'btsav']);
         $ret.=div('','','tgmail');
         return $ret;
     }

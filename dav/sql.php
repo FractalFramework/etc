@@ -46,6 +46,7 @@ return $rt;}
 
 static function where($r){$rb=[]; $rt=[]; $w='';
 if(is_numeric($r))$r=['id'=>$r]; $i=0;
+if(is_string($r))return [[],$r];
 foreach($r as $k=>$v){$i++;
 	$c=substr($k,0,1); $kb=substr($k,1); $kc=$kb.$i;
 	if($k=='_order')$w=' order by '.$v;
@@ -65,6 +66,18 @@ foreach($r as $k=>$v){$i++;
 	else{$rb[]=$k.'=:'.$k; $rt[$k]=$v;}}
 $q=implode(' and ',$rb); if($q)$q='where '.$q; if($w)$q.=$w;
 return [$rt,$q];}
+
+static function rqcols($d,$b){
+$r=explode(',',$d); $d='';
+foreach($r as $k=>$v){
+	if($v=='timeup')$r[$k]='unix_timestamp('.$b.'.up) as time';
+	elseif($v=='dateup')$r[$k]='date_format('.$b.'.up,"%d/%m/%Y") as date';
+	elseif($v=='numsec')$r[$k]='date_format('.$b.'.up,"%y%m%d.%H%i%s") as date';
+	elseif($v=='numday')$r[$k]='date_format('.$b.'.up,"%y%m%d") as date';}
+$d=implode(',',$r);
+if($d=='all')$d=db::cols_s($b);
+if(!$d)$d='*';
+return $d;}
 
 static function mkv($r){$rt=[]; foreach($r as $k=>$v)$rt[]=':'.$k; return implode(',',$rt);}
 static function mkvk($r){$rt=[]; foreach($r as $k=>$v)$rt[]=$k.'=:'.$k; return implode(',',$rt);}
@@ -96,7 +109,7 @@ return $stmt;}
 #
 static function read($d,$b,$p,$q,$z=''){
 [$r,$sql]=self::where($q); $rt=[]; if($p=='v')$rt='';
-$sql='select '.$d.' from '.$b.' '.$sql; self::$sq=$sql;
+$sql='select '.self::rqcols($d,$b).' from '.$b.' '.$sql; self::$sq=$sql;
 $stmt=self::prep($sql,$r,$z);
 $rt=self::fetch($stmt,$p);
 if($p)$rt=self::format($rt,$p);
@@ -104,7 +117,7 @@ return $rt;}
 
 static function read2($d,$b,$p,$q,$z=''){$rt=[];
 $qr=self::rq(); $q=self::mkq($q);
-$sql='select '.$d.' from '.$b.' '.$q; self::$sq=$sql; if($z)echo $sql;
+$sql='select '.self::rqcols($d,$b).' from '.$b.' '.$q; self::$sq=$sql; if($z)echo $sql;
 $stmt=$qr->query($sql);
 $rt=self::fetch($stmt,$p);
 if($p)$rt=self::format($rt,$p);
@@ -125,7 +138,7 @@ return self::$qr->lastInsertId();}
 static function upd($b,$r,$q,$z=''){$rt=[];
 $vals=self::mkvk($r); [$ra,$sql]=self::where($q);
 $sql='update '.$b.' set '.$vals.' '.$sql;
-$stmt=self::prep($sql,$ra,$z);//$r+$q?
+$stmt=self::prep($sql,$ra+$r,$z);
 return $stmt?1:0;}
 
 static function inner($d,$b1,$b2,$k2,$p,$q,$z=''){
@@ -158,95 +171,18 @@ $hashedPassword=password_hash($q->password,PASSWORD_BCRYPT);}*/
 return password_verify($d,$hash);}*/
 
 static function sqcols($b,$n=''){$cl=['column_name','data_type','character_maximum_length'];
-return 'select '.join(',',$cl).' from information_schema.columns where table_name="'.$b.'"';}
-static function cols($b,$n=1){return self::call(self::sqcols($b,$n),$n==2?'kv':($n==3?'ra':('rv')),1);}
+return 'select '.join(',',$cl).' from information_schema.columns where table_name="'.$b.'"';}//'.cnfg('db').'.
+static function cols($b,$n=1){return self::call(self::sqcols($b,$n),$n==2?'kv':($n==3?'ra':('rv')),0);}
 static function drop($b){return 'drop table '.$b;}
 static function trunc($b){return 'truncate table '.$b;}
 static function alter($b,$n){return 'alter table '.$b.' auto_increment='.$n;}
 static function show($b){return 'show tables like "'.$b.'"';}
-static function ex($b){$rq=self::qr('show tables like "'.$b.'"'); return $rq?1:0;}
+static function ex($b){$rq=self::qr(self::show($b)); return $rq?1:0;}
 static function backup($b,$d=''){$bb='z_'.$b.'_'.$d;
 	if(self::ex($bb))self::drop($bb);
 	self::qr('create table '.$bb.' like '.$b);
 	//self::qr('alter table '.$bb.' add primary key (id)');
 	self::qr('insert into '.$bb.' select * from '.$b);
 	return $bb;}
-
-#create
-static function create_cols($r){$ret=''; $end='';
-//$collate='collate utf8mb4_uniocode_ci'; $set='CHARACTER SET utf8mb4';
-foreach($r as $k=>$v)
-if($v=='int')$ret.='`'.$k.'` int(11) default NULL,'."\n";
-elseif($v=='bint')$ret.='`'.$k.'` bigint(36) NULL default NULL,'."\n";
-elseif($v=='dec')$ret.='`'.$k.'` decimal(20,20) NULL default NULL,'."\n";
-elseif($v=='float')$ret.='`'.$k.'` float(20,2) NULL default NULL,'."\n";
-elseif($v=='double')$ret.='`'.$k.'` double NULL default NULL,'."\n";
-elseif($v=='var')$ret.='`'.$k.'` varchar(255) NOT NULL default "",';
-elseif($v=='bvar')$ret.='`'.$k.'` varchar(1020) NOT NULL default "",';
-elseif($v=='svar')$ret.='`'.$k.'` varchar(60) NOT NULL default "",';
-elseif($v=='tiny')$ret.='`'.$k.'` tinytext,';
-elseif($v=='text')$ret.='`'.$k.'` mediumtext,';//'.$set.'
-elseif($v=='long')$ret.='`'.$k.'` longtext,';
-elseif($v=='date')$ret.='`'.$k.'` date NOT NULL,';
-elseif($v=='time')$ret.='`'.$k.'` datetime NOT NULL,';
-elseif($v=='json')$ret.='`'.$k.'` json,';
-//elseif($v=='json'){$ret.='`'.$k.'` mediumtext,'."\n"; $end='CHECK ('.$k.' IS NULL OR JSON_VALID('.$k.')),'."\n";}
-//elseif($v=='enum')$ret.=''.$k.'` enum ("'.implode('","',$k).'") NOT NULL,';
-return $ret.$end;}
-
-static function type_cols($b){$r=self::cols($b,3); $rt=[];
-foreach($r as $k=>$v){
-	[$nm,$ty,$sz]=vals($v,['column_name','data_type','character_maximum_length']);
-	if($ty=='varchar'){if($sz<64)$ty='svar'; elseif($sz>1000)$ty='bvar'; else $ty='var';}
-	if($ty=='mediumtext')$ty='text';
-	if($ty=='longtext')$ty='long';
-	if($ty=='tinytext')$ty='tiny';
-	if($ty=='int')$ty='int';
-	if($ty=='dec')$ty='dec';
-	if($ty=='bint')$ty='bint';
-	if($ty=='float')$ty='float';
-	if($ty=='double')$ty='double';
-	if($ty=='json')$ty='json';
-	if($ty=='date')$ty='date';
-	if($ty=='datetime')$ty='time';
-	$rt[$nm]=$ty;}
-return $rt;}
-
-static function jsoncolfromattr($b,$c,$k){//add col from json attr k in new col c//attr_colour
-self::qr('ALTER TABLE '.$b.' ADD '.$c.'_'.$k.' VARCHAR(32) AS (JSON_VALUE('.$c.', "$.'.$k.'"));');
-self::qr('CREATE INDEX '.$b.'_'.$c.'_'.$k.'_ix ON '.$b.'('.$c.'_'.$k.');');}
-
-static function modifjsonvar($b,$c,$k,$v,$q=''){//impact colattr
-self::qr('UPDATE '.$b.' SET '.$c.' = JSON_REPLACE('.$c.', "$.'.$k.'", "'.$v.'") '.self::where($q,$b).';');}
-
-static function trigger($b,$ra){
-	if(!self::ex($b))return;
-	$rb=self::type_cols($b); $rnew=[]; $rold=[];
-	if(isset($rb['id']))unset($rb['id']); if(isset($rb['up']))unset($rb['up']);
-	if($rb){$rnew=array_diff_assoc($ra,$rb); $rold=array_diff_assoc($rb,$ra);}//old
-	if($rnew or $rold){pr([$rnew,$rold]);
-		$bb=self::backup($b,date('ymdHis')); self::qr(self::drop($b));
-		$rtwo=array_intersect_assoc($ra,$rb);//common
-		//$rak=array_keys($ra); $rav=array_values($ra);
-		$rnk=array_keys($rnew); $rnv=array_values($rnew); $nn=count($rnk);
-		$rok=array_keys($rold); $rov=array_values($rold); $no=count($rok);
-		$na=count($rnew); $nb=count($rold); $ca=array_keys($rtwo); $cb=array_keys($rtwo);
-		if($na==$nb)for($i=0;$i<$nn;$i++)if($rnv[$i]==$rov[$i] or $rnv[$i]!='int'){
-			$ca[]=$rnk[$i]; $cb[]=$rok[$i];}
-		return 'insert into '.$b.'(id,'.implode(',',$ca).',up) select id,'.implode(',',$cb).',up from '.$bb;}}
-
-//['id'=>'int','ib'=>'int','val'=>'var'];
-static function create($b,$r,$up=''){if(!auth(6))return; $up=1;
-if(!is_array($r) or !$b)return; reset($r);
-if($up=='z')self::drop($b);
-if($up){$sql=self::trigger($b,$r); }
-self::qr('create table if not exists `'.$b.'` (
-	`id` int(11) NOT NULL auto_increment,'.self::create_cols($r).'
-	`up` timestamp on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	PRIMARY KEY (`id`)
-) ENGINE=InnoDB collate utf8mb4_unicode_ci;',);
-if(isset($sql))self::qr($sql,1);
-}
-
 }
 ?>

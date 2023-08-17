@@ -13,6 +13,7 @@ class main{
     }
 
     static function call($g){
+        if(cnfg('install'))db::install_all();
         $ret=self::read('index',$g);
         return $ret;
     }

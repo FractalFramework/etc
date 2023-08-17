@@ -41,6 +41,9 @@
     "tracks_nb_title":"bafouille(s)",
     "let_track_title":"ajoute ton grain de sel",
     "new_track":"dis-le, mais dis-le !",
-    "pending_track":"on va vérifier quand même si tu ne dis pas trop de c**ner*es"
+    "pending_track":"on va vérifier quand même si tu ne dis pas trop de c**ner*es",
+
+    "save":"sauve",
+    "error":"oulalaaa"
 
 }

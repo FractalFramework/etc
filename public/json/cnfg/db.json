@@ -3,8 +3,13 @@
         "name":"var",
         "auth":"int",
         "mail":"var",
-        "pswd":"var",
-        "logan":"var",
+        "pswd":"var"
+    },
+    "profile2":{
+        "uid":"int",
+        "surname":"var",
+        "slogan":"var",
+        "banner":"var",
         "logo":"var"
     },
     "roles":{
@@ -18,6 +23,7 @@
         "uid":"int",
         "catid":"int",
         "title":"var",
+        "excerpt":"var",
         "content":"text",
         "pub":"int",
         "lastup":"time"
@@ -25,7 +31,7 @@
     "tracks":{
         "uid":"int",
         "bid":"int",
-        "txt":"var",
+        "txt":"text",
         "pub":"int"
     },
     "socials":{
@@ -35,7 +41,6 @@
     "admin":{
         "uid":"int",
         "name":"var",
-        "json":"json",
-        "url":"var"
+        "json":"json"
     }
 }

@@ -15,8 +15,8 @@ class login{
         [$a,$b]=vals($p,['a','b']);
         $ret=h3(voc('login'));
         $ret.=bj(voc('go'),'content|login,call||mail,pswd',['class'=>'btsav']);
-        $ret.=div(input('mail',$a,'',['type'=>'mail']).label('mail',voc('knownmail'),'btn'));
-        $ret.=div(input('pswd',$b,'',['type'=>'password']).label('name',voc('password'),'btn'));
+        $ret.=div(inpmail('mail',$a).label('mail',voc('knownmail'),'btn'));
+        $ret.=div(inpsw('pswd',$b).label('name',voc('password'),'btn'));
         return $ret;
     }
 
@@ -48,7 +48,8 @@ class login{
     
     static function auth($id=''){
         if(!$id)$id=1;//assume first user
-        $r=sql::read('id,name,auth,slogan,logo','users','a',$id);
+        $r=sql::read('id,name,auth','users','a',$id);
+        //$r=sql::inner('uid,name,auth,slogan,logo','profile','users','uid','ra',$id); pr($r);
         if(!$r)return;
         ses('uid',$r['id']);
         ses('usr',$r['name']);

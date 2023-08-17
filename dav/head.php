@@ -22,7 +22,7 @@ class head{static $r=[]; static $rid='';
     static function link($d,$v){return taga('link',['rel'=>$d,'href'=>$v])."\n";}
     static function relod($v){echo self::jscode('window.css_location="'.$v.'"');}
 
-    static function build(){$r=self::$r; $rt=[]; if(ses('dev'))self::$rid='?'.randid();
+    static function build(){$r=self::$r; $rt=[]; if(ses('dev'))self::$rid='?'.rid();
     if($r)foreach($r as $k=>$v){$va=current($v); $ka=key($v); $rt[]=match($ka){
     'css'=>self::css($va),'js'=>self::js($va),
     'csslink'=>self::csslink($va),'jslink'=>self::jslink($va),
