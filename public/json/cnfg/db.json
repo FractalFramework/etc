@@ -1,6 +1,5 @@
 {
     "users":{
-        "id":"ai",
         "name":"var",
         "auth":"int",
         "mail":"var",
@@ -9,39 +8,31 @@
         "logo":"var"
     },
     "roles":{
-        "id":"ai",
         "pos":"int",
         "role":"var"
     },
     "cats":{
-        "id":"ai",
         "category":"var"
     },
     "posts":{
-        "id":"ai",
         "uid":"int",
         "catid":"int",
         "title":"var",
         "content":"text",
         "pub":"int",
-        "date":"time",
-        "lastdate":"time"
+        "lastup":"time"
     },
     "tracks":{
-        "id":"ai",
         "uid":"int",
         "bid":"int",
         "txt":"var",
-        "pub":"int",
-        "date":"time"
+        "pub":"int"
     },
     "socials":{
-        "id":"ai",
         "uid":"int",
         "url":"var"
     },
     "admin":{
-        "id":"ai",
         "uid":"int",
         "name":"var",
         "json":"json",

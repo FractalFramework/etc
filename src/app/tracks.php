@@ -30,7 +30,7 @@ class tracks{
 
     static function read($p){
         [$a,$b]=vals($p,['a','b']);
-        $r=sql::inner('b2.id,name,txt,date','users','tracks','uid','ar',['id'=>$a]);
+        $r=sql::inner('b2.id,name,txt,date','users','tracks','uid','ra',['id'=>$a]);
         $r['date']=date('ymd',strtotime($r['date']));
         $ret=view::call('blocks/track',$r);
         return $ret;
@@ -40,7 +40,7 @@ class tracks{
         $ret='';
         [$a,$b]=vals($p,['a','b']);
         $sq=['bid'=>$a,'>pub'=>'0'];
-        $r=sql::inner('b2.id,name,txt,date','users','tracks','uid','ar',$sq);
+        $r=sql::inner('b2.id,name,txt,date','users','tracks','uid','ra',$sq);
         if($r)foreach($r as $k=>$v){
             $r[$k]['date']=day('ymd',$v['date']);
             $ret.=view::call('blocks/track',$r[$k]);}

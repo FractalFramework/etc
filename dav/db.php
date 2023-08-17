@@ -7,7 +7,7 @@ class db{
     }
 
     static function install($b){
-        sql::create($b,self::db($b),1);
+        sql::create($b,self::db($b),0);
     }
 
     static function install_all($b){

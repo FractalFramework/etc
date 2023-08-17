@@ -26,7 +26,7 @@ foreach($r as $k=>$v)switch($p){
 	case('r'):$rt=$v; break;//both
 	case('v'):$rt=$v[0]; break;
 	case('k'):$rt[$v[0]]=($rt[$v[0]]??0)+1; break;//radd($rt,$v[0])
-	case('ar'):$rt[]=$v; break;//assoc
+	case('ra'):$rt[]=$v; break;//assoc
 	case('rr'):$rt[]=$v; break;//both
 	case('rv'):$rt[]=$v[0]; break;//r
 	case('kv'):$rt[$v[0]]=$v[1]??''; break;
@@ -73,7 +73,7 @@ static function mkq($r){[$r,$q]=self::where($r);//oldschool
 foreach($r as $k=>$v)if(substr($v,0,9)!='password(')$q=str_replace(':'.$k,'"'.$v.'"',$q); return $q;}
 
 static function fetch($stmt,$p){$rt=[];
-if($p=='a' or $p=='ar')$rt=$stmt->fetchAll(\PDO::FETCH_ASSOC);
+if($p=='a' or $p=='ra')$rt=$stmt->fetchAll(\PDO::FETCH_ASSOC);
 elseif($p=='r' or $p=='rr')$rt=$stmt->fetchAll(\PDO::FETCH_BOTH);
 else $rt=$stmt->fetchAll(PDO::FETCH_NUM);
 return $rt;}
@@ -111,7 +111,7 @@ if($p)$rt=self::format($rt,$p);
 return $rt;}
 
 static function sav($b,$q,$z=''){$rt=[];
-$ra=self::cols($b); array_unshift($q,NULL); $r=array_combine($ra,$q);
+$ra=self::cols($b); array_unshift($q,NULL); array_shift($q,sqldate()); $r=array_combine($ra,$q);
 $sql='insert into '.$b.' value ('.self::mkv($r).')';
 $stmt=self::prep($sql,$r,$z);
 return self::$qr->lastInsertId();}
@@ -149,12 +149,17 @@ return self::rq()->query($sql);}
 static function com2($sql,$z=''){
 return self::qr($sql,$z);}
 
-static function sqcols($b){return 'select column_name from information_schema.columns where table_name="'.$b.'"';}
-static function sqcols2($b){return 'select column_name,data_type,character_maximum_length from information_schema.columns where table_name="'.$b.'"';}
+/*static function build_password($d){
+$rq=\Slim::getInstance()->request();
+$q=json_decode($rq->getBody());
+$hashedPassword=password_hash($q->password,PASSWORD_BCRYPT);}*/
 
-static function cols($b,$n=1){$fc='cols'.$n; $r=self::$fc($b); return $r;}
-static function cols1($b){return self::call(self::sqcols($b),'rv');}
-static function cols2($b){return self::call(self::sqcols2($b),'rv');}
+/*static function verif_password($d,$hash){
+return password_verify($d,$hash);}*/
+
+static function sqcols($b,$n=''){$cl=['column_name','data_type','character_maximum_length'];
+return 'select '.join(',',$cl).' from information_schema.columns where table_name="'.$b.'"';}
+static function cols($b,$n=1){return self::call(self::sqcols($b,$n),$n==2?'kv':($n==3?'ra':('rv')),1);}
 static function drop($b){return 'drop table '.$b;}
 static function trunc($b){return 'truncate table '.$b;}
 static function alter($b,$n){return 'alter table '.$b.' auto_increment='.$n;}
@@ -166,14 +171,6 @@ static function backup($b,$d=''){$bb='z_'.$b.'_'.$d;
 	//self::qr('alter table '.$bb.' add primary key (id)');
 	self::qr('insert into '.$bb.' select * from '.$b);
 	return $bb;}
-
-/*static function build_password($d){
-$rq=\Slim::getInstance()->request();
-$q=json_decode($rq->getBody());
-$hashedPassword=password_hash($q->password,PASSWORD_BCRYPT);}*/
-
-static function verif_password($d,$hash){
-return password_verify($d,$hash);}
 
 #create
 static function create_cols($r){$ret=''; $end='';
@@ -197,6 +194,24 @@ elseif($v=='json')$ret.='`'.$k.'` json,';
 //elseif($v=='enum')$ret.=''.$k.'` enum ("'.implode('","',$k).'") NOT NULL,';
 return $ret.$end;}
 
+static function type_cols($b){$r=self::cols($b,3); $rt=[];
+foreach($r as $k=>$v){
+	[$nm,$ty,$sz]=vals($v,['column_name','data_type','character_maximum_length']);
+	if($ty=='varchar'){if($sz<64)$ty='svar'; elseif($sz>1000)$ty='bvar'; else $ty='var';}
+	if($ty=='mediumtext')$ty='text';
+	if($ty=='longtext')$ty='long';
+	if($ty=='tinytext')$ty='tiny';
+	if($ty=='int')$ty='int';
+	if($ty=='dec')$ty='dec';
+	if($ty=='bint')$ty='bint';
+	if($ty=='float')$ty='float';
+	if($ty=='double')$ty='double';
+	if($ty=='json')$ty='json';
+	if($ty=='date')$ty='date';
+	if($ty=='datetime')$ty='time';
+	$rt[$nm]=$ty;}
+return $rt;}
+
 static function jsoncolfromattr($b,$c,$k){//add col from json attr k in new col c//attr_colour
 self::qr('ALTER TABLE '.$b.' ADD '.$c.'_'.$k.' VARCHAR(32) AS (JSON_VALUE('.$c.', "$.'.$k.'"));');
 self::qr('CREATE INDEX '.$b.'_'.$c.'_'.$k.'_ix ON '.$b.'('.$c.'_'.$k.');');}
@@ -206,13 +221,13 @@ self::qr('UPDATE '.$b.' SET '.$c.' = JSON_REPLACE('.$c.', "$.'.$k.'", "'.$v.'") 
 
 static function trigger($b,$ra){
 	if(!self::ex($b))return;
-	$rb=self::cols($b); $rnew=[]; $rold=[];
+	$rb=self::type_cols($b); $rnew=[]; $rold=[];
 	if(isset($rb['id']))unset($rb['id']); if(isset($rb['up']))unset($rb['up']);
 	if($rb){$rnew=array_diff_assoc($ra,$rb); $rold=array_diff_assoc($rb,$ra);}//old
-	if($rnew or $rold){//pr([$rnew,$rold]);
-		$bb=self::backup($b,date('ymdHis')); self::drop($b);
+	if($rnew or $rold){pr([$rnew,$rold]);
+		$bb=self::backup($b,date('ymdHis')); self::qr(self::drop($b));
 		$rtwo=array_intersect_assoc($ra,$rb);//common
-		$rak=array_keys($ra); $rav=array_values($ra);
+		//$rak=array_keys($ra); $rav=array_values($ra);
 		$rnk=array_keys($rnew); $rnv=array_values($rnew); $nn=count($rnk);
 		$rok=array_keys($rold); $rov=array_values($rold); $no=count($rok);
 		$na=count($rnew); $nb=count($rold); $ca=array_keys($rtwo); $cb=array_keys($rtwo);
@@ -221,15 +236,15 @@ static function trigger($b,$ra){
 		return 'insert into '.$b.'(id,'.implode(',',$ca).',up) select id,'.implode(',',$cb).',up from '.$bb;}}
 
 //['id'=>'int','ib'=>'int','val'=>'var'];
-static function create($b,$r,$up=''){
+static function create($b,$r,$up=''){if(!auth(6))return; $up=1;
 if(!is_array($r) or !$b)return; reset($r);
-if($up=='z' && auth(6))self::drop($b);
+if($up=='z')self::drop($b);
 if($up){$sql=self::trigger($b,$r); }
 self::qr('create table if not exists `'.$b.'` (
 	`id` int(11) NOT NULL auto_increment,'.self::create_cols($r).'
 	`up` timestamp on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (`id`)
-) ENGINE=InnoDB collate utf8mb4_unicode_ci;',$up);
+) ENGINE=InnoDB collate utf8mb4_unicode_ci;',);
 if(isset($sql))self::qr($sql,1);
 }
 

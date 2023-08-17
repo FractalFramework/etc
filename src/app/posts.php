@@ -44,7 +44,7 @@ class posts{
         $ret=h3(voc('posts'));
         $sq=['pub'=>1];
         if($b)$sq['category']=$b;
-        $r=sql::inner('b2.id,uid,title,category,excerpt,date','cats','posts','catid','ar',$sq);
+        $r=sql::inner('b2.id,uid,title,category,excerpt,date','cats','posts','catid','ra',$sq);
         foreach($r as $k=>$v){
             $r[$k]['bt_title']=bh($v['title'],'post/'.$v['id']);
             $r[$k]['date']=day('ymd',strtotime($v['date']));

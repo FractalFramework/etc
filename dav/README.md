@@ -101,7 +101,7 @@ Understand the terms :
 - `r` numerical keys, but also *fetch_bot* in sql
 - `v` it's not an array, idiot, sql call only one variable
 - `k` will stack the keys as if they are similar, and the value will count the duplicates
-- `ar` num=>values (*fetch_num*)
+- `ra` num=>values (*fetch_num*)
 - `rr` num=>values (*fetch_both*)
 - `rv` num=>value
 - `kv` key=>value
