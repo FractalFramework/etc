@@ -10,8 +10,8 @@ spl_autoload_register(function($a){
 function n(){return "\n";}
 function br(){return "<br />";}
 function hr(){return "<hr />";}
-function sep(){return "&nbsp;";}
-function sti(){return "&#8239";}
+function sp(){return "&nbsp;";}
+function st(){return "&#8239";}
 function thin(){return "&thinsp;";}
 
 function atr($r){$ret=''; if($r)foreach($r as $k=>$v)if($v)$ret.=' '.$k.'="'.$v.'"'; return $ret;}
@@ -22,12 +22,14 @@ function tagc($b,$c,$d){return '<'.$b.atr(['class'=>$c]).'>'.$d.'</'.$b.'>';}
 function lk($v,$u,$c='',$p=[]){return tag('a',['href'=>$u,'class'=>$c]+$p,$v);}
 function div($v,$c='',$d='',$s=''){return tag('div',['class'=>$c,'id'=>$d,'style'=>$s],$v);}
 function span($v,$c='',$d='',$s=''){return tag('span',['class'=>$c,'id'=>$d,'style'=>$s],$v);}
+function h2($v,$c=''){return tag('h2',['class'=>$c],$v);}
 function h3($v,$c=''){return tag('h3',['class'=>$c],$v);}
 
 function atj($d,$j){return $d.'('.implode_j($j).');';}
 function bt($v,$j,$pj=[],$c='',$p=[]){return tag('button',['onclick'=>atj($j,$pj),'class'=>$c]+$p,$v);}
 function btj($v,$j,$pj=[],$c='',$p=[]){return tag('a',['onclick'=>atj($j,$pj),'class'=>$c]+$p,$v);}
 function bj($v,$j,$c='',$p=[]){return tag('a',['onclick'=>'bj(this)','data-bj'=>$j,'title'=>$j,'class'=>$c]+$p,$v);}
+function bjtog($v,$j,$c='',$p=[]){return tag('a',['onclick'=>'bjtog(this)','data-bj'=>$j,'title'=>$j,'class'=>$c]+$p,$v);}
 function bh($v,$h,$c='',$p=[]){return tag('a',['href'=>'/'.$h,'onclick'=>'return bh(this)','class'=>$c]+$p,$v);}
 
 function input($d,$v,$s='',$p=[]){
@@ -37,7 +39,7 @@ function hidden($d,$v){return taga('input',['type'=>'hidden','id'=>$d,'value'=>$
 function label($id,$t,$c='',$idb=''){return tag('label',['for'=>$id,'class'=>$c,'id'=>$idb],$t);}
 function inpsw($d,$v,$s='',$p=[]){return input($d,$v,$s,'password','100',['type'=>'password','maxlength'=>'100','placeholder'=>'password']);}
 function inpnb($id,$v,$min='',$max='',$st=1){return input($id,$v,'',['type'=>'number','name'=>$id,'min'=>$min,'max'=>$max,'step'=>$st]);}
-function inpdate($id,$v,$min='',$max='',$o=''){return input($id,$v,'',['type'=>$o?'datetime-local':'date','min'=>$min,'max'=>$max]);}//'step'=>'1'
+function inpdate($id,$v,$o='',$min='',$max=''){return input($id,$v,'',['type'=>$o?'datetime-local':'date','min'=>$min,'max'=>$max]);}//'step'=>'1'
 function inpmail($id,$v='',$p=[]){return input($id,$v,16,['type'=>'mail','placeholder'=>'mail','maxlength'=>'100']+$p);}
 function inpclr($id,$v=''){return input($id,$v,'',['type'=>'color','name'=>$id]);}
 function inptel($id,$v,$pl='06-01-02-03'){return input($id,$v,['type'=>'tel','name'=>$id,'placeholder'=>$pl,'pattern'=>"[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}",'required'=>'required']);}
@@ -84,6 +86,7 @@ function delt($d,$o=''){return str_replace("\t",$o,$d??'');}
 function delnl($d){return preg_replace('/(\n){2,}/',"\n\n",$d??'');}
 function delsp($d){return preg_replace('/( ){2,}/',' ',$d??'');}
 function delnbsp($d){return str_replace("&nbsp;",' ',$d??'');}
+function nbsp($d){return str_replace(' ',"&nbsp;",$d??'');}
 function delr_r($r){foreach($r as $k=>$v)$r[$k]=delr($v); return $r;}
 function hed($d){if($d)return html_entity_decode($d);}
 
@@ -169,12 +172,13 @@ if($frame)$ret=tag('div',['width'=>'100%','height'=>'400px','overflow'=>'auto','
 return $ret;}
 
 //ses
-function voc($d){$r=sesmk('json::call','lang/voc',0); return $r[$d]??'';}
+function voc($d){$r=sesmk('json::call','lang/voc',0); return nbsp($r[$d]??$d);}
 function ico($d){$r=sesmk('json::call','lang/ico',0); return $r[$d]??'';}
+function icovoc($d,$b){return ico($d).sp().voc($b);}
 
 //ops
-function rid($p=''){return $p.substr(microtime(),2,7);}//uniqid()
-function randid($p,$n=6){return substr(md5($p),2,$n);}
+function rid($p=''){return $p.substr(microtime(),2,7);}
+function unid($p,$n=6){return substr(md5($p),2,$n);}
 
 #store
 class ses{static $r=[]; static $er=[]; static $n=0; 

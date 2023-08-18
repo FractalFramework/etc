@@ -52,7 +52,7 @@ if($r)$d=implode('',$r); if($o==2)$d=self::nicequotes($d,1);
 return $d;}
 
 static function nicequotes($d,$o=''){if(!$d)return;
-if($o)$d=self::clean_acc(delnbsp($d)); $nb=sep();
+if($o)$d=self::clean_acc(delnbsp($d)); $nb=sp();
 $n=mb_substr_count($d,'"'); $no=$n%2;
 //$n=mb_substr_count($d,'"'); if($n%2)return $d;
 $r=mb_str_split($d); $n=1; $rp=['&laquo;'.$nb,$nb.'&raquo;'];

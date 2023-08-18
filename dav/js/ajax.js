@@ -41,6 +41,10 @@ if(dn[2]){prm=dn[2].split(','); for(i=0;i<prm.length;i++){var p=prm[i].split('='
 if(dn[3]){prm=dn[3].split(','); for(i=0;i<prm.length;i++)fd.append(prm[i],capture(prm[i]));}
 ajax_req(dn[0],dn[1],fd,pp,tp);}
 
+
+function bjtog(ob){var j=ob.dataset.bj; var act=active('',ob); var dn=j.split('|');
+if(act)bjcall(j); else falseClose(dn[0]);}
+
 function bh(o){var com=o.href; var r=com.split('/');
 //if(r[3].indexOf('#')!=-1){var rd=r[3].split('#'); r[3]=rd[0];}// var diez='#'+rd[1];
 var j='content|blocks,call|a='+und(r[3])+',b='+und(r[4])+',c='+und(r[5]);

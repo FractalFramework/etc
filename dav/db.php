@@ -89,7 +89,8 @@ static function table($b){
 	return $r[$b]??[];}
 
 static function cols_r($b){
-	return self::table($b);}
+	$r=sesmk('db::table',$b);
+	return $r;}
 
 static function cols_k($b){
 	$r=self::cols_r($b);

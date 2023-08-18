@@ -14,7 +14,7 @@ class login{
     static function form($p){
         [$a,$b]=vals($p,['a','b']);
         $ret=h3(voc('login'));
-        $ret.=bj(voc('go'),'content|login,call||mail,pswd',['class'=>'btsav']);
+        $ret.=bj(voc('go'),'content|login,call||mail,pswd','btsav');
         $ret.=div(inpmail('mail',$a).label('mail',voc('knownmail'),'btn'));
         $ret.=div(inpsw('pswd',$b).label('name',voc('password'),'btn'));
         return $ret;
@@ -30,14 +30,14 @@ class login{
         }
         elseif($uid){
             $ret=div(voc('bad_password'),'frame-blue');
-            $ret.=div(bh(voc('redo'),'login',['class'=>'btn']));
+            $ret.=div(bh(voc('redo'),'login','btn'));
             $ret.=hidden('mail',$a);
             $ret.=div(input('pswd',$b,'',['type'=>'password']).label('name',voc('password'),'btn'));
-            $ret.=bj(voc('go'),'content|login,call||mail,pswd',['class'=>'btsav']);
+            $ret.=bj(voc('go'),'content|login,call||mail,pswd','btsav');
         }
         else{
             $ret=div(voc('inexistant_user'),'frame-red');
-            $ret.=div(bh(voc('go'),'login',['class'=>'btn']));
+            $ret.=div(bh(voc('go'),'login','btn'));
             $ret.=hidden('mail',$a).hidden('pswd',$b);
             $ret.=div(input('name','').label('name',voc('name'),'btn'));
             $ret.=bj(voc('register?'),'tgreg|login,register||name,mail,pswd',['class'=>'btsav']);
@@ -76,7 +76,7 @@ class login{
     
     static function loged(){
         $ret=div(voc('hello').' '.ses('usr'),'frame-blue');
-        $ret.=div(bj(voc('logout'),'content|login,logout',['class'=>'btn']));
+        $ret.=div(bj(voc('logout'),'content|login,logout','btn'));
         return $ret;
     }
 

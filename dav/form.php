@@ -31,16 +31,17 @@ static function call($rp,$j='',$mode=''){
 
 static function build($r){$rt=[];
     foreach($r as $k=>$v){
-        [$id,$ty,$va]=$v;
+        [$id,$ty,$va]=$v; $rid=unid($id);
         $rp=['placeholder'=>$id];
-        if($ty=='text' or $ty=='long')$d=textarea($id,$va,40,4,$rp);
-        elseif($ty=='json')$d=textarea($id,$va?$va:'{}',40,4,$rp);
-        elseif($ty=='int')$d=inpnb($id,$va);
-        else $d=input($id,$va,'',$rp);
+        if($ty=='text' or $ty=='long')$d=textarea($rid,$va,40,4,$rp);
+        elseif($ty=='json')$d=textarea($rid,$va?$va:'{}',40,4,$rp);
+        elseif($ty=='int')$d=inpnb($rid,$va);
+        elseif($ty=='date' or $ty=='time')$d=inpdate($rid,$va?$va:sqldate(),1);
+        else $d=input($rid,$va,'',$rp);
         $rt[]=div($d.label($id,$id,'btn'));}
     return join('',$rt);}
 
-static function call($ra,$r=[]){$rp=[];
+static function call($ra,$r=[]){$rt=[];
     //$ra=['id','type','value','opt'];
     //foreach($r as $k=>$v)$rt[$k]=array_combine($ra,$v);
     foreach($ra as $k=>$v)$rt[]=[$k,$v,$r[$k]??''];

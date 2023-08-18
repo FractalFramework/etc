@@ -4,10 +4,9 @@ class user{
         
     }
     static function read(){
-        $r=sql::read('id,slogan,banner,logo','posts','a',['id'=>ses('uid')]);
-        
+        return edit::call(['a'=>'profile2','b'=>'read','c'=>ses('uid')]);
     }
     static function call(){
-        
+        return self::read();
     }
 }

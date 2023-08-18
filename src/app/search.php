@@ -12,7 +12,7 @@ class search{
     static function call($p){
         [$a,$b,$inp]=vals($p,['a','b','inp']);
         $ret=h3(voc('search'));
-        $ret.=bj(voc('go'),'tgsearch|blocks,engine||inp',['class'=>'btsav']);
+        $ret.=bj(voc('go'),'tgsearch|blocks,engine||inp','btsav');
         $ret.=input('inp','markdown');
         $ret.=div('','','tgsearch');
         return $ret;

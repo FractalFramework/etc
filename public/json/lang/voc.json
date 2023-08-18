@@ -30,6 +30,7 @@
     "posts":"articles en pagaille",
     "post":"oooh",
     "forbiden_access":"hola oh tu te crois où ?",
+    "forbiden":"Halte-là !",
 
     "home_bt":"maison",
     "contact_bt":"con&tacte",
@@ -37,13 +38,18 @@
     "login_bt":"rentre dedans",
     "create_bt":"nouveau truc",
     "user_bt":"profil personnel",
+    "admin_bt":"bureau du patron",
     "tracks_title":"Bavardages",
     "tracks_nb_title":"bafouille(s)",
     "let_track_title":"ajoute ton grain de sel",
     "new_track":"dis-le, mais dis-le !",
     "pending_track":"on va vérifier quand même si tu ne dis pas trop de c**ner*es",
+    "tracks_moderation":"modération de commentaires",
+    "posts_moderation":"modération d'articles",
 
     "save":"sauve",
-    "error":"oulalaaa"
+    "error":"oulalaaa",
+    "on":"allumé",
+    "off":"éteint"
 
 }

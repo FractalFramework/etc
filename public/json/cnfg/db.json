@@ -14,7 +14,7 @@
     },
     "roles":{
         "pos":"int",
-        "role":"var"
+        "role":"svar"
     },
     "cats":{
         "category":"var"

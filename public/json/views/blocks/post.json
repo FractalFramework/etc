@@ -17,7 +17,7 @@
                     [
                         "span",
                         {"class":"author"},
-                        "{name}"
+                        "{author}"
                     ],
                     [
                         "span",

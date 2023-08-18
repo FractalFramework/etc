@@ -6,23 +6,28 @@ class edit{
         $no=secur::call(__CLASS__,__FUNCTION__);
         if($no && $b!='tracks')return $no;//derogation
         $ra=db::cols_k($b);
-        $rb=valk($p,$ra);
-        return sql::sav($b,$rb);}
+        $rd=walk($ra,'unid');
+        $rb=vals($p,$rd);
+        $rt=array_combine($ra,$rb);
+        return sql::sav($b,$rt,1);}
 
     static function update($p){
         [$b,$id]=vals($p,['b','id']); 
         $no=secur::call(__CLASS__,__FUNCTION__);
         if($no)return $no;
         $ra=db::cols_k($b);
-        $rb=valk($p,$ra); pr($rb);
-        return sql::upd($b,$rb,$id);}
+        $rd=walk($ra,'unid');
+        $rb=vals($p,$rd);
+        $rt=array_combine($ra,$rb);
+        return sql::upd($b,$rt,$id);}
 
-    static function read($p){
+    static function read($p){$r=[];
         [$b,$id]=vals($p,['b','id']);
         if(!$id)return er('no');
-        if($id)$r=sql::read('all',$b,'a',$id);
-        return tabler($r,1,1);}
-
+        //$cl=db::cols_s($b);
+        if($id)$r=sql::read('all',$b,'a',$id); //pr($r);
+        return tabler($r);}
+    
     static function lk($d){
         return bh($d,'edit/'.$d);}
 
@@ -32,16 +37,17 @@ class edit{
         $ret=join('',$rt);
         return div($ret,'menu');}
     
-    static function call($p){
-        [$a,$b,$c]=vals($p,['a','b','c']); $rid=rid($a); $r=[]; $sav='';
+    static function call($p){//pr($p);
+        [$a,$b,$c]=vals($p,['a','b','c']); $rid=rid($a); $r=[]; $ret=''; $sav='';
+        if($b=='read' && $c)return self::read(['b'=>$a,'id'=>$c]);
         if($b=='add')$sav=1; if(!is_numeric($b))$b='';
         if(!$a)return self::list();
-        if($a && $b)$r=sql::read('all',$a,'a',$b);
         $ra=db::cols_r($a);
-        $keys=implode(',',array_keys($ra));
+        if($a && $b && $ra)$r=sql::read('all',$a,'a',$b,0);
+        $keys=implode(',',walk(array_keys($ra),'unid'));
         if($b)$com='update'; elseif($sav)$com='save'; else $com='read';
-        $ret=bj(voc('save'),$rid.'|edit,'.$com.'|b='.$a.',id='.$b.'|'.$keys,'btsav');
-        $ret.=form::call($ra,$r);
-        return div($ret,'',$rid);}
+        if($ra)$ret=bj(voc('save'),$rid.'|edit,'.$com.'|b='.$a.',id='.$b.'|'.$keys,'btsav');
+        if($com!='read')$ret.=form::call($ra,$r);
+        return $ret.div($ret,'',$rid);}
     
 }

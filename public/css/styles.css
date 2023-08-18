@@ -2,20 +2,23 @@ body{background-color:#444; font-family:arial; color:#ddd}
 a{cursor:pointer}
 h1,h2,h3,h4,h5{}
 input,textarea,select{font-size:small; padding:1px 2px; background-color:#ddd; border:1px solid #bbb}
-input:hover,input:focus,textarea:hover,textarea:focus,select:hover,select:focus{background-color:#fff; border:1px solid #777}
+input:hover,input:focus,textarea:hover,textarea:focus,select:hover,select:focus{border:1px solid #777}
 input:focus-visible,textarea:focus-visible,select:focus-visible{outline:none}
 form{padding:0px; margin:0px}
 button{background-color:#ffffffaa; border:1px solid black}
 section{padding:16px; background-color:#ffffff; border:1px solid #777}
-#page{width:calc(100vw - 120px); margin:auto}
-#content{padding:16px; background-color:#ffffffee; border-width:1px; border-color:grey; border-style:solid; color:#222}
+article{border: 1px solid #ffffffe5; padding:16px; margin:0 0 20px 0; background:#ffffff75}
+#page{width:calc(100vw - 120px); margin:auto; padding:16px}
+#content{padding:16px; background-color:#ffffffc7; border-width:1px; border-color:grey; border-style:solid; color:#222}
 #content a{text-decoration:none; color:#222}
 #nav{}
 #nav a{background-color:#ffffffaa; padding:8px 16px; border:1px solid gray}
 #nav a:hover{background-color:#ffffff; border:1px solid black}
 #nav a.active{background-color:#ffffff; border:1px solid black}
 .banner{padding:8px 16px; width:auto; height:140px; background-position:contain}
-.content{font-family:Lucida Console; font-size:big; padding:16px; color:#444; border-color:9acd32; border-style:solid; border-width:1px}
+.content{font-family:Lucida Console; font-size:big; padding:16px; color:#444; border-color:#9f9f9f; border-style:solid; border-width:1px}
+.tracks{padding:16px}
+.track{padding:16px; color:#444; background-color:#9f9f9f2e}
 .excerpt{font-family:Lucida Console; font-size:big; padding:0px; color:red}
 .blog-title{font-size:big; margin:16px 16px}
 .blog-subtitle{font-size:big; padding:16px 16px; background-color:#faebd79c}

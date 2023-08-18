@@ -48,7 +48,7 @@ static function where($r){$rb=[]; $rt=[]; $w='';
 if(is_numeric($r))$r=['id'=>$r]; $i=0;
 if(is_string($r))return [[],$r];
 foreach($r as $k=>$v){$i++;
-	$c=substr($k,0,1); $kb=substr($k,1); $kc=$kb.$i;
+	$c=substr($k,-1); $kb=substr($k,0,-1); $kc=$kb;//.$i
 	if($k=='_order')$w=' order by '.$v;
 	elseif($k=='_group')$w.=' group by '.$v;
 	elseif($k=='_limit')$w.=' limit '.$v;
@@ -57,25 +57,27 @@ foreach($r as $k=>$v){$i++;
 	elseif($c=='!'){$rb[]=$kb.'!=:'.$kc; $rt[$kc]=$v;}
 	elseif($c=='%'){$rb[]=$kb.' like :'.$kc; $rt[$kc]='%'.$v.'%';}
 	elseif($c=='-'){$rb[]='substring('.$kb.',1,1)!=:'.$kc.''; $rt[$kc]=$v;}
-	elseif($c=='&'){$rb[]=$kb.' between :'.$kc.'1 and :'.$kc.'2'; $rt[$kc.'1']=$v[0]; $rt[$kc.'2']=$v[1];}
+	elseif($c=='&'){$rb[]=$kb.' between :'.$kc.' and :'.$kc; $rt[$kc]=$v[0]; $rt[$kc]=$v[1];}
 	elseif($c=='('){foreach($v as $ka=>$va)$rta['in'.$ka]=$va; $rt+=$rta;
 		$rb[]=$kb.' in (:'.implode(',:',array_keys($rta)).')';}
 	elseif($c==')'){foreach($v as $ka=>$va)$rta['nin'.$ka]=$va; $rt+=$rta;
 		$rb[]=$kb.' not in (:'.implode(',:',array_keys($rta)).')';}
 	//elseif(substr($v,0,9)=='password('){$rb[]=''; $rt[$kc]=$v;}
+	//elseif($k=='up'){$rb[]=''; $rt['date']=$v;}
 	else{$rb[]=$k.'=:'.$k; $rt[$k]=$v;}}
 $q=implode(' and ',$rb); if($q)$q='where '.$q; if($w)$q.=$w;
 return [$rt,$q];}
 
 static function rqcols($d,$b){
-$r=explode(',',$d); $d='';
+/*$r=explode(',',$d); $d='';
 foreach($r as $k=>$v){
-	if($v=='timeup')$r[$k]='unix_timestamp('.$b.'.up) as time';
-	elseif($v=='dateup')$r[$k]='date_format('.$b.'.up,"%d/%m/%Y") as date';
-	elseif($v=='numsec')$r[$k]='date_format('.$b.'.up,"%y%m%d.%H%i%s") as date';
-	elseif($v=='numday')$r[$k]='date_format('.$b.'.up,"%y%m%d") as date';}
-$d=implode(',',$r);
-if($d=='all')$d=db::cols_s($b);
+	if($v=='up')$r[$k]=''.$b.'_up as '.$b.'_up';
+	elseif($v=='time')$r[$k]='unix_timestamp('.$b.'_up) as '.$b.'_up';
+	elseif($v=='date')$r[$k]='date_format('.$b.'_up,"%d/%m/%Y") as '.$b.'_up';
+	elseif($v=='numday')$r[$k]='date_format('.$b.'_up,"%y%m%d") as '.$b.'_up';
+	elseif($v=='numsec')$r[$k]='date_format('.$b.'_up,"%y%m%d.%H%i%s") as '.$b.'_up';} //pr($r);
+$d=implode(',',$r);*/
+if($d=='all' or !$d)$d=db::cols_s($b);
 if(!$d)$d='*';
 return $d;}
 
@@ -84,6 +86,7 @@ static function mkvk($r){$rt=[]; foreach($r as $k=>$v)$rt[]=$k.'=:'.$k; return i
 static function mkvr($r){$rt=[]; foreach($r as $k=>$v)$rt[]=$k.'="'.$v.'"'; return implode(',',$rt);}
 static function mkq($r){[$r,$q]=self::where($r);//oldschool
 foreach($r as $k=>$v)if(substr($v,0,9)!='password(')$q=str_replace(':'.$k,'"'.$v.'"',$q); return $q;}
+static function see($sql,$r){foreach($r as $k=>$v)$sql=str_replace(':'.$k,'"'.$v.'"',$sql); return $sql;}
 
 static function fetch($stmt,$p){$rt=[];
 if($p=='a' or $p=='ra')$rt=$stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -94,12 +97,8 @@ return $rt;}
 static function bind($stmt,$r){
 foreach($r as $k=>$v)$stmt->bindValue(':'.$k,$v,is_numeric($v)?PDO::PARAM_INT:PDO::PARAM_STR);}
 
-static function see($sql,$r){
-foreach($r as $k=>$v)$sql=str_replace(':'.$k,'"'.$v.'"',$sql);
-return $sql;}
-
 static function prep($sql,$r,$z=''){
-$qr=self::rq(); if($z)echo self::see($sql,$r);
+if($z)echo self::see($sql,$r); $qr=self::rq();
 $stmt=$qr->prepare($sql);
 self::bind($stmt,$r);
 $ok=$stmt->execute();
@@ -108,25 +107,48 @@ return $stmt;}
 
 #
 static function read($d,$b,$p,$q,$z=''){
-[$r,$sql]=self::where($q); $rt=[]; if($p=='v')$rt='';
-$sql='select '.self::rqcols($d,$b).' from '.$b.' '.$sql; self::$sq=$sql;
+[$r,$wh]=self::where($q); $ret=$p=='v'?'':[];
+$sql='select '.self::rqcols($d,$b).' from '.$b.' '.$wh; self::$sq=$sql;
 $stmt=self::prep($sql,$r,$z);
 $rt=self::fetch($stmt,$p);
-if($p)$rt=self::format($rt,$p);
-return $rt;}
+if($p)$ret=self::format($rt,$p);
+return $ret;}
 
 static function read2($d,$b,$p,$q,$z=''){$rt=[];
-$qr=self::rq(); $q=self::mkq($q);
+$qr=self::rq(); $q=self::mkq($q); $ret=$p=='v'?'':[];
 $sql='select '.self::rqcols($d,$b).' from '.$b.' '.$q; self::$sq=$sql; if($z)echo $sql;
 $stmt=$qr->query($sql);
 $rt=self::fetch($stmt,$p);
-if($p)$rt=self::format($rt,$p);
-return $rt;}
+if($p)$ret=self::format($rt,$p);
+return $ret;}
+
+static function alex($b,$r){
+$ra=db::cols_k($b);
+$rb=array_combine($ra,$r);
+return self::read('id',$b,'v',$rb);}
+
+static function combine($b,$r){
+$ra=db::cols_k($b);
+//$ra=self::cols($b);
+return array_combine($ra,$r);}
+
+static function integrity($b,$r){
+$ra=db::cols_r($b);
+foreach($ra as $k=>$v)switch($v){
+	case('int'):!is_numeric($r[$k])?$r[$k]=0:'';}
+return $r;}
+
+static function complete($r){
+array_unshift($r,NULL); array_push($r,sqldate());
+return $r;}
 
 static function sav($b,$q,$z=''){$rt=[];
-$ra=self::cols($b); array_unshift($q,NULL); array_shift($q,sqldate()); $r=array_combine($ra,$q);
-$sql='insert into '.$b.' value ('.self::mkv($r).')';
-$stmt=self::prep($sql,$r,$z);
+$ex=self::alex($b,$q); if($ex)return false;
+$r=self::combine($b,$q);
+$q=self::integrity($b,$r);
+$q=self::complete($r);
+$sql='insert into '.$b.' value ('.self::mkv($q).')';
+$stmt=self::prep($sql,$q,$z);
 return self::$qr->lastInsertId();}
 
 static function sav2($b,$q,$z=''){$rt=[];
@@ -136,18 +158,18 @@ $stmt=self::prep($sql,$q,$z);
 return self::$qr->lastInsertId();}
 
 static function upd($b,$r,$q,$z=''){$rt=[];
-$vals=self::mkvk($r); [$ra,$sql]=self::where($q);
-$sql='update '.$b.' set '.$vals.' '.$sql;
+$vals=self::mkvk($r); [$ra,$wh]=self::where($q);
+$sql='update '.$b.' set '.$vals.' '.$wh;
 $stmt=self::prep($sql,$ra+$r,$z);
 return $stmt?1:0;}
 
 static function inner($d,$b1,$b2,$k2,$p,$q,$z=''){
-if($d==$k2)$d=$b2.'.'.$d; [$ra,$sql]=self::where($q);
-$sql='select '.$d.' from '.$b1.' b1 inner join '.$b2.' b2 on b1.id=b2.'.$k2.' '.$sql;
-$stmt=self::prep($sql,$ra,$z);
-$rt=self::fetch($stmt,$p);
-$ret=$p=='v'?'':[];
-if($rt){$ret=self::format($rt,$p);}
+if($d==$k2)$d=$b2.'.'.$d; [$ra,$wh]=self::where($q); $rt=[]; $ret=$p=='v'?'':[];
+$sql='select '.self::rqcols($d,$b2).' from '.$b1.' b1 inner join '.$b2.' b2 on b1.id=b2.'.$k2.' '.$wh;
+//$stmt=self::prep($sql,$ra,$z);
+$sql=self::see($sql,$ra); $stmt=self::qr($sql,$z); //pr($sql); //echo $sql.br();
+if($stmt)$rt=self::fetch($stmt,$p);
+if($rt)$ret=self::format($rt,$p);
 return $ret;}
 
 static function call($sql,$p){

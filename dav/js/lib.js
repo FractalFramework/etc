@@ -4,7 +4,13 @@ oldj='';
 function pr(d){return console.log(d);}
 function und(d){return typeof d=='undefined'?'':d;}
 function getbyid(id){return document.getElementById(id);}
+function falseClose(id){getbyid(id).innerHTML='';}
 
+function active(id,ob,a){if(id)ob=getbyid(id); var op=ob.className;
+if(op.indexOf('active')==-1 && !a){ob.classList.add("active"); return 1;}
+else{ob.classList.remove("active"); return 0;}}
+
+//urls
 function updateurl(u,j){
 var r={u:u,j:j,t:''};
 if(j!=oldj)window.history.pushState(r,j,u); oldj=j;
