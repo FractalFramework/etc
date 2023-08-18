@@ -4,7 +4,7 @@ static $qr;
 static $sq;
 static $r;
 
-function __construct($r){if(!self::$qr){self::$r=$r; self::dbq();}}// new sqb($r);
+function __construct($r){if(!self::$qr){self::$r=$r; self::dbq();}}
 
 static function dbq(){[$h,$n,$p,$b]=self::$r; 
 $dsn='mysql:host='.$h.';dbname='.$b.';charset=utf8';
@@ -68,15 +68,7 @@ foreach($r as $k=>$v){$i++;
 $q=implode(' and ',$rb); if($q)$q='where '.$q; if($w)$q.=$w;
 return [$rt,$q];}
 
-static function rqcols($d,$b){
-/*$r=explode(',',$d); $d='';
-foreach($r as $k=>$v){
-	if($v=='up')$r[$k]=''.$b.'_up as '.$b.'_up';
-	elseif($v=='time')$r[$k]='unix_timestamp('.$b.'_up) as '.$b.'_up';
-	elseif($v=='date')$r[$k]='date_format('.$b.'_up,"%d/%m/%Y") as '.$b.'_up';
-	elseif($v=='numday')$r[$k]='date_format('.$b.'_up,"%y%m%d") as '.$b.'_up';
-	elseif($v=='numsec')$r[$k]='date_format('.$b.'_up,"%y%m%d.%H%i%s") as '.$b.'_up';} //pr($r);
-$d=implode(',',$r);*/
+static function sqcl($d,$b){
 if($d=='all' or !$d)$d=db::cols_s($b);
 if(!$d)$d='*';
 return $d;}
@@ -101,14 +93,13 @@ static function prep($sql,$r,$z=''){
 if($z)echo self::see($sql,$r); $qr=self::rq();
 $stmt=$qr->prepare($sql);
 self::bind($stmt,$r);
-$ok=$stmt->execute();
-//try{}catch(Exception $e){er($e->getMessage());}
+try{$ok=$stmt->execute();}catch(Exception $e){er($e->getMessage());}
 return $stmt;}
 
 #
 static function read($d,$b,$p,$q,$z=''){
 [$r,$wh]=self::where($q); $ret=$p=='v'?'':[];
-$sql='select '.self::rqcols($d,$b).' from '.$b.' '.$wh; self::$sq=$sql;
+$sql='select '.self::sqcl($d,$b).' from '.$b.' '.$wh; self::$sq=$sql;
 $stmt=self::prep($sql,$r,$z);
 $rt=self::fetch($stmt,$p);
 if($p)$ret=self::format($rt,$p);
@@ -116,7 +107,7 @@ return $ret;}
 
 static function read2($d,$b,$p,$q,$z=''){$rt=[];
 $qr=self::rq(); $q=self::mkq($q); $ret=$p=='v'?'':[];
-$sql='select '.self::rqcols($d,$b).' from '.$b.' '.$q; self::$sq=$sql; if($z)echo $sql;
+$sql='select '.self::sqcl($d,$b).' from '.$b.' '.$q; self::$sq=$sql; if($z)echo $sql;
 $stmt=$qr->query($sql);
 $rt=self::fetch($stmt,$p);
 if($p)$ret=self::format($rt,$p);
@@ -129,7 +120,7 @@ return self::read('id',$b,'v',$rb);}
 
 static function combine($b,$r){
 $ra=db::cols_k($b);
-//$ra=self::cols($b);
+//$ra=self::cols($b);//will fail cause db src
 return array_combine($ra,$r);}
 
 static function integrity($b,$r){
@@ -139,13 +130,14 @@ foreach($ra as $k=>$v)switch($v){
 return $r;}
 
 static function complete($r){
-array_unshift($r,NULL); array_push($r,sqldate());
+$r=['id'=>NULL]+$r+['up'=>sqldate()];
+//array_unshift($r,NULL); array_push($r,sqldate());
 return $r;}
 
 static function sav($b,$q,$z=''){$rt=[];
 $ex=self::alex($b,$q); if($ex)return false;
 $r=self::combine($b,$q);
-$q=self::integrity($b,$r);
+$r=self::integrity($b,$r);
 $q=self::complete($r);
 $sql='insert into '.$b.' value ('.self::mkv($q).')';
 $stmt=self::prep($sql,$q,$z);
@@ -165,7 +157,7 @@ return $stmt?1:0;}
 
 static function inner($d,$b1,$b2,$k2,$p,$q,$z=''){
 if($d==$k2)$d=$b2.'.'.$d; [$ra,$wh]=self::where($q); $rt=[]; $ret=$p=='v'?'':[];
-$sql='select '.self::rqcols($d,$b2).' from '.$b1.' b1 inner join '.$b2.' b2 on b1.id=b2.'.$k2.' '.$wh;
+$sql='select '.self::sqcl($d,$b2).' from '.$b1.' b1 inner join '.$b2.' b2 on b1.id=b2.'.$k2.' '.$wh;
 //$stmt=self::prep($sql,$ra,$z);
 $sql=self::see($sql,$ra); $stmt=self::qr($sql,$z); //pr($sql); //echo $sql.br();
 if($stmt)$rt=self::fetch($stmt,$p);
@@ -184,17 +176,9 @@ return self::rq()->query($sql);}
 static function com2($sql,$z=''){
 return self::qr($sql,$z);}
 
-/*static function build_password($d){
-$rq=\Slim::getInstance()->request();
-$q=json_decode($rq->getBody());
-$hashedPassword=password_hash($q->password,PASSWORD_BCRYPT);}*/
-
-/*static function verif_password($d,$hash){
-return password_verify($d,$hash);}*/
-
 static function sqcols($b,$n=''){$cl=['column_name','data_type','character_maximum_length'];
-return 'select '.join(',',$cl).' from information_schema.columns where table_name="'.$b.'"';}//'.cnfg('db').'.
-static function cols($b,$n=1){return self::call(self::sqcols($b,$n),$n==2?'kv':($n==3?'ra':('rv')),0);}
+return 'select '.join(',',$cl).' from information_schema.columns where table_name="'.$b.'"';}//cnfg('db').'.'.
+static function cols($b,$n=1){return self::call(self::sqcols($b,$n),$n==2?'kv':($n==3?'ra':('rv')));}
 static function drop($b){return 'drop table '.$b;}
 static function trunc($b){return 'truncate table '.$b;}
 static function alter($b,$n){return 'alter table '.$b.' auto_increment='.$n;}

@@ -42,5 +42,12 @@
         "uid":"int",
         "name":"var",
         "json":"json"
+    },
+    "contact2":{
+        "uid":"int",
+        "at":"int",
+        "name":"var",
+        "mail":"var",
+        "msg":"text"
     }
 }

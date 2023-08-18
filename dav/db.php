@@ -81,8 +81,7 @@ sql::qr('create table if not exists `'.$b.'` (
 	`up` timestamp on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB collate utf8mb4_unicode_ci;',0);
-if(isset($sql))sql::qr($sql,1);
-}
+if(isset($sql))sql::qr($sql,1);}
 
 static function table($b){
 	$r=json::call('cnfg/db');

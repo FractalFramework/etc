@@ -9,7 +9,9 @@ class boot{
     }
 
     static function call(){
-        login::recognize();
         self::cnfg();
+        login::recognize();
+        //echo ses('auth');
+        if(cnfg('install'))db::install_all();
     }
 }
