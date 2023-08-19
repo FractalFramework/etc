@@ -14,8 +14,9 @@ echo head::run();
 $ret=main::call($g);
 
 //dev
-$ret.=tag('div',['class'=>'popup'],"").n();
+$ret.=tag('div',['class'=>'popup'],'').n();
 if(ses('dev'))echo div(rdiv(ses::$er),'small').n();
 
 echo tag('body',[],$ret);
 //echo '</html>';
+?>

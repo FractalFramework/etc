@@ -14,14 +14,14 @@ foreach($r as $k=>$v)
 return $rv;}
 
 static function save($a,$d){
-	$f=self::file($a);
-	mkdir_r($f);
-    file_put_contents($f,$d);}
+$f=self::file($a);
+mkdir_r($f);
+file_put_contents($f,$d);}
 
 static function save_empty($a){
-    $r=json::call(self::$json_views.$a); $d='';
-    if($r)$d=self::build($r,[],[]);
-    self::save($a,$d);}
+$r=json::call(self::$json_views.$a); $d='';
+if($r)$d=self::build($r,[],[]);
+self::save($a,$d);}
 
 static function build($r,$ra,$rc){$ret='';
 foreach($r as $k=>$v){[$c,$p,$d]=$v;

@@ -40,7 +40,7 @@ class tracks{
         $ret='';
         [$a,$b]=vals($p,['a','b']);
         $sq=['bid'=>$a,'pub'=>'1'];
-        $r=sql::inner('b2.id,name,txt,b2.up','users','tracks','uid','ra',$sq,1);
+        $r=sql::inner('b2.id,name,txt,date_format(b2.up,"%d/%m/%Y") as up','users','tracks','uid','ra',$sq,0);
         if($r)foreach($r as $k=>$v){
             $r[$k]['date']=day('ymd',$v['up']);
             $ret.=view::call('blocks/track',$r[$k]);}

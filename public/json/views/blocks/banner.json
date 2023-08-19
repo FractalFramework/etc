@@ -3,7 +3,7 @@
         "div",
         {
             "class":"banner",
-            "style":"background-image:url({banner});"
+            "style":"background-image:{banner};"
         },
         [
             [

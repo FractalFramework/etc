@@ -7,6 +7,7 @@ header('Content-Type: text/html; charset=utf-8');
 session_start();
 define('root',__DIR__);
 require('dav/lib.php');
-new sql(['localhost','root','dev','etc']);
+require('cnfg/'.nohttp(host()).'.php');
 require('public/index.php');
 sql::$qr=null;
+?>

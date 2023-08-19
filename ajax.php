@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 //ini_set('default_charset','utf-8');
 session_start();
 require('dav/lib.php');
-new sql(['localhost','root','dev','etc']);
+require('cnfg/'.nohttp(host()).'.php');
 $g=gets();
 $p=posts();
 boot::call();
@@ -17,3 +17,4 @@ if(isset($ret)){
         $ret=json_encode($ret);}
     //else header('Content-Type: text/html; charset=utf-8');
 echo $ret;}
+?>

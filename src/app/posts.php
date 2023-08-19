@@ -31,7 +31,7 @@ class posts{
         [$a,$b]=vals($p,['a','b']);
         //$r=sql::read2('id,title,catid,excerpt,content,up','posts','a',['id'=>$a]);
         //$r['category']=sql::read('category','cats','v',['id'=>$r['catid']]);
-        $r=sql::inner('uid,title,category,excerpt,b2.up','cats','posts','catid','a',['b2.id'=>$a],0);
+        $r=sql::inner('uid,title,category,excerpt,date_format(b2.up,"%d/%m/%Y") as up','cats','posts','catid','a',['b2.id'=>$a],0);
         $r['date']=$r['up'];//day()
         $r['author']=sql::read('name','users','v',['id'=>$a]);
         $r['tracks']=tracks::call($p);
@@ -44,12 +44,12 @@ class posts{
         $ret=h3(voc('posts'));
         $sq=['pub'=>1];
         if($a)$sq['category']=$a;
-        $r=sql::inner('b2.id,uid,title,category,excerpt,b2.up','cats','posts','catid','ra',$sq);
+        $r=sql::inner('b2.id,uid,title,category,excerpt,date_format(b2.up,"%d/%m/%Y") as up','cats','posts','catid','ra',$sq);
         foreach($r as $k=>$v){
             $r[$k]['bt_title']=bh($v['title'],'post/'.$v['id']);
-            $r[$k]['date']=day('ymd',strtotime($v['up']));
+            $r[$k]['date']=$v['up'];
             $r[$k]['author']=sql::read('name','users','v',['id'=>$v['uid']]);
-            //$r[$k]['author']=sql::read('surname','profile','v',['uid'=>$v['uid']]);
+            //$r[$k]['author']=sql::read('surname','profile2','v',['uid'=>$v['uid']]);
             $r[$k]['tracks_nb']=sql::read('count(id)','tracks','v',['bid'=>$v['uid']]);
             $r[$k]['tracks_nb_title']=voc('tracks_nb_title');}
         foreach($r as $k=>$v)$ret.=view::call('blocks/posts',$v);

@@ -1,7 +1,7 @@
 <?php
 
 spl_autoload_register(function($a){
-    if(is_file($f='dav/'.$a.'.php')){require($f); return;}
+    if(is_file($f='dav/kernel/'.$a.'.php')){require($f); return;}
     $r=sesmk('scandir_b','src',0);
     if($r)foreach($r as $v)if(is_file($f='src/'.$v.'/'.$a.'.php')){require($f); return;}
 });
@@ -37,10 +37,10 @@ if($p['type']??''){$vy=$p['type']; unset($p['type']);} else $vy='text';
 return '<input'.atr(['type'=>$vy,'id'=>$d,'value'=>$v,'size'=>$s]+$p).' />';}
 function hidden($d,$v){return taga('input',['type'=>'hidden','id'=>$d,'value'=>$v]);}
 function label($id,$t,$c='',$idb=''){return tag('label',['for'=>$id,'class'=>$c,'id'=>$idb],$t);}
-function inpsw($d,$v,$s='',$p=[]){return input($d,$v,$s,'password','100',['type'=>'password','maxlength'=>'100','placeholder'=>'password']);}
+function inpsw($d,$v,$s='',$p=[]){return input($d,$v,$s,['type'=>'password','maxlength'=>'100','placeholder'=>'password']);}
 function inpnb($id,$v,$min='',$max='',$st=1){return input($id,$v,'',['type'=>'number','name'=>$id,'min'=>$min,'max'=>$max,'step'=>$st]);}
-function inpdate($id,$v,$o='',$min='',$max=''){return input($id,$v,'',['type'=>$o?'datetime-local':'date','min'=>$min,'max'=>$max]);}//'step'=>'1'
 function inpmail($id,$v='',$p=[]){return input($id,$v,16,['type'=>'mail','placeholder'=>'mail','maxlength'=>'100']+$p);}
+function inpdate($id,$v,$o='',$min='',$max=''){return input($id,$v,'',['type'=>$o?'datetime-local':'date','min'=>$min,'max'=>$max]);}//'step'=>'1'
 function inpclr($id,$v=''){return input($id,$v,'',['type'=>'color','name'=>$id]);}
 function inptel($id,$v,$pl='06-01-02-03'){return input($id,$v,['type'=>'tel','name'=>$id,'placeholder'=>$pl,'pattern'=>"[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}",'required'=>'required']);}
 function inprange($id,$v,$st=1,$min='',$max=''){return input($id,$v,'',['type'=>'range','name'=>$id,'min'=>$min,'max'=>$max,'step'=>$st]);}
@@ -111,6 +111,11 @@ function expl($d,$s,$n=2){$r=explode($s,$d); for($i=0;$i<$n;$i++)$rb[]=$r[$i]??'
 function vals($r,$ra){foreach($ra as $k=>$v)$rb[]=$r[$v]??''; return $rb;}
 function valk($r,$ra){foreach($ra as $k=>$v)$rb[$v]=$r[$v]??''; return $rb;}
 
+//detection
+function xt($d,$o=0){return substr(strtolower(strrchr($d??'','.')),$o);}
+function is_img($d){$d=xt($d); if(!$d)return; $r=['.jpg','.png','.gif','.jpeg','.webp'];
+for($i=0;$i<5;$i++)if(mb_strpos($d,$r[$i])!==false)return $r[$i];}
+
 //arrays
 function explode_k($d,$a,$b){$r=explode($b,$d); $rb=[];
 foreach($r as $k=>$v){if($v){$ra=split_right($a,$v);
@@ -154,6 +159,13 @@ function sqldate(){return date('Y-m-d H:i:s');}//%A%d%B%G%T
 function time_ago($dt){$dy=time()-$dt; if($dy<86400){$fuseau=3;
 $h=intval(date('H',$dy))-$fuseau; $i=intval(date('i',$dy)); $s=intval(date('s',$dy));
 $nbh=$h>1?$h.' h ':''; $nbi=$i>0?$i.' min ':''; return $nbh.$nbi;} else return day('',$dt);}
+
+//roots
+function nohttp($f){if($f)return str_replace(['http://','https://','www.'],'',$f);}
+function domain($f){$f=nohttp($f); $p=strpos($f??'','/'); return $p?substr($f,0,$p):$f;}//preplink
+function host(){return 'http://'.$_SERVER['HTTP_HOST'];}
+function hostname(){$ip=$_SERVER['REMOTE_ADDR']??'';
+if(strstr($ip,' ')){$r=explode(' ',$ip); return $r[0];} else return gethostbyaddr($ip);}
 
 #core
 function rdiv($r){return implode('',array_map('div',$r));}
@@ -207,3 +219,4 @@ elseif(is_object($d))$d=var_dump($d,true);
 echo textarea('',htmlspecialchars_decode($d),44,12);}
 function er($d){return ses::$er[]=$d;}
 function trace(){pr(debug_backtrace());}
+?>

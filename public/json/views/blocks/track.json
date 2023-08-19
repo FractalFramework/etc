@@ -2,8 +2,7 @@
     [
         "div",
         {
-            "id":"track{id}}",
-            "class":"tracks"
+            "id":"track{id}}"
         },
         [
             [

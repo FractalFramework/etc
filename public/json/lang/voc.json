@@ -9,7 +9,8 @@
     "name":"nom prénoms et papiers svp !",
     "password":"la clef dans la serrure",
     "mail":"ce serait sympa que tu me files ton mail",
-    "knownmail":"c'est quoi déjà ton mail ?",
+    "knownmail":"file-moi ton mail stp",
+    "knowname":"c'est quoi déjà ton nom ?",
     "message":"alors vas-y, raconte moi tout",
     "loged":"voilà, ça c'est fait",
     "bad_password":"très bien. recommence.",
@@ -50,6 +51,7 @@
     "save":"sauve",
     "error":"oulalaaa",
     "on":"allumé",
-    "off":"éteint"
+    "off":"éteint",
+    "first_user":"premier arrivé, premier admin"
 
 }

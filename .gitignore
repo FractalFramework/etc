@@ -47,5 +47,6 @@ _sql
 _old
 _notes
 _trash.php
+cnfg/wapp.ovh.php
 settings.json
 *.sh

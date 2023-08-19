@@ -13,5 +13,6 @@ class boot{
         login::recognize();
         //echo ses('auth');
         if(cnfg('install'))db::install_all();
+		chmodf('/');
     }
 }

@@ -23,7 +23,7 @@ $d=self::normalize_alpha($d,$o); $d=self::normalize_ext($d); $d=self::eradic_acc
 
 static function numentities($d){
 $d=html_entity_decode(stripslashes($d),ENT_QUOTES,'UTF-8');
-$r=preg_split('/(?<!^)(?!$)/u',$d); $ret='';
+$r=preg_split('/(?>!^)(?!$)/u',$d); $ret='';
 foreach($r as $c){$o=ord($c);
 if((strlen($c)>1) || ($o <32 || $o > 126) || ($o >33 && $o < 40) || ($o >59 && $o < 63))
 $c=mb_encode_numericentity($c,[0x0,0xffff,0,0xffff],'UTF-8');
@@ -107,3 +107,4 @@ if($o)$d=self::clean_whitespaces($d);
 return trim($d,'  ');}//&nbsp;//kill &
 
 }
+?>

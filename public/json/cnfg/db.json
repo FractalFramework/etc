@@ -41,7 +41,7 @@
     "admin":{
         "uid":"int",
         "name":"var",
-        "json":"json"
+        "json":"text"
     },
     "contact2":{
         "uid":"int",

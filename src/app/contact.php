@@ -8,16 +8,21 @@ class contact{
         else return div(voc('error'),'frame-red');
     }
 
+    static function read($p){
+        [$a,$b,$c]=vals($p,['a','b','c']);
+        $r=sql::read('name,msg,date_format(up,"%d/%m/%Y") as up','contact2','ra',['_order'=>'up desc']);
+        return tabler($r,['from','txt','date']);
+    }
+
     static function call($p){
         [$a,$b]=vals($p,['a','b']);
-        $ret=h3(voc('contact'));
-        $ret.=div(input('name','').label('name',voc('name'),'btn'));
+        $bt=h3(voc('contact'));
+        $ret=div(input('name','').label('name',voc('name'),'btn'));
         $ret.=div(input('mail','').label('mail',voc('mail'),'btn'));
         $ret.=div(label('msg',voc('message'),'btn'));
         $ret.=div(textarea('msg',''));
         $ret.=bj(voc('send'),'tgmail|contact,save||name,mail,msg','btsav');
-        $ret.=div('','','tgmail');
-        return $ret;
+        return $bt.div($ret,'','tgmail');
     }
 
 }

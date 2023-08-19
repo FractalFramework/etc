@@ -33,6 +33,8 @@ class admin{
         $ret.=div(self::waiting('tracks'));
         $ret.=h2(voc('posts_moderation'));
         $ret.=div(self::waiting('posts'));
+        $ret.=h2(voc('contacts'));
+        $ret.=div(contact::read($p));
         return $ret;
     }
 }

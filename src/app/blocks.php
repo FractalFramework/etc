@@ -6,7 +6,8 @@ class blocks{
     static function banner($p){
         [$a,$b]=vals($p,['a','b']);
         $id=ses('uid'); if(!$id)$id=cnfg('usrhome');
-        $r=sql::read('surname,slogan,banner','profile','a',$id);
+        $r=sql::read('surname,slogan,banner,logo','profile2','a',$id);
+		if(is_img($d=$r['banner']))$r['banner']='url('.$d.')';
         $ret=view::call('blocks/banner',$r);
         return $ret;
     }

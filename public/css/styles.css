@@ -29,10 +29,10 @@ article{border: 1px solid #ffffffe5; padding:16px; margin:0 0 20px 0; background
 .menu a{color:#333; margin:1px 4px; padding:1px 4px; font-size:small; border-color:#bbb; border-style:solid; border-width:0 0 4px; text-decoration:none; background-color:white; box-shadow:2px 2px 0px #aaa}
 .menu a:hover{color:#111; border-color:#777}
 .frame{font-size:big; padding:8px 16px; margin:0px; background-color:#faebd747; border-color:#faebd766; border-style:solid; border-width:0px}
-.frame-white{font-size:big; padding:8px 16px; margin:4px; background-color:#c8c8c84d; border-color:#6c6c6ca1; border-style:solid; border-width:1px}
+.frame-white{font-size:big; padding:8px 16px; margin:4px; background-color:#ffffff5e; border-color:#6c6c6ca1; border-style:solid; border-width:1px}
 .frame-blue{font-size:big; padding:8px 16px; margin:4px; background-color:#0064ff4a; border-color:#0064ff; border-style:solid; border-width:1px}
 .frame-red{font-size:big; padding:8px 16px; margin:4px; background-color:#dc143c4a; border-color:#dc143c; border-style:solid; border-width:1px}
-.frame-green{font-size:big; padding:8px 16px; margin:4px; background-color:#9acd3273; border-color:#9acd32; border-style:solid; border-width:1px}
+.frame-green{font-size:big; padding:8px 16px; margin:4px; background-color:#9acd3273; border-color:#608e00; border-style:solid; border-width:1px}
 .btn{font-size:small; padding:2px 4px; background-color:white; border-width:1px; border-color:grey; border-style:solid; color:#444}
 .btn:hover{background-color:white; border-color:black}
 .btsav{font-size:small; padding:1px 4px; background-color:#0064ff4a; border-color:#0064ff; border-style:solid; border-width:1px; color:#222}
@@ -42,7 +42,7 @@ article{border: 1px solid #ffffffe5; padding:16px; margin:0 0 20px 0; background
 .editarea{font-family:Lucida Console; word-wrap:break-word; padding:16px; background-color:#ddd; min-height:20px; border:1px dotted #77777777}
 .console{font-family:Lucida Console; word-wrap:break-word; padding:16px; background-color:#222; color:#fff}
 .small{font-size:small}
-.infos{font-size:small}
+.infos{font-size:small; margin-top:16px}
 .infos span{margin:2px; padding:2px}
 .author{font-weight:bold}
 .date{color:gray}
