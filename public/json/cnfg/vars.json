@@ -1,6 +1,7 @@
 {
     "dev":"1",
     "db":"etc",
+    "local":"1",
     "install":"1",
     "templater":"1",
     "savecss":"1",

@@ -9,11 +9,11 @@ static function register($p){$e='';
 $ex=self::firstuser(); $auth=$ex?1:6; $psw=self::hash($c);
 if($a && $b && $c)
 $ok=sql::sav('users',[$a,$auth,$b,$psw]);
-$ak=sql::sav('profile2',[$ok,$a,'here','linear-gradient(#797979,#4a4a4a)','']);
+$ak=sql::sav('profile2',[$ok,$a,'here','IC1396,Hubble5-cropped-lrg.jpg','']);
 if($ok)self::auth($ok);
 if($ok)$ret=div(voc('registered'),'frame-blue');
 else $ret=div(voc('notregistered'),'frame-red');
-return $ret;}
+return [$ret,blocks::menu([])];}
 
 static function firstuser(){
 return sql::read('id','users','v',1);}
@@ -22,7 +22,7 @@ static function form($p){
 [$a,$b]=vals($p,['a','b']);
 $ret=h3(voc('login'));
 if(!self::firstuser())$ret.=div(voc('first_user'),'frame-white');
-$ret.=bj(voc('go'),'content|login,call||name,pswd','btsav');
+$ret.=bj(voc('go'),'content,menu|login,call||name,pswd','btsav');
 $ret.=div(input('name','').label('name',voc('knowname'),'btn'));
 $ret.=div(inpsw('pswd','').label('pswd',voc('password'),'btn'));
 return $ret;}
@@ -38,15 +38,15 @@ elseif($uid){
 	$ret.=div(bh(voc('redo'),'login','btn'));
 	$ret.=hidden('name',$a);
 	$ret.=div(inpsw('pswd',$b).label('pswd',voc('password'),'btn'));
-	$ret.=bj(voc('go'),'content|login,call||name,pswd','btsav');}
+	$ret.=bj(voc('go'),'content,menu|login,call||name,pswd','btsav');}
 else{
 	$ret=div(voc('inexistant_user'),'frame-red');
 	$ret.=div(bh(voc('go'),'login','btn'));
 	$ret.=hidden('name',$a).hidden('pswd',$b);
 	$ret.=div(inpmail('mail','').label('mail',voc('knownmail'),'btn'));
-	$ret.=bj(voc('register?'),'tgreg|login,register||name,mail,pswd','btsav');
+	$ret.=bj(voc('register?'),'content,menu|login,register||name,mail,pswd','btsav');
 	$ret.=div('','','tgreg');}
-return $ret;}
+return [$ret,blocks::menu([])];}
 
 static function auth($id=''){
 if(!$id)$id=1;//assume first user
@@ -69,12 +69,12 @@ sesz('uid');
 sesz('auth');
 setcookie('uid','',0);
 //cookie('uid',0);
-return $d=div(voc('loged_out'),'frame-white');
+$d=div(voc('loged_out'),'frame-white');
 return [$d,blocks::menu([])];}
 
 static function loged(){
 $ret=div(voc('hello').' '.ses('usr'),'frame-blue');
-$ret.=div(bj(voc('logout'),'content|login,logout','btn'));
+$ret.=div(bj(voc('logout'),'content,menu|login,logout','btn'));
 return $ret;}
 
 static function call($p){

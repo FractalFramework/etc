@@ -5,9 +5,9 @@ static function file($a){
 return 'public/css/'.$a.'.css';}
 
 static function save($a,$d){
-$f=self::file($a);
-file_put_contents($f,$d);
-ses::er('saved: '.$f);}
+$f=self::file($a); $fb=json::file('cnfg/'.$a);
+$d1=ftime($f); $d2=ftime($fb);
+if($d2>$d1){file_put_contents($f,$d); ses::er('saved: '.$f);}}
 
 static function read($r){$rt=[];
 foreach($r as $k=>$v)$rt[]=$k.'{'.implode_k($v,':','; ').'}';

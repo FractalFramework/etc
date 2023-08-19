@@ -7,7 +7,7 @@ if(httpRequest.readyState===XMLHttpRequest.DONE){
 	if(httpRequest.status===200){wait=0;
 		var res=httpRequest.responseText;
 		var cb=getbyid(target);
-		if(tp)jsonput(target,res);
+		if(tp=='json'||target=='json')jsonput(target,res);
 		else if(cb!=null){var type=cb.type;
 			if(type=='text'||type=='hidden'||type=='textarea')cb.value=res;
 			else cb.innerHTML=res;}
@@ -22,11 +22,11 @@ if(httpRequest.readyState===XMLHttpRequest.DONE){
 }
 
 function ajax_req(target,action,fd,pp,tp){
-	httpRequest=new XMLHttpRequest();
-	if(!httpRequest){pr('error httprequest'); return false;}
-	httpRequest.onreadystatechange=function(){ajax_callback(target,tp);}
-	httpRequest.open('POST',url+action+pp,true);
-	httpRequest.send(fd);}
+httpRequest=new XMLHttpRequest();
+if(!httpRequest){pr('error httprequest'); return false;}
+httpRequest.onreadystatechange=function(){ajax_callback(target,tp);}
+httpRequest.open('POST',url+action+pp,true);
+httpRequest.send(fd);}
 
 //frct
 //target,tg2|app,mth|var1,var2|inp1,inp2 //tg;a;tp;g;p
@@ -65,30 +65,30 @@ else if(ob!=null)vl=ob.value;
 return vl;}
 
 //json
-function jsonput(keys,json){var cb,k,typ,val;
-	var obj=JSON.parse(json);
-	var rk=keys.split(',');
-	for(var i in obj){
-		if(isNumeric(i))k=rk[i]; else k=i;
-		cb=getbyid(k);
-		if(cb!=null)typ=cb.type;
-		if(typ=='text'||typ=='textarea'||typ=='hidden')cb.value=obj[i];
-		else if(cb!=null)cb.innerHTML=obj[i];}}
+function jsonput(keys,json){var cb,k,typ;
+var rk=keys.split(',');
+var obj=JSON.parse(json);
+for(var i in obj){
+	if(i>-1)k=rk[i]; else k=i;
+	cb=getbyid(k);
+	if(cb!=null)typ=cb.type;
+	if(typ=='text'||typ=='textarea'||typ=='hidden')cb.value=obj[i];
+	else if(cb!=null)cb.innerHTML=obj[i];}}
 
 //forms
 function capture_element(ob){
-	var ty=ob.type.split('-')[0];
-	if(ty=='text' || ty=='number')return {name:ob[i].name,value:ob[i].value};
-	else if(ty=='select')return {name:ob[i].name,value:ob[i].options[ob[i].selectedIndex].value};}
+var ty=ob.type.split('-')[0];
+if(ty=='text' || ty=='number')return {name:ob[i].name,value:ob[i].value};
+else if(ty=='select')return {name:ob[i].name,value:ob[i].options[ob[i].selectedIndex].value};}
 
 function captureform(name){
-	var ob=document.forms[name];
-	var fd=new FormData();
-	if(ob)for(i=0;i<ob.length;i++){
-		var res=capture_element(ob[i]);
-		fd.append(res.name,res.value);}
-	return fd;}
+var ob=document.forms[name];
+var fd=new FormData();
+if(ob)for(i=0;i<ob.length;i++){
+	var res=capture_element(ob[i]);
+	fd.append(res.name,res.value);}
+return fd;}
 
 function sendform(target,action,form){
-	if(form)var fd=captureform(form);
-	ajax_req(target,action,fd);}
+if(form)var fd=captureform(form);
+ajax_req(target,action,fd);}

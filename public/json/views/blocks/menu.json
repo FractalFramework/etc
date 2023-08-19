@@ -2,7 +2,7 @@
     [
         "div",
         {
-            "class":"frame"
+            "class":"pane"
         },
         "{menu}"
     ]

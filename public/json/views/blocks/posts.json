@@ -27,7 +27,7 @@
                     [
                         "span",
                         {"class":"info"},
-                        "{tracks_nb} {tracks_nb_title}"
+                        "{tracks_nb} {tracks_nb}"
                     ]
                 ]
             ],

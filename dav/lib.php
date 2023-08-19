@@ -24,6 +24,7 @@ function div($v,$c='',$d='',$s=''){return tag('div',['class'=>$c,'id'=>$d,'style
 function span($v,$c='',$d='',$s=''){return tag('span',['class'=>$c,'id'=>$d,'style'=>$s],$v);}
 function h2($v,$c=''){return tag('h2',['class'=>$c],$v);}
 function h3($v,$c=''){return tag('h3',['class'=>$c],$v);}
+function img($d,$p=[]){return taga('img',['src'=>$d]+$p);}
 
 function atj($d,$j){return $d.'('.implode_j($j).');';}
 function bt($v,$j,$pj=[],$c='',$p=[]){return tag('button',['onclick'=>atj($j,$pj),'class'=>$c]+$p,$v);}
@@ -141,6 +142,28 @@ while($f=readdir($dir)){$drb=$dr.'/'.$f;
 if(is_dir($drb) && $f!='..' && $f!='.'){rmdir_r($drb); if(is_dir($drb))rmdir($drb);}
 elseif(is_file($drb)){unlink($drb); $drb.br();}} if(is_dir($dr))rmdir($dr);}
 
+//files
+function curl_get_contents($f,$post=[],$json=0){
+$c=curl_init(); curl_setopt($c,CURLOPT_URL,$f); $er='';
+curl_setopt($c,CURLOPT_HTTPHEADER,$json?['accept: application/json','content-type: application/json']:[]);
+if(is_array($post))$post=http_build_query($post);
+if($post){curl_setopt($c,CURLOPT_POST,TRUE); curl_setopt($c,CURLOPT_POSTFIELDS,$post);}
+curl_setopt($c,CURLOPT_USERAGENT,$_SERVER['HTTP_USER_AGENT']);
+curl_setopt($c,CURLOPT_RETURNTRANSFER,1); curl_setopt($c,CURLOPT_FOLLOWLOCATION,1);
+curl_setopt($c,CURLOPT_SSL_VERIFYPEER,0); curl_setopt($c,CURLOPT_SSL_VERIFYHOST,0);
+curl_setopt($c,CURLOPT_REFERER,host()); curl_setopt($c,CURLOPT_CONNECTTIMEOUT,2);
+curl_setopt($c,CURLOPT_ENCODING,'UTF-8'); $enc=curl_getinfo($c,CURLINFO_CONTENT_TYPE);
+$ret=curl_exec($c); if($ret===false)$er=curl_errno($c);
+curl_close($c); if($er)er($er); else return $ret;}
+
+function getfile($f){return curl_get_contents($f);}
+function putfile($f,$d){$e=file_put_contents($f,$d,LOCK_EX); opcache($f);
+if($e!==false)return 1;}
+
+function ftime($f,$d=''){if(is_file($f))return date($d?$d:'ymd.Hi',filemtime($f));}
+function fsize($f,$o=''){if(is_file($f))return round(filesize($f)/1024,1).($o?' Ko':'');}
+function opcache($d){if(!cnfg('local'))opcache_invalidate($d);}
+
 //str
 function strto($v,$s){$p=mb_strpos($v??'',$s); return $p!==false?mb_substr($v,0,$p):$v;}
 function struntil($v,$s){$p=mb_strrpos($v??'',$s); return $p!==false?mb_substr($v,0,$p):$v;}
@@ -182,6 +205,20 @@ if(is_array($r))foreach($r as $k=>$v){$td=''; $i++; $tag=$i==1&&$head?'th':'td';
 $ret=tagb('table',tagb('tbody',$tr));
 if($frame)$ret=tag('div',['width'=>'100%','height'=>'400px','overflow'=>'auto','scrollbar-width'=>'thin'],$ret);
 return $ret;}
+
+//tabs
+function tabs($r,$id='tab1',$c=''){
+$b=0; $mnu=''; $ret=''; $sp=span(' ','space');
+if($r)foreach($r as $k=>$v){$b++;
+    $dsp=$b==1?'block':'none'; $cs=$b==1?'active':'';
+    $mnu.=span(btj($k,'tabs',[$id,$b]),$cs).$sp;
+    $ret.=div($v,$c,'div'.$id.$b,'display:'.$dsp);}
+return div($mnu,'tabs','mn'.$id).$ret;}
+
+//scroll
+function scroll($d,$max=10,$w='',$h='',$id=''){$h=is_numeric($h)?$h.'px':$h;
+$s=$w?'width:'.$w.'px; ':''; $s.='max-height:'.($h?$h:'420px').';';
+$c=strlen($d)>$max?'scroll':''; return div($d,$c,$id,$s);}
 
 //ses
 function voc($d){$r=sesmk('json::call','lang/voc',0); return nbsp($r[$d]??$d);}

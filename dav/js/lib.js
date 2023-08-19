@@ -31,3 +31,10 @@ window.history.replaceState(r,j,u);}
 //window.addEventListener('popstate',function(e){restorestate(e.state);});
 window.onpopstate=function(e){restorestate(e.state);}
 window.onload=function(e){startstate(state);}
+
+//tabs
+function tabs(id,n){
+var mnu=getbyid('mn'+id).getElementsByTagName("a");
+for(i=0;i<mnu.length;i++){var b=i+1;
+    if(b==n){mnu[i].parentNode.className='active'; getbyid('div'+id+b).style.display='block';}
+    else{mnu[i].parentNode.className=''; getbyid('div'+id+b).style.display='none';}}}

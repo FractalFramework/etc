@@ -6,7 +6,7 @@
             [
                 "div",
                 {
-                    "class":"frame"
+                    "class":"pane"
                 },
                 "{footer}"
             ]

@@ -1,13 +1,14 @@
 <?php
 class blocks{
 
-    static $rb=[];
+    static $defaults=['surname'=>'etc','slogan'=>'...','banner'=>'','logo'=>''];
 
     static function banner($p){
         [$a,$b]=vals($p,['a','b']);
         $id=ses('uid'); if(!$id)$id=cnfg('usrhome');
         $r=sql::read('surname,slogan,banner,logo','profile2','a',$id);
-		if(is_img($d=$r['banner']))$r['banner']='url('.$d.')';
+        if(!$r)$r=self::$defaults;
+		if(is_img($r['banner']??''))$r['banner']='url(/img/'.$r['banner'].')';
         $ret=view::call('blocks/banner',$r);
         return $ret;
     }

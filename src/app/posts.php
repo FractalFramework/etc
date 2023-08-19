@@ -1,6 +1,15 @@
 <?php
 class posts{
 
+    static function save($p){
+        [$a,$b,$c,$d]=vals($p,['cat','tit','exc','msg']);
+        $catid=sql::read('id','cats','v',['category'=>$a]);
+        if(!$catid)$catid=sql::sav('cats',[$a]);
+        $ex=sql::sav('posts',[ses('uid'),$catid,$b,$c,$d,0,sqldate()],0);
+        if($ex)return div(voc('saved'),'frame-green');
+        else return div(voc('error'),'frame-red');
+    }
+
     static function edit($p){
         [$a,$b]=vals($p,['a','b']);
         $r=sql::read('id,title,category,excerpt,content,up','posts','a',['id'=>$a]);
@@ -22,7 +31,7 @@ class posts{
         $ret.=div(textarea('exc','',64,2));
         $ret.=div(label('msg',voc('message'),'btn'));
         $ret.=div(textarea('msg','',64,12));
-        $ret.=bj(voc('send'),'tgmail|contact,save||name,mail,msg','btsav');
+        $ret.=bj(voc('send'),'tgmail|posts,save||cat,tit,exc,msg','btsav');
         $ret.=div('','','tgmail');
         return $ret;
     }
@@ -31,7 +40,7 @@ class posts{
         [$a,$b]=vals($p,['a','b']);
         //$r=sql::read2('id,title,catid,excerpt,content,up','posts','a',['id'=>$a]);
         //$r['category']=sql::read('category','cats','v',['id'=>$r['catid']]);
-        $r=sql::inner('uid,title,category,excerpt,date_format(b2.up,"%d/%m/%Y") as up','cats','posts','catid','a',['b2.id'=>$a],0);
+        $r=sql::inner('uid,title,category,excerpt,date_format(lastup,"%d/%m/%Y") as up','cats','posts','catid','a',['b2.id'=>$a],0);
         $r['date']=$r['up'];//day()
         $r['author']=sql::read('name','users','v',['id'=>$a]);
         $r['tracks']=tracks::call($p);
