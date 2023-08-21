@@ -38,7 +38,7 @@ foreach($r as $k=>$v){
 	elseif($ty=='int')$d=inpnb($rid,$va);
 	elseif($ty=='date' or $ty=='time')$d=inpdate($rid,$va?$va:sqldate(),1);
 	else $d=input($rid,$va,'',$rp);
-	$rt[]=div($d.label($id,$id,'btn'));}
+	$rt[]=div($d.' '.label($rid,$id,'btn'));}
 return join('',$rt);}
 
 static function call($ra,$r=[]){$rt=[];

@@ -22,8 +22,11 @@ function tagc($b,$c,$d){return '<'.$b.atr(['class'=>$c]).'>'.$d.'</'.$b.'>';}
 function lk($v,$u,$c='',$p=[]){return tag('a',['href'=>$u,'class'=>$c]+$p,$v);}
 function div($v,$c='',$d='',$s=''){return tag('div',['class'=>$c,'id'=>$d,'style'=>$s],$v);}
 function span($v,$c='',$d='',$s=''){return tag('span',['class'=>$c,'id'=>$d,'style'=>$s],$v);}
+function h1($v,$c=''){return tag('h1',['class'=>$c],$v);}
 function h2($v,$c=''){return tag('h2',['class'=>$c],$v);}
 function h3($v,$c=''){return tag('h3',['class'=>$c],$v);}
+function h4($v,$c=''){return tag('h4',['class'=>$c],$v);}
+function block($v,$c=''){return tag('blockquote',['class'=>$c],$v);}
 function img($d,$p=[]){return taga('img',['src'=>$d]+$p);}
 
 function atj($d,$j){return $d.'('.implode_j($j).');';}
@@ -200,7 +203,7 @@ if(is_array($head)){array_unshift($r,$head); $head=1;}
 if(is_array($r))foreach($r as $k=>$v){$td=''; $i++; $tag=$i==1&&$head?'th':'td';
     if($keys)$td.=tagb($tag,$k);
     if(is_array($v))foreach($v as $ka=>$va)$td.=tagb($tag,$va);
-    else $td.=tagb($tag,$k).tagb($tag,$v);
+    else $td.=tagb('th',$k).tagb($tag,$v);
     if($td)$tr.=tagb('tr',$td);}//ats('valign','top')
 $ret=tagb('table',tagb('tbody',$tr));
 if($frame)$ret=tag('div',['width'=>'100%','height'=>'400px','overflow'=>'auto','scrollbar-width'=>'thin'],$ret);

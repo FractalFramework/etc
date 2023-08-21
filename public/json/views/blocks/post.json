@@ -7,7 +7,7 @@
         [
             [
                 "h2",
-                {},
+                {"class":"title"},
                 "{title}"
             ],
             [
@@ -28,6 +28,11 @@
                         "span",
                         {"class":"category"},
                         "{category}"
+                    ],
+                    [
+                        "span",
+                        {},
+                        "{edit}"
                     ]
                 ]
             ],

@@ -9,7 +9,11 @@ $ra=db::cols_k($b);
 $rd=walk($ra,'unid');
 $rb=vals($p,$rd);
 $rt=array_combine($ra,$rb);
-return sql::sav($b,$rt,1);}
+$nid=sql::sav($b,$rt);
+if($nid)$ret=div(voc('saved'),'frame-green');
+else $ret=div(voc('error'),'frame-red');
+$ret.=bj(voc('return'),'content|edit,call|a='.$b.',b=read,c='.$nid,'btn');
+return $ret;}
 
 static function update($p){
 [$b,$id]=vals($p,['b','id']); 
@@ -19,12 +23,34 @@ $ra=db::cols_k($b);
 $rd=walk($ra,'unid');
 $rb=vals($p,$rd);
 $rt=array_combine($ra,$rb);
-return sql::upd($b,$rt,$id);}
+$nid=sql::upd($b,$rt,$id);
+if($nid)$ret=div(voc('saved'),'frame-green');
+else $ret=div(voc('error'),'frame-red');
+$ret.=bj(voc('return'),'content|edit,call|a='.$b.',b=read,c='.$id,'btn');
+return $ret;}
+
+static function create($p){$r=[];
+[$b,$id,$rid]=vals($p,['b','id','rid']);
+$ra=db::cols_r($b); if(!$ra)return;
+//if($b && $id)$r=sql::read('all',$b,'a',$id,0);
+$keys=implode(',',walk(array_keys($ra),'unid'));
+$ret=bj(voc('save'),$rid.'|edit,save|b='.$b.',id='.$id.'|'.$keys,'btsav');
+$ret.=form::call($ra,$r);
+return $ret;}
+
+static function form($p){$r=[];
+[$b,$id,$rid]=vals($p,['b','id','rid']);
+$ra=db::cols_r($b); if(!$ra)return;
+if($b && $id)$r=sql::read('all',$b,'a',$id,0);
+$keys=implode(',',walk(array_keys($ra),'unid'));
+$ret=bj(voc('update'),$rid.'|edit,update|b='.$b.',id='.$id.'|'.$keys,'btsav');
+$ret.=form::call($ra,$r);
+return $ret;}
 
 static function read($p){$r=[];
 [$b,$id]=vals($p,['b','id']);
 if(!$id)return er('no');
-//$cl=db::cols_s($b);
+//$ra=db::cols_k($b);
 if($id)$r=sql::read('all',$b,'a',$id); //pr($r);
 return tabler($r);}
 
@@ -37,17 +63,19 @@ $rt=walk($r,'edit::lk');
 $ret=join('',$rt);
 return div($ret,'menu');}
 
+static function menu($a,$c){
+$r=['read','edit','create']; $rt=[];
+foreach($r as $k=>$v)$rt[]=bh(voc($v),'edit/'.$a.'/'.$v.'/'.$c); 
+return div(join('',$rt),'menu');}
+
 static function call($p){//pr($p);
-[$a,$b,$c]=vals($p,['a','b','c']); $rid=rid($a); $r=[]; $ret=''; $sav='';
-if($b=='read' && $c)return self::read(['b'=>$a,'id'=>$c]);
-if($b=='add')$sav=1; if(!is_numeric($b))$b='';
-if(!$a)return self::list();
-$ra=db::cols_r($a);
-if($a && $b && $ra)$r=sql::read('all',$a,'a',$b,0);
-$keys=implode(',',walk(array_keys($ra),'unid'));
-if($b)$com='update'; elseif($sav)$com='save'; else $com='read';
-if($ra)$ret=bj(voc('save'),$rid.'|edit,'.$com.'|b='.$a.',id='.$b.'|'.$keys,'btsav');
-if($com!='read')$ret.=form::call($ra,$r);
-return $ret.div($ret,'',$rid);}
+[$a,$b,$c]=vals($p,['a','b','c']); $rid=rid($a);
+$pr=['b'=>$a,'id'=>$c,'rid'=>$rid];
+if($b=='read' && $c)$ret=self::read($pr);
+elseif($b=='edit' && $c)$ret=self::form($pr);
+elseif($b=='create')$ret=self::create($pr);
+else $ret=self::list();
+$bt=self::menu($a,$c);
+return $bt.div($ret,'',$rid);}
 
 }

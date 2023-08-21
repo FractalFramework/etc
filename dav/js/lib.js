@@ -22,7 +22,7 @@ bjcall(st.j); document.title=st.t;}
 function startstate(st){
 var u=document.URL; var t=document.title;
 var a=und(st.a); if(!a)a='home';
-var j=jbase+'|a='+a+',b='+und(st.b)+',c='+und(st.c);
+var j=jbase+'|a='+a+',b='+und(st.b)+',c='+und(st.c)+',dc='+und(st.d);
 var r={u:u,j:j,t:t};
 var h=window.location.hash;
 //if(h){h=decodeURIComponent(h.substring(1)); var i=rha.get(h); r={u:u,j:j,t:t,i:i};}
@@ -38,3 +38,7 @@ var mnu=getbyid('mn'+id).getElementsByTagName("a");
 for(i=0;i<mnu.length;i++){var b=i+1;
     if(b==n){mnu[i].parentNode.className='active'; getbyid('div'+id+b).style.display='block';}
     else{mnu[i].parentNode.className=''; getbyid('div'+id+b).style.display='none';}}}
+
+//edit
+function execom(d){var u=null; if(d=='createLink')u=prompt('Url'); document.execCommand(d,false,u);}
+function execom2(d){document.execCommand('formatBlock',false,'<'+d+'>'); getbyid('wygs').value='no';}

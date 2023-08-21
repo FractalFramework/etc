@@ -1,4 +1,4 @@
 {
     "sql":{"del":6},
-    "edit":{"save":6,"update":6,"call":4}
+    "edit":{"save":6,"update":6,"call":4,"form":5}
 }

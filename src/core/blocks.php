@@ -25,7 +25,7 @@ class blocks{
         if(auth(4))$rb[]=bh(icovoc('plus','create_bt'),'create');
         if(auth(1))$rb[]=bh(icovoc('user','user_bt'),'user');
         if(auth(6))$rb[]=bh(icovoc('admin','admin_bt'),'admin');
-        $rc['menu']=div(join('',$rb),'menu');
+        $rc['menu']=div(join('',$rb));
         $ret=view::call('blocks/menu',$rc);
         return $ret;
     }
@@ -50,6 +50,7 @@ class blocks{
         return match($a){//todo:resolve blocks in #body
             'post'=>posts::read($p),
             'create'=>auth(4)?posts::form($p):self::forbidden(),
+            'edit'=>auth(4)?posts::edit($p):self::forbidden(),
             'home'=>posts::call($p),
             default=>posts::call($p),
         };

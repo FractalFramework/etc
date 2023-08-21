@@ -246,7 +246,7 @@ So the protocole is strict, multiple, complex, and it can be used in one or anot
 
 `sql::read()` is our friend. It use the two protocoles, the one of the arrays, and the one of the construction of a prepared query from an array.
 
-### Boot
+## Boot
 
 The sql motor is loaded one time for ever. And closed and the end of the script.
 The codes of connection to the database does not roam freely in the code.
@@ -255,7 +255,7 @@ The codes of connection to the database does not roam freely in the code.
 
 We can switch of basename during the script.
 
-### Create
+## Db
 
 We can create and modify a database : 
 
@@ -308,7 +308,7 @@ For your information, a templater is not a complex thing. It deleguate the rende
 
 Actually, the templater consists only in that code :
 
-    `static function build($r,$ra,$rc){$ret='';
+    static function build($r,$ra,$rc){$ret='';
     foreach($r as $k=>$v){[$c,$p,$d]=$v;
         if(is_array($d))$d=self::build($d,$ra,$rc);
         else $d=str_replace($rc,$ra,$d);

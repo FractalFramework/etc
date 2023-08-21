@@ -52,7 +52,7 @@ class tracks{
         [$a,$b]=vals($p,['a','b']);
         $r['tracks_title']=voc('tracks_title');
         $r['tracks_nb']=sql::read('count(id)','tracks','v',['bid'=>$a,'pub'=>1]);
-        $r['tracks_nb_title']=voc('tracks_nb');
+        $r['tracks_nb_title']=voc('tracks_nb_title');
         if(ses('uid'))$r['let_track']=bjtog(icovoc('asterix','let_track'),'let_track|tracks,form|a='.$a);
         else $r['let_track']=bh(voc('need_auth'),'login');
         $r['tracks']=self::stream($p);

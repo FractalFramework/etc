@@ -12,7 +12,7 @@ class admin{
     static function switchbt($id,$pub,$b){
         $bt=$pub?voc('on'):voc('off');
         $c=$pub?'btsav':'btdel';
-        $ret=bj($bt,$b.$id.'|admin,pub|id='.$id.',b='.$b,$c);
+        $ret=bj($bt,$b.'pub'.$id.'|admin,pub|id='.$id.',b='.$b,$c);
         return $ret;
     }
 
@@ -21,7 +21,7 @@ class admin{
         $r=sql::inner('b2.id,name,'.$cnt.',pub','users',$b,'uid','ra',['_order'=>'pub asc']);
         foreach($r as $k=>$v){
             $r[$k]['id']=bh($v['id'],'post/'.$v['id'],'btn');
-            $r[$k]['pub']=div(self::switchbt($v['id'],$v['pub'],$b),'',$b.$v['id']);
+            $r[$k]['pub']=div(self::switchbt($v['id'],$v['pub'],$b),'',$b.'pub'.$v['id']);
         }
         return tabler($r,['id','author',$cnt,'pub']);
     }

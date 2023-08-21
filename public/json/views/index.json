@@ -17,8 +17,14 @@
             ],
             [
                 "div",
-                {"id":"content"},
-                "{content}"
+                {"class":"wrapper"},
+                [
+                    [
+                    "div",
+                    {"id":"content"},
+                    "{content}"
+                    ]
+                ]
             ],
             [
                 "footer",

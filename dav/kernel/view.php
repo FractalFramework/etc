@@ -13,12 +13,16 @@ foreach($r as $k=>$v)
 		$rv[]=substr($v[2],1,-1);}
 return $rv;}
 
-static function save($a,$d){
-$f=self::file($a);
-mkdir_r($f);
-file_put_contents($f,$d);}
+static function trigger($a){
+$f=self::file($a); $fb=json::file(self::$json_views.$a);
+$d1=ftime($f); $d2=ftime($fb);
+if($d2>$d1){return $f; ses::er('saved: '.$f);}}
 
-static function save_empty($a){
+static function save($a,$d){
+if($f=self::trigger($a)){//mkdir_r($f);
+file_put_contents($f,$d);}}
+
+static function save_html($a){
 $r=json::call(self::$json_views.$a); $d='';
 if($r)$d=self::build($r,[],[]);
 self::save($a,$d);}
@@ -37,9 +41,9 @@ if($ra)foreach($ra as $k=>$v)$rc[$k]='{'.$k.'}';
 if($r)$ret=self::build($r,$ra,$rc);
 return $ret;}
 
-static function call($a,$ra,$o=''){
+static function call($a,$ra){
 $r=json::call(self::$json_views.$a); $ret='';
 if($r)$ret=self::com($r,$ra);
-if($o or ses::cnfg('savehtml'))self::save_empty($a);
+if(ses::cnfg('savehtml'))self::save_html($a);
 return $ret;}
 }

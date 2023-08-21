@@ -46,8 +46,12 @@ _bckp
 _sql
 _old
 _notes
+nodejs
+node_modules
 _trash.php
 cnfg/wapp.ovh.php
 settings.json
 dwsync.xml
 *.sh
+*.xml
+package-lock.json

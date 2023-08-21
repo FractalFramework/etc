@@ -4,7 +4,8 @@ get('a','home');//default app
 $g=ses::gets();
 boot::call();
 
-css::build('styles');
+css::build('lib');
+css::build('core');
 
 head::json('cnfg/headers');
 head::add('jscode','state='.json_encode($g).';

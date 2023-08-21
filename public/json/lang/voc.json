@@ -18,6 +18,7 @@
     "register?":"nan mais si tu veux je te crée un compte",
     "registered":"ayé on te connaîtra maintenant",
     "notregistered":"enh bah comment dire, non",
+    "first_user":"premier arrivé, premier admin",
 
     "hello":"saluuuuuut",
     "logout":"ouais c'est ça, bonjour et au revoir !",
@@ -39,14 +40,14 @@
     "create_bt":"nouveau truc",
     "user_bt":"profil personnel",
     "admin_bt":"bureau du patron",
-    "tracks":"bavardages",
-    "tracks_nb":"bafouille(s)",
+    "tracks_title":"bavardages",
+    "tracks_nb_title":"bafouille(s)",
     "new_track":"dis-le, mais dis-le !",
     "let_track":"ajoute ton grain de sel",
     "pending_track":"on va vérifier quand même si tu ne dis pas trop de c**ner*es",
     "tracks_moderation":"modération de commentaires",
-    "posts":"articles en pagaille",
-    "posts_nb":"articles(s)",
+    "posts_title":"articles en pagaille",
+    "posts_nb_title":"rédaction(s)",
     "posts_moderation":"modération d'articles",
 
     "save":"sauve",
@@ -54,6 +55,11 @@
     "error":"oulalaaa",
     "on":"allumé",
     "off":"éteint",
-    "first_user":"premier arrivé, premier admin"
+    "read":"état des lieux",
+    "edit":"modif un truc",
+    "create":"tout neuf",
+    "update":"modif",
+    "return":"allez on se casse de là",
+    "edit_post":"modif"
 
 }

@@ -6,7 +6,10 @@
         "link":["shortcut icon","/favicon.ico"]
     },
     {
-        "css":"styles"
+        "css":"lib"
+    },
+    {
+        "css":"core"
     },
     {
         "js":"lib"
