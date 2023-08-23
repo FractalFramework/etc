@@ -8,7 +8,7 @@ class main{
     static function read($a,$g){$rb=[];
         $r=json::call('views/'.$a);
         $ra=view::vars($r);
-        //$ra=['banner','menu','content','footer'];
+        //$ra=['banner','nav','content','footer'];
         foreach($ra as $k=>$v)$rb[$v]=blocks::call(['a'=>$v]+$g);
         $ret=view::com($r,$rb);
         if(ses::cnfg('savehtml'))view::save_html($a);

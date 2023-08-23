@@ -2,22 +2,23 @@
     [
         "div",
         {
-            "id":"page"
+            "id":"page",
+            "class":"grid"
         },
-        [            
+        [
             [
                 "header",
-                {},
+                {"class":"grid-top"},
                 "{banner}"
             ],
             [
                 "nav",
-                {"id":"menu"},
-                "{menu}"
+                {"id":"nav","class":"grid-left"},
+                "{nav}"
             ],
             [
                 "div",
-                {"class":"wrapper"},
+                {"class":"grid-right wrapper"},
                 [
                     [
                     "div",
@@ -28,7 +29,7 @@
             ],
             [
                 "footer",
-                {},
+                {"class":"grid-r3 grid-c2"},
                 "{footer}"
             ]
         ]

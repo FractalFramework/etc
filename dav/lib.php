@@ -163,7 +163,7 @@ function getfile($f){return curl_get_contents($f);}
 function putfile($f,$d){$e=file_put_contents($f,$d,LOCK_EX); opcache($f);
 if($e!==false)return 1;}
 
-function ftime($f,$d=''){if(is_file($f))return date($d?$d:'ymd.Hi',filemtime($f));}
+function ftime($f,$d=''){if(is_file($f))return date($d?$d:'ymd.His',filemtime($f));}
 function fsize($f,$o=''){if(is_file($f))return round(filesize($f)/1024,1).($o?' Ko':'');}
 function opcache($d){if(!cnfg('local'))opcache_invalidate($d);}
 
@@ -225,8 +225,8 @@ $c=strlen($d)>$max?'scroll':''; return div($d,$c,$id,$s);}
 
 //ses
 function voc($d){$r=sesmk('json::call','lang/voc',0); return nbsp($r[$d]??$d);}
-function ico($d){$r=sesmk('json::call','lang/ico',0); return $r[$d]??'';}
-function icovoc($d,$b){return ico($d).sp().voc($b);}
+function ico($d){$r=sesmk('json::call','lang/ico',0); return span($r[$d]??'','ico');}
+function icovoc($d,$b,$c=''){return ico($d).thin().span(voc($b),$c);}
 
 //ops
 function rid($p=''){return $p.substr(microtime(),2,7);}

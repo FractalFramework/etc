@@ -49,6 +49,8 @@
     "posts_title":"articles en pagaille",
     "posts_nb_title":"rédaction(s)",
     "posts_moderation":"modération d'articles",
+    "article":"rédaction",
+    "articles":"rédactions",
 
     "save":"sauve",
     "saved":"on est sauvés !",

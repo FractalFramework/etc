@@ -2,54 +2,15 @@
     "#page":{
         "width":"calc(100vw - 40px)",
         "max-width":"1000px",
-        "padding":"10px",
+        "padding":"0 10px",
         "margin":"auto"
     },
-    "nav":{
-        "padding":"0px"
-    },
-    "nav a":{
-        "color":"#333",
-        "margin":"2px 4px",
-        "padding":"1px 4px",
-        "font-size":"small",
-        "border-color":"#d9d9d9",
-        "border-style":"solid",
-        "border-width":"0 0 6px",
-        "text-decoration":"none",
-        "background-color":"white"
-    },
-    "nav a:hover":{
-        "color":"#111",
-        "border-color":"#797979"
-    },
-    "nav a.active":{
-        "color":"#111",
-        "border-color":"#797979"
-    },
-    "nav a.home:hover":{"border-color":"#c40000"},
-    "nav a.cats:hover":{"border-color":"#bdb42c"},
-    "nav a.contact:hover":{"border-color":"#4cbd2c"},
-    "nav a.admin:hover":{"border-color":"#0d83ec"},
-
-    ".wrapper":{
-        "padding":"16px",
-        "background-color":"#ffffffc7",
-        "border-width":"1px",
-        "border-color":"grey",
-        "border-style":"solid",
-        "color":"#222"
-    },
-    ".wrapper a":{
-        "text-decoration":"none",
-        "color":"#222"
-    },
     ".banner":{
-        "padding":"8px 16px",
+        "padding":"0px",
         "width":"auto",
-        "height":"140px",
         "background-position":"contain",
-        "background-image":"linear-gradient(#797979,#4a4a4a)"
+        "background-image":"linear-gradient(#797979,#4a4a4a)",
+        "text-align":"center"
     },
     ".content":{
         "font-family":"Lucida Console",
@@ -60,39 +21,94 @@
         "border-style":"solid",
         "border-width":"1px"
     },
-    ".tracks":{
+    ".wrapper":{
+        "padding":"16px",
+        "color":"#222",
+        "background-color":"#fffc",
+        "border-width":"0px",
+        "border-color":"grey",
+        "border-style":"solid",
+        "height":"calc(100vh - 120px)",
+        "overflow-y":"auto",
+        "overflow-x":"hidden",
+        "word-wrap":"break-word",
+        "scrollbar-width":"thin"
+    },
+    ".wrapper a":{
+        "text-decoration":"none"
+    },
+
+    "nav":{
+        "padding":"0px"
+    },
+    "nav a":{
+        "color":"#333",
+        "margin":"4px",
+        "color":"#aaa",
+        "padding":"0px 8px 4px",
+        "font-size":"larger",
+        "border-color":"#d9d9d9",
+        "border-style":"solid",
+        "border-width":"0px",
+        "text-decoration":"none",
+        "background-color":"none",
+        "display":"block",
+        "transition":"all 0.3s ease"
+    },
+    "nav a:hover,nav a.active":{
+        "color":"#fff",
+        "background-color":"#0000004a"
+    },
+    "nav .line":{
+        "padding":"4px 8px",
+        "margin":"8px 8px",
+        "border-bottom":"1px double #8a8a8a"
+    },
+    "nav .ico":{"font-size":"22px"},
+    "nav a.home:hover":{"border-color":"#c40000"},
+    "nav a.cats:hover":{"border-color":"#bdb42c"},
+    "nav a.contact:hover":{"border-color":"#4cbd2c"},
+    "nav a.admin:hover":{"border-color":"#0d83ec"},
+
+    ".blog-title":{
+        "font-size":"x-large",
+        "display":"inline-block",
         "padding":"16px"
     },
-    ".track":{
-        "padding":"16px",
-        "color":"#444",
-        "background-color":"#9f9f9f2e"
+    ".blog-subtitle":{
+        "font-size":"large",
+        "display":"inline-block",
+        "padding":"16px"
+    },
+    ".title":{
+        "font-size":"large"
+    },
+    ".title-small":{
+        "margin":"6px 0",
+        "font-transform":"capitalize"
     },
     ".excerpt":{
         "font-family":"Lucida Console",
         "font-size":"big",
-        "padding":"10px 0px",
+        "padding":"4px 0px",
         "color":"red"
     },
 
-    ".blog-title":{
-        "font-size":"big",
-        "margin":"16px 16px"
+    ".tracks":{
+        "padding":"0px"
     },
-    ".blog-subtitle":{
-        "font-size":"big",
-        "padding":"16px 16px",
-        "background-color":"#faebd79c"
+    ".track":{
+        "padding":"6px 16px",
+        "color":"#444",
+        "background-color":"#9f9f9f2e"
     },
-    ".slogan":{
-        "margin":"0px",
-        "color":"black"
+    ".tracks_title":{
+        "padding":"16px 0 0"
     },
-    ".title":{
-        "font-size":"big"
+    ".track_form":{
+        "padding":"16px 0"
     },
-    ".title-small":{
-        "margin":"0px"
+    ".track_form a":{
     },
     
     ".menu":{
@@ -110,17 +126,13 @@
         "text-decoration":"none",
         "background-color":"white"
     },
-    ".menu a:hover":{
-        "color":"#111",
-        "border-color":"#797979"
-    },
-    ".menu a.active":{
+    ".menu a:hover, .menu a.active":{
         "color":"#111",
         "border-color":"#797979"
     },
 
     ".pane":{
-        "font-size":"big",
+        "font-size":"12px",
         "padding":"6px 16px",
         "margin":"0px",
         "background-color":"#faebd747"

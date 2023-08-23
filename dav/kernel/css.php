@@ -15,7 +15,9 @@ static function save($a,$d){
 if($f=self::trigger($a)){file_put_contents($f,$d); ses::er('saved: '.$f);}}
 
 static function read($r){$rt=[];
-foreach($r as $k=>$v)$rt[]=$k.'{'.implode_k($v,':','; ').'}';
+foreach($r as $k=>$v)
+if(is_array(current($v)))$rt[]=$k.'{'.self::read($v).'}';
+else $rt[]=$k.'{'.implode_k($v,':','; ').'}';
 return implode(n(),$rt);}
 
 static function build($a){

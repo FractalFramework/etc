@@ -7,7 +7,7 @@
         },
         [
             [
-                "h1",
+                "div",
                 {
                     "class":"blog-title"
                 },
@@ -18,13 +18,7 @@
                 {
                     "class":"blog-subtitle"
                 },
-                [
-                    [
-                        "h2",
-                        {"class":"slogan"},
-                        "{slogan}"
-                    ]
-                ]
+                "{slogan}"
             ]
         ]
     ]

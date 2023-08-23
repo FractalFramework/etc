@@ -13,20 +13,22 @@ class blocks{
         return $ret;
     }
 
-    static function menu($p){$rb=[];
+    static function nav($p){$rb=[];
         //$rb[]=bj('home','wrapper|blocks,content');
-        $rb[]=bh(icovoc('home','home_bt'),'home');
+        $rb[]=bh(icovoc('home','home_bt','react'),'home');
         //$r=sql::read('distinct(catid)','posts','w',['pub'=>1]);
-        $r=sql::inner('distinct(category)','cats','posts','catid','rv','where pub>0');
-        foreach($r as $k=>$v)$rb[]=bh(icovoc('folder',$v),'posts/'.$v);
-        $rb[]=bh(icovoc('mail','contact_bt'),'contact');
-        $rb[]=bh(icovoc('search','search_bt'),'search');
-        $rb[]=bh(icovoc('login','login_bt'),'login');
-        if(auth(4))$rb[]=bh(icovoc('plus','create_bt'),'create');
-        if(auth(1))$rb[]=bh(icovoc('user','user_bt'),'user');
-        if(auth(6))$rb[]=bh(icovoc('admin','admin_bt'),'admin');
+        //$r=sql::inner('distinct(category)','cats','posts','catid','rv','where pub>0');
+        //foreach($r as $k=>$v)$rb[]=bh(icovoc('folder',$v),'posts/'.$v);
+        $rb[]=bh(icovoc('folder','articles','react'),'posts');
+        $rb[]=bh(icovoc('mail','contact_bt','react'),'contact');
+        $rb[]=bh(icovoc('search','search_bt','react'),'search');
+        if(auth(4))$rb[]=bh(icovoc('plus','create_bt','react'),'create');
+        $rb[]=div('','line');
+        $rb[]=bh(icovoc('login','login_bt','react'),'login');
+        if(auth(1))$rb[]=bh(icovoc('user','user_bt','react'),'user');
+        if(auth(6))$rb[]=bh(icovoc('admin','admin_bt','react'),'admin');
         $rc['menu']=div(join('',$rb));
-        $ret=view::call('blocks/menu',$rc);
+        $ret=view::call('blocks/nav',$rc);
         return $ret;
     }
 
