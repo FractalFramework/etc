@@ -6,7 +6,7 @@
         },
         [
             [
-                "h2",
+                "h1",
                 {"class":"title"},
                 "{title}"
             ],
@@ -28,11 +28,6 @@
                         "span",
                         {"class":"category"},
                         "{category}"
-                    ],
-                    [
-                        "span",
-                        {},
-                        "{edit}"
                     ]
                 ]
             ],
@@ -40,6 +35,11 @@
                 "div",
                 {"class":"excerpt"},
                 "{excerpt}"
+            ],
+            [
+                "div",
+                {"id":"editbt"},
+                "{editbt}"
             ],
             [
                 "div",

@@ -28,7 +28,7 @@
     "title":"grand titre en grand qui sera répété plein de fois et vu par tous",
     "category":"classer dans...",
 
-    "search":"chercher un truc",
+    "search":"va chercher !",
     "post":"oooh",
     "forbiden_access":"hola oh tu te crois où ?",
     "forbiden":"Halte-là !",
@@ -62,6 +62,9 @@
     "create":"tout neuf",
     "update":"modif",
     "return":"allez on se casse de là",
-    "edit_post":"modif"
+    "edit_post":"modif",
+    "zero":"0",
+    "result":"résultat",
+    "results":"résultat(s)"
 
 }

@@ -8,7 +8,7 @@
         [
             [
                 "header",
-                {"class":"grid-top"},
+                {"class":"grid-ban"},
                 "{banner}"
             ],
             [
@@ -18,7 +18,7 @@
             ],
             [
                 "div",
-                {"class":"grid-right wrapper"},
+                {"class":"wrapper grid-body"},
                 [
                     [
                     "div",
@@ -30,7 +30,13 @@
             [
                 "footer",
                 {"class":"grid-r3 grid-c2"},
-                "{footer}"
+                [
+                    [
+                        "div",
+                        {"class":"pane"},
+                        "{footer}"
+                    ]
+                ]
             ]
         ]
     ]

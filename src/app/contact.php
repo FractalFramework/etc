@@ -17,11 +17,11 @@ class contact{
     static function call($p){
         [$a,$b]=vals($p,['a','b']);
         $bt=h3(voc('contact'));
-        $ret=div(input('name','').label('name',voc('name'),'btn'));
-        $ret.=div(input('mail','').label('mail',voc('mail'),'btn'));
+        $ret=bj(icovoc('send'),'content|contact,save||name,mail,msg','btsav');
+        $ret.=div(input('name','',44).label('name',voc('name'),'btn'));
+        $ret.=div(input('mail','',44).label('mail',voc('mail'),'btn'));
         $ret.=div(label('msg',voc('message'),'btn'));
-        $ret.=div(textarea('msg',''));
-        $ret.=bj(voc('send'),'tgmail|contact,save||name,mail,msg','btsav');
+        $ret.=div(textarea('msg','','',12),'area');
         return $bt.div($ret,'','tgmail');
     }
 

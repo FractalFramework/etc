@@ -1,7 +1,7 @@
-#page{width:calc(100vw - 40px); max-width:1000px; padding:0 10px; margin:auto}
-.banner{padding:0px; width:auto; background-position:contain; background-image:linear-gradient(#797979,#4a4a4a); text-align:center}
-.content{font-family:Lucida Console; font-size:big; padding:16px; color:#444; border-color:#9f9f9f; border-style:solid; border-width:1px}
-.wrapper{padding:16px; color:#222; background-color:#fffc; border-width:0px; border-color:grey; border-style:solid; height:calc(100vh - 120px); overflow-y:auto; overflow-x:hidden; word-wrap:break-word; scrollbar-width:thin}
+#page{width:auto; max-width:1000px; padding:0px; margin:auto}
+.banner{padding:10px 8px; width:auto; background-position:contain; background-image:linear-gradient(#797979,#4a4a4a)}
+.content{font-family:Lucida Console; font-size:big; padding:8px 16px; color:#444; background-color:#fffc; border-color:#9f9f9f; border-style:solid; border-width:0px}
+.wrapper{padding:16px; color:#222; background-color:#fffc; border-width:0px; border-color:grey; border-style:solid; height:calc(100vh - 60px); overflow-y:auto; overflow-x:hidden; word-wrap:break-word; scrollbar-width:thin}
 .wrapper a{text-decoration:none}
 nav{padding:0px}
 nav a{color:#aaa; margin:4px; padding:0px 8px 4px; font-size:larger; border-color:#d9d9d9; border-style:solid; border-width:0px; text-decoration:none; background-color:none; display:block; transition:all 0.3s ease}
@@ -12,9 +12,12 @@ nav a.home:hover{border-color:#c40000}
 nav a.cats:hover{border-color:#bdb42c}
 nav a.contact:hover{border-color:#4cbd2c}
 nav a.admin:hover{border-color:#0d83ec}
-.blog-title{font-size:x-large; display:inline-block; padding:16px}
-.blog-subtitle{font-size:large; display:inline-block; padding:16px}
-.title{font-size:large}
+.menu{padding:0px; margin:6px 0}
+.menu a{color:#333; margin:2px 4px; padding:1px 4px; font-size:small; border-color:#d9d9d9; border-style:solid; border-width:0 0 2px; text-decoration:none; background-color:white}
+.menu a:hover, .menu a.active{color:#111; border-color:#797979}
+.blog-title{font-weight:bold; display:inline-block; padding:0 6px}
+.blog-subtitle{display:inline-block; padding:2px 6px}
+.title{}
 .title-small{margin:6px 0; font-transform:capitalize}
 .excerpt{font-family:Lucida Console; font-size:big; padding:4px 0px; color:red}
 .tracks{padding:0px}
@@ -22,10 +25,10 @@ nav a.admin:hover{border-color:#0d83ec}
 .tracks_title{padding:16px 0 0}
 .track_form{padding:16px 0}
 .track_form a{}
-.menu{padding:0px; margin:6px 0}
-.menu a{color:#333; margin:2px 4px; padding:1px 4px; font-size:small; border-color:#d9d9d9; border-style:solid; border-width:0 0 2px; text-decoration:none; background-color:white}
-.menu a:hover, .menu a.active{color:#111; border-color:#797979}
 .pane{font-size:12px; padding:6px 16px; margin:0px; background-color:#faebd747}
+.area textarea{font-family:Lucida Console; width:calc(100% - 12px); font-size:16px; word-wrap:break-word}
+.area input{width:calc(100% - 12px)}
+.editarea{font-family:Lucida Console; word-wrap:break-word; padding:16px; background-color:#ddd; min-height:20px; border:1px dotted #77777777}
 .author{font-weight:bold}
 .date{color:gray}
-.category{border:1px solid silver}
+.category{border:1px solid silver; padding:2px 4px}

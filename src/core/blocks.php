@@ -8,7 +8,7 @@ class blocks{
         $id=ses('uid'); if(!$id)$id=cnfg('usrhome');
         $r=sql::read('surname,slogan,banner,logo','profile2','a',$id);
         if(!$r)$r=self::$defaults;
-		if(is_img($r['banner']??''))$r['banner']='url(/img/'.$r['banner'].')';
+		if(isimg($r['banner']??''))$r['banner']='url(/img/'.$r['banner'].')';
         $ret=view::call('blocks/banner',$r);
         return $ret;
     }
@@ -21,7 +21,8 @@ class blocks{
         //foreach($r as $k=>$v)$rb[]=bh(icovoc('folder',$v),'posts/'.$v);
         $rb[]=bh(icovoc('folder','articles','react'),'posts');
         $rb[]=bh(icovoc('mail','contact_bt','react'),'contact');
-        $rb[]=bh(icovoc('search','search_bt','react'),'search');
+        //$rb[]=bh(icovoc('search','search_bt','react'),'search');
+        //$rb[]=bj(icovoc('search','search','react').' '.input('inp','',8),'content|post,engine||inp','btsav');
         if(auth(4))$rb[]=bh(icovoc('plus','create_bt','react'),'create');
         $rb[]=div('','line');
         $rb[]=bh(icovoc('login','login_bt','react'),'login');
@@ -33,9 +34,7 @@ class blocks{
     }
 
     static function footer($p){
-        [$a,$b]=vals($p,['a','b']);
-        $r['footer']='dav@2023';
-        $ret=view::call('blocks/footer',$r);
+        $ret='dav@2023';
         return $ret;
     }
 

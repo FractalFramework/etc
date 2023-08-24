@@ -60,12 +60,21 @@
     "asterix":"🞼",
     "asterix-big":"🞿",
     "plus":"➕",
-    "login":"🧑",
     "user":"😎",
     "admin":"🤪",
     "edit":"📝",
     "back":"←",
     "img":"🖼️",
     "save":"💾",
-    "modif":"💾"
+    "modif":"💾",
+    "dev":"🚧",
+    "login":"⏻",
+    "logout":"⏼",
+    "wait":"⏳",
+    "chrono":"⏰",
+    "hello":"✋",
+    "question":"❔",
+    "exclam":"❗",
+    "empty":"⌀",
+    "send":"📧"
 }

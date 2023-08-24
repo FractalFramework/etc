@@ -1,0 +1,16 @@
+{
+    "h":["h3"],
+    "b":["bold"],
+    "i":["italic"],
+    "u":["underline"],
+    "k":["strike"],
+    "q":["quote"],
+    "s":["small"],
+    "e":["exposant"],
+    "n":["indice"],
+    "list":["list"],
+    "numlist":["numlist"],
+    "clr":["color","red"],
+    "bkg":["background","yellow"],
+    "table":["table","1|2\n3|4"]
+}
