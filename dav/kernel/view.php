@@ -1,7 +1,7 @@
 <?php
 class view{
 static $json_views='views/';
-static $templates_location='templates/';
+static $templates_location='public/templates/';
 
 static function file($a){
 return self::$templates_location.$a.'.html';}

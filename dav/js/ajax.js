@@ -47,7 +47,7 @@ if(act)bjcall(j); else falseClose(dn[0]);}
 
 function bh(o){var com=o.href; var r=com.split('/');
 //if(r[3].indexOf('#')!=-1){var rd=r[3].split('#'); r[3]=rd[0];}// var diez='#'+rd[1];
-var j='content|blocks,call|a='+und(r[3])+',b='+und(r[4])+',c='+und(r[5])+',d='+und(r[6]);
+var j=maintg+'|a='+und(r[3])+',b='+und(r[4])+',c='+und(r[5])+',d='+und(r[6]);
 bjcall(j);
 updateurl(com,j);
 return false;}

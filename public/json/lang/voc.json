@@ -12,7 +12,7 @@
     "knownmail":"file-moi ton mail stp",
     "knowname":"c'est quoi déjà ton nom ?",
     "message":"alors vas-y, raconte moi tout",
-    "loged":"voilà, ça c'est fait",
+    "loged":"Bienvenue et bon séjour parmi nous :)",
     "bad_password":"très bien. recommence.",
     "inexistant_user":"euh comment dire, désolé mais tu rentres pas",
     "register?":"nan mais si tu veux je te crée un compte",
@@ -66,6 +66,7 @@
     "edit_post":"modif",
     "zero":"0",
     "result":"résultat",
-    "results":"résultat(s)"
+    "results":"résultat(s)",
+    "already_said":"ta l'as déjà dis, ça, espèce de vieux radoteur"
 
 }

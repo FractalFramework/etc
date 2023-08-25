@@ -14,7 +14,9 @@ class blocks{
     }
 
     static function footer($p){
-        $ret='dav@2023';
+        $ret=div('etc@2023');
+        //$ret.=div(lk('https://github.com/FractalFramework/etc','i want the same'),'small');
+        $ret.=div('Tous droits réservés','small');
         return $ret;
     }
     
@@ -26,12 +28,11 @@ class blocks{
     
     static function socials(){$ret='';
         $r=sql::read('url','socials','a',['uid'=>ses('uid')]);
-        foreach($r as $k=>$v)$ret.=li(lk($v,$v));
+        foreach($r as $k=>$v)$ret.=li(lk($v));
         return tag('ul',[],$ret);
     }
 
     static function nav($p){$rb=[];
-        //$rb[]=bj('home','wrapper|blocks,content');
         $rb[]=bh(icovoc('home','home_bt','react'),'home');
         //$r=sql::read('distinct(catid)','posts','w',['pub'=>1]);
         //$r=sql::inner('distinct(category)','cats','posts','catid','rv','where pub>0');
@@ -39,7 +40,7 @@ class blocks{
         $rb[]=bh(icovoc('folder','articles','react'),'posts');
         $rb[]=bh(icovoc('mail','contact_bt','react'),'contact');
         //$rb[]=bh(icovoc('search','search_bt','react'),'search');
-        //$rb[]=bj(icovoc('search','search','react').' '.input('inp','',8),'content|post,engine||inp','btsav');
+        //$rb[]=bj(icovoc('search','search','react').' '.input('inp','',8),'main|post,engine||inp','btsav');
         if(auth(4))$rb[]=bh(icovoc('plus','create_bt','react'),'create');
         $rb[]=div('','line');
         $rb[]=bh(icovoc('login','login_bt','react'),'login');
@@ -56,11 +57,11 @@ class blocks{
 
     static function call($p){
         [$a,$b,$c,$d]=vals($p,['a','b','c','d']);
-        if($a=='content')$a=get('a');//bricolage
+        if($a=='main')$a=get('a');//root for main
         $p=['a'=>$b,'b'=>$c,'c'=>$d];//join ajax cmd
         if(method_exists('blocks',$a))return self::$a($p);
         if(method_exists($a,'call'))return $a::call($p);
-        return match($a){//todo:resolve blocks in #body
+        return match($a){
             'post'=>posts::read($p),
             'create'=>auth(4)?posts::create($p):self::forbidden(),
             'edit'=>auth(4)?posts::edit($p):self::forbidden(),

@@ -2,6 +2,26 @@
 class json{
 static $json_location='public/json/';
 
+static function add($p){
+[$a,$v,$k]=vals($p,['a','k','v']);
+$f=self::$json_location.$p['a'].'.json';
+$d=file_get_contents($f); $r=json_decode($d,true);
+if(!$r[$k]??'')$r[$k]=$v;
+$d= $r=json_encode($d); file_put_contents($f,$d);
+return div(voc('saved'),'frame-green');}
+
+static function save($p){
+$f=self::$json_location.$p['a'].'.json';
+file_put_contents($f,$p['inp']);
+return div(voc('saved'),'frame-green');}
+
+static function edit($p){
+$f=self::$json_location.$p['a'].'.json';
+$d=file_get_contents($f);
+$ret=bj(icovoc('save'),'jedt|json,save|a='.$p['a'].'|inp','btsav');
+$ret.=div(textarea('inp',$d,'',48,['class'=>'console']),'area');
+return div($ret,'','jedt');}
+
 static function file($a){
 return self::$json_location.$a.'.json';}
 

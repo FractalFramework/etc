@@ -25,9 +25,17 @@ class admin{
         $r=sql::inner('b2.id,name,'.$cnt.',pub','users',$b,'uid','ra',['_order'=>'b2.id desc']);
         foreach($r as $k=>$v){
             $r[$k]['id']=bh($v['id'],'post/'.$v['id'],'btn');
-            $r[$k]['pub']=self::bt($v['id'],$v['pub'],$b);
-        }
+            $r[$k]['pub']=self::bt($v['id'],$v['pub'],$b);}
         return tabler($r,['id','author',$cnt,'pub']);
+    }
+
+    static function jsonfiles(){
+        $dr='public/json';
+        $r=scandir_r($dr);
+        foreach($r as $k=>$v){
+            $vb=str_replace([$dr.'/','.json'],'',$v);
+            $rt[]=bj($vb,'jmnu|json,edit|a='.$vb);}
+        return join('',$rt);
     }
 
     static function call($p){
@@ -35,6 +43,7 @@ class admin{
         $rt[voc('tracks')]=h2(voc('tracks_moderation')).div(self::waiting('tracks'));
         $rt[voc('posts')]=h2(voc('posts_moderation')).div(self::waiting('posts'));
         $rt[voc('contacts')]=h2(voc('contacts')).div(contact::read($p));
+        $rt['json']=h2('json').div(self::jsonfiles(),'menu').div('','','jmnu');
         return tabs($rt);
     }
 }

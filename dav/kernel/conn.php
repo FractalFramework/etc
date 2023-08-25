@@ -32,18 +32,12 @@ foreach($r as $k=>$v){if($v=trim($v)){$cn=substr($v,0,3);
     if(strpos($ex,$cn)!==false)$ret.=$v; else $ret.='<p>'.$v.'</p>';}}
 return $ret;}
 
-static function socialk($u,$d=''){
-$r=['','twitter','youtube','facebook','linkedin','instagram'];
-$k=in_array_k($u,$r); echo $k;
-if($k)$d=img('/img/socials/'.$r[$k].'.png').$d;
-return $d;}
-
-static function connectors($da,$p=[]){$c='';
-[$p,$o]=self::cprm($da);
-if(isimg($p))return '<figure>'.img(imgroot($p)).($o?'<figcaption>'.$o.'</figcaption>':'').'</figure>';
-if(strpos($da,'://')){$o=self::socialk($p,$o); return lk($o?$o:domain($p),$p);}
-if($cp=strrpos($da,':')){$c=substr($da,$cp+1); $d=substr($da,0,$cp);} else $d=$da;
-if($cp=strrpos($d,'|')){$o=substr($d,$cp+1); $d=substr($d,0,$cp);}
+static function connectors($da,$rp=[]){$c=''; $p=''; $o=''; $no=ishtml($da);
+$cp=strrpos($da,':'); if($cp!==false){$c=substr($da,$cp+1); $d=substr($da,0,$cp);} else $d=$da;
+$cp=strrpos($da,'|'); if($cp!==false){$o=substr($d,$cp+1); $p=substr($d,0,$cp);} else $p=$d;
+if(isimg($p) && !$no)return tagb('figure',img(imgroot($p)).($o?tagb('figcaption',$o):''));
+if(strpos($da,'://') && !$no){$o=conns::socialk($p,$o); return lk($o?$o:domain($p),$p);}
+if(method_exists('conns',$c))return conns::$c($p,$o);
 if($c)return match($c){
     'b'=>'<b>'.$d.'</b>',
     'i'=>'<i>'.$d.'</i>',
@@ -58,19 +52,11 @@ if($c)return match($c){
     'clr'=>tag('span',['style'=>'color:'.$o],$d),
     'bkg'=>tag('span',['style'=>'background-color:'.$o],$d),
     'anchor'=>tag('a',['name'=>$o],$d),
-    'post'=>bh($o?$o:ico('url'),'post/'.$p,'btn'),
-    'list'=>mkli($d),
+    //'read'=>conns::read($p,$o),
+    //'list'=>conns::list($p,$o),
+    'ko'=>tagb('pre',$da),
+    'no'=>'',
     default=>tag($c,[],$d)};}
-
-//edit
-static function bt($id){
-$r=json::call('lang/conn');
-$rt[]=btj('[ ]','embed',['[',']',$id]);
-foreach($r as $k=>$v){[$t,$o]=arr($v,2); if($o)$o='|'.$o;
-    $rt[]=btj($k,'embed',['[',$o.':'.$k.']',$id],'',['title'=>$t]);}
-return div(join('',$rt),'menu');}
-
-//apps
 
 static function call($p){
 [$d,$m,$id]=vals($p,['msg','m','id']);

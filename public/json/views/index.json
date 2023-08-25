@@ -22,14 +22,14 @@
                 [
                     [
                     "div",
-                    {"id":"content"},
-                    "{content}"
+                    {"id":"main","class":"main"},
+                    "{main}"
                     ]
                 ]
             ],
             [
                 "footer",
-                {"class":"grid-r3 grid-c2"},
+                {"class":"grid-r3 grid-c1"},
                 [
                     [
                         "div",

@@ -14,7 +14,7 @@ class tracks{
         [$a,$b]=vals($p,['bid','msg']);
         $x=sql::sav('tracks',[ses('uid'),$a,$b,0],0);
         if($x)return div(voc('pending_track'),'frame-green');
-        else return div(voc('error'),'frame-red');
+        else return div(voc('already_said'),'frame-red');
     }
 
     static function form($p){
@@ -23,7 +23,7 @@ class tracks{
         $ret.=div(label('msg',voc('message'),'btn'));
         $ret.=div(textarea('msg','',64,12));
         $ret.=hidden('bid',$a);
-        $ret.=bj(voc('send'),'let_track|tracks,save||bid,msg','btsav');//tgtrk
+        $ret.=bj(voc('send'),'track_form|tracks,save||bid,msg','btsav');//tgtrk
         //$ret.=div('','','tgtrk');
         return $ret;
     }
@@ -55,7 +55,7 @@ class tracks{
         $r['tracks_title']=voc('tracks_title');
         $r['tracks_nb']=sql::read('count(id)','tracks','v',['bid'=>$a,'pub'=>1]);
         $r['tracks_nb_title']=voc('tracks_nb_title');
-        if(ses('uid'))$r['let_track']=bjtog(icovoc('asterix','let_track'),'let_track|tracks,form|a='.$a);
+        if(ses('uid'))$r['let_track']=bjtog(icovoc('asterix','let_track'),'track_form|tracks,form|a='.$a);
         else $r['let_track']=bh(voc('need_auth'),'login');
         $r['tracks']=self::stream($p);
         $ret=view::call('blocks/tracks',$r);

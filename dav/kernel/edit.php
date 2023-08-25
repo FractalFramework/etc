@@ -1,5 +1,6 @@
 <?php
 class edit{
+static $tg='main';//target
 
 static function save($p){
 $b=$p['b']??'';
@@ -12,7 +13,7 @@ $rt=array_combine($ra,$rb);
 $nid=sql::sav($b,$rt);
 if($nid)$ret=div(voc('saved'),'frame-green');
 else $ret=div(voc('error'),'frame-red');
-$ret.=bj(voc('return'),'content|edit,call|a='.$b.',b=play,c='.$nid,'btn');
+$ret.=bj(voc('return'),self::$tg.'|edit,call|a='.$b.',b=play,c='.$nid,'btn');
 return $ret;}
 
 static function update($p){
@@ -26,7 +27,7 @@ $rt=array_combine($ra,$rb);
 $nid=sql::upd($b,$rt,$id);
 if($nid)$ret=div(voc('saved'),'frame-green');
 else $ret=div(voc('error'),'frame-red');
-$ret.=bj(voc('return'),'content|edit,call|a='.$b.',b=play,c='.$id,'btn');
+$ret.=bj(voc('return'),self::$tg.'|edit,call|a='.$b.',b=play,c='.$id,'btn');
 return $ret;}
 
 static function create($p){$r=[];

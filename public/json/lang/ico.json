@@ -22,7 +22,7 @@
     "absurd-logic":"⊥",
     "consequence-logic":"◊",
     "note":"📋",
-    "article":"📝",
+    "article":"📄",
     "baloon":"🎈",
     "ok":"🆗",
     "red":"🔴",
@@ -69,8 +69,8 @@
     "modif":"💾",
     "update":"💾",
     "dev":"🚧",
-    "login":"⏻",
-    "logout":"⏼",
+    "login":"🤩",
+    "logout":"😵",
     "wait":"⏳",
     "chrono":"⏰",
     "hello":"✋",
@@ -85,5 +85,6 @@
     "twitter":"🔀",
     "facebook":"😵",
     "linkedin":"🤡",
-    "youtube":"🤕"
+    "youtube":"🤕",
+    "url":"🔗"
 }

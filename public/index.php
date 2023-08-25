@@ -9,7 +9,7 @@ css::build('core');
 
 head::json('cnfg/headers');
 head::add('jscode','state='.json_encode($g).';
-var jbase="content|blocks,call"');
+var maintg="main|blocks,call"');
 echo head::run();
 
 $ret=main::call($g);

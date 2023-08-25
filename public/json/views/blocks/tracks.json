@@ -1,11 +1,11 @@
 [    
     [
         "h3",
-        {"class":"tracks_title"},
+        {"class":"tracks-title"},
         "{tracks_title}"
     ],
     [
-        "span",
+        "div",
         {"class":"info"},
         "{tracks_nb} {tracks_nb_title}"
     ],
@@ -16,12 +16,12 @@
     ],
     [
         "h4",
-        {"class":"track_form"},
+        {"class":"let-track"},
         "{let_track}"
     ],
     [
         "div",
-        {"id":"let_track"},
+        {"id":"track_form"},
         ""
     ]
 ]

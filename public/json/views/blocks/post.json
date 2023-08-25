@@ -7,7 +7,7 @@
         [
             [
                 "h1",
-                {"class":"title"},
+                {"id":"title","class":"title"},
                 "{title}"
             ],
             [
@@ -33,7 +33,7 @@
             ],
             [
                 "div",
-                {"class":"excerpt"},
+                {"id":"excerpt","class":"excerpt"},
                 "{excerpt}"
             ],
             [
@@ -43,12 +43,12 @@
             ],
             [
                 "div",
-                {"class":"content"},
+                {"id":"content","class":"content"},
                 "{content}"
             ],
             [
                 "div",
-                {"id":"tracks{id}"},
+                {"id":"tracks"},
                 "{tracks}"
             ]
         ]

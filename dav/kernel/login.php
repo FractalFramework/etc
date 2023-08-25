@@ -1,5 +1,7 @@
 <?php
 class login{
+static $default_ban='';
+static $maintg='main';
 
 static function hash($d){return password_hash($d,PASSWORD_DEFAULT);}
 static function vrfpsw($d,$hash){return password_verify($d,$hash);}
@@ -13,7 +15,7 @@ $ak=sql::sav('profile2',[$ok,$a,'here','IC1396,Hubble5-cropped-lrg.jpg','']);
 if($ok)self::auth($ok);
 if($ok)$ret=div(voc('registered'),'frame-blue');
 else $ret=div(voc('notregistered'),'frame-red');
-return [$ret,blocks::menu([])];}
+return [$ret,blocks::nav([])];}
 
 static function firstuser(){
 return sql::read('id','users','v',1);}
@@ -22,7 +24,7 @@ static function form($p){
 [$a,$b]=vals($p,['a','b']);
 $ret=h3(voc('login'));
 if(!self::firstuser())$ret.=div(voc('first_user'),'frame-white');
-$ret.=bj(voc('go'),'content,menu|login,call||name,pswd','btsav');
+$ret.=bj(voc('go'),self::$maintg.',menu|login,call||name,pswd','btsav');
 $ret.=div(input('name','').label('name',voc('knowname'),'btn'));
 $ret.=div(inpsw('pswd','').label('pswd',voc('password'),'btn'));
 return $ret;}
@@ -38,15 +40,15 @@ elseif($uid){
 	$ret.=div(bh(voc('redo'),'login','btn'));
 	$ret.=hidden('name',$a);
 	$ret.=div(inpsw('pswd',$b).label('pswd',voc('password'),'btn'));
-	$ret.=bj(voc('go'),'content,menu|login,call||name,pswd','btsav');}
+	$ret.=bj(voc('go'),self::$maintg.',menu|login,call||name,pswd','btsav');}
 else{
 	$ret=div(voc('inexistant_user'),'frame-red');
 	$ret.=div(bh(voc('go'),'login','btn'));
 	$ret.=hidden('name',$a).hidden('pswd',$b);
 	$ret.=div(inpmail('mail','').label('mail',voc('knownmail'),'btn'));
-	$ret.=bj(voc('register?'),'content,menu|login,register||name,mail,pswd','btsav');
+	$ret.=bj(voc('register?'),self::$maintg.',menu|login,register||name,mail,pswd','btsav');
 	$ret.=div('','','tgreg');}
-return [$ret,blocks::menu([])];}
+return [$ret,blocks::nav([])];}
 
 static function auth($id=''){
 if(!$id)$id=1;//assume first user
@@ -70,11 +72,11 @@ sesz('auth');
 setcookie('uid','',0);
 //cookie('uid',0);
 $d=div(voc('loged_out'),'frame-white');
-return [$d,blocks::menu([])];}
+return [$d,blocks::nav([])];}
 
 static function loged(){
 $ret=div(voc('hello').' '.ses('usr'),'frame-blue');
-$ret.=div(bj(voc('logout'),'content,menu|login,logout','btn'));
+$ret.=div(bj(voc('logout'),self::$maintg.',menu|login,logout','btn'));
 return $ret;}
 
 static function call($p){

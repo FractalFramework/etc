@@ -19,8 +19,8 @@ function tag($b,$p,$d){return '<'.$b.atr($p).'>'.$d.'</'.$b.'>';}
 function taga($b,$p){return '<'.$b.atr($p).' />';}
 function tagb($b,$d){return '<'.$b.'>'.$d.'</'.$b.'>';}
 function tagc($b,$c,$d){return '<'.$b.atr(['class'=>$c]).'>'.$d.'</'.$b.'>';}
-function lk($v,$u,$c='',$p=[]){return tag('a',['href'=>$u,'class'=>$c]+$p,$v);}
-function img($d,$p=[]){return taga('img',['src'=>$d]+$p);}
+function lk($u,$v='',$c='',$p=[]){return tag('a',['href'=>$u,'class'=>$c]+$p,$v?$v:domain($v));}
+function img($d,$s='',$o=''){return taga('img',['src'=>$d,'width'=>$s,'alt'=>$o]);}
 function div($v,$c='',$d='',$s=''){return tag('div',['class'=>$c,'id'=>$d,'style'=>$s],$v);}
 function span($v,$c='',$d='',$s=''){return tag('span',['class'=>$c,'id'=>$d,'style'=>$s],$v);}
 function block($v){return tagb('blockquote',$v);}
@@ -125,7 +125,7 @@ if($rb)return implode($b,$rb);}
 function implode_j($d){$rb=[]; if(!is_array($d))$r[]=$d; else $r=$d;
 foreach($r as $k=>$v)if($v=='this' or $v=='event')$rb[]=$v; else $rb[]='\''.$v.'\'';
 if($rb)return implode(',',$rb);}
-function in_array_k($d,$r){foreach($r as $k=>$v)if(strpos($d,$v)!==false)return $k;}
+function in_array_k($d,$r){foreach($r as $k=>$v)if($v && strpos($d,$v)!==false)return $k;}
 
 //str
 function strto($v,$s){$p=mb_strpos($v??'',$s); return $p!==false?mb_substr($v,0,$p):$v;}
@@ -185,9 +185,10 @@ $nbh=$h>1?$h.' h ':''; $nbi=$i>0?$i.' min ':''; return $nbh.$nbi;} else return d
 
 //detection
 function xt($d,$o=0){return substr(strtolower(strrchr($d??'','.')),$o);}
-function isimg($d){$d=xt($d); if(!$d)return; $r=['.jpg','.png','.gif','.jpeg','.webp'];
+function isimg($d){if(!$d)return; $d=xt($d); $r=['.jpg','.png','.gif','.jpeg','.webp'];
 for($i=0;$i<5;$i++)if(mb_strpos($d,$r[$i])!==false)return $r[$i];}
 function ishttp($d){return substr($d,0,4)=='http'?1:0;}
+function ishtml($d){return strpos($d,'<')!==false?1:0;}
 
 //roots
 function imgroot($d){return ishttp($d)?$d:'/img/'.$d;}
@@ -222,8 +223,8 @@ if($r)foreach($r as $k=>$v){$b++;
     $ret.=div($v,$c,'div'.$id.$b,'display:'.$dsp);}
 return div($mnu,'tabs','mn'.$id).$ret;}
 
-function mkli($d,$ul='ul'){$ret=''; $r=explode("\n",$d);
-foreach($r as $v){if(substr($v,0,1)=='-')$v=substr($v,1); $v=trim($v); $ret.=li($v);}
+function mkli($r,$ul='ul'){$ret='';
+foreach($r as $v){if(substr($v,0,1)=='-')$v=substr($v,1); if($v=trim($v))$ret.=li($v);}
 return tag($ul,[],$ret);}
 
 //scroll
