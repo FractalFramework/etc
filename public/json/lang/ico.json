@@ -67,6 +67,7 @@
     "img":"🖼️",
     "save":"💾",
     "modif":"💾",
+    "update":"💾",
     "dev":"🚧",
     "login":"⏻",
     "logout":"⏼",
@@ -76,5 +77,13 @@
     "question":"❔",
     "exclam":"❗",
     "empty":"⌀",
-    "send":"📧"
+    "send":"📧",
+    "verif":"🧐",
+    "blog":"📋",
+    "job":"🧑",
+    "loisir":"😵‍💫",
+    "twitter":"🔀",
+    "facebook":"😵",
+    "linkedin":"🤡",
+    "youtube":"🤕"
 }

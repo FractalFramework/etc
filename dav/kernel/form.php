@@ -37,7 +37,7 @@ foreach($r as $k=>$v){
 	elseif($ty=='json')$d=textarea($rid,$va?$va:'{}',40,4,$rp);
 	elseif($ty=='int')$d=inpnb($rid,$va);
 	elseif($ty=='date' or $ty=='time')$d=inpdate($rid,$va?$va:sqldate(),1);
-	else $d=input($rid,$va,'',$rp);
+	else $d=input($rid,$va,'32',$rp);
 	$rt[]=div($d.' '.label($rid,$id,'btn'));}
 return join('',$rt);}
 

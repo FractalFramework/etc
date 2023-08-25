@@ -19,12 +19,12 @@ class posts{
         return $ret;
     }*/
 
-    static function editbt(){//deprecated
+    /*static function editbt(){//deprecated
         $r=['no'=>voc('none'),'p'=>'normal','h1'=>'h1','h2'=>'h2','h3'=>'h3','h4'=>'h4','h5'=>'h5'];
         $ret=select('wygs',$r,'','','execom2(this.value)');
         $r=['increaseFontSize'=>'+','decreaseFontSize'=>'-','bold'=>'b','italic'=>'i','underline'=>'u','strikeThrough'=>'k','insertUnorderedList'=>'list','Indent'=>'block','Outdent'=>'unblock','stabilo'=>'highlight','createLink'=>'url'];
         foreach($r as $k=>$v)$ret.=btj($v,'execom',[$k]);
-        return span($ret,'menu');}
+        return span($ret,'menu');}*/
 
     static function catid($a){
         $catid=sql::read('id','cats','v',['category'=>$a]);
@@ -48,7 +48,7 @@ class posts{
         else return div(voc('error'),'frame-red');
     }
 
-    static function form($p){
+    /*static function form($p){
         [$a,$b]=vals($p,['a','b']);
         $ret=h3(voc('new_post'));
         $r=sql::inner('distinct(category)','cats','posts','catid','rv',[]);
@@ -62,7 +62,7 @@ class posts{
         $ret.=div(label('msg',voc('message'),'btn'));
         $ret.=div(textarea('msg','',64,16),'area');
         return div($ret,'','tgmail');
-    }
+    }*/
 
     static function update($p){
         [$id,$t,$cat,$exc,$cnt]=vals($p,['id','p1','p2','p3','p4']); 
@@ -81,7 +81,7 @@ class posts{
     static function edit($p){
         [$a,$b]=vals($p,['a','b']); if(!is_numeric($a))return self::stream($p);
         //return edit::form(['b'=>'posts','id'=>$a,'rid'=>'content']);
-        $r=sql::inner('uid,title,category,excerpt,content,date_format(lastup,"%d/%m/%Y") as up','cats','posts','catid','a',['b2.id'=>$a],0);
+        $r=sql::inner('uid,title,category,excerpt,content,pub,date_format(lastup,"%d/%m/%Y") as up','cats','posts','catid','a',['b2.id'=>$a],0);
         if($r['uid']!=ses('uid') && !auth(4))return blocks::forbidden();
         $rb=sql::inner('distinct(category)','cats','posts','catid','rv',[]);
         $r['date']=$r['up'];
@@ -91,7 +91,8 @@ class posts{
         $r['editbt']=bj(ico('back'),'content|posts,read|a='.$a,'btdel');
         $r['editbt'].=bj(icovoc('modif','modif'),'content|posts,update|id='.$a.'|p1,p2,p3,p4','btsav');
         //$r['editbt'].=div(select('cat',$rb,'public').label('cat',voc('category'),'btn'));
-        $r['editbt'].=datalist('p2',$rb,$r['category'],12,'');
+        $r['editbt'].=datalist('p2',$rb,$r['category'],12,'').label('p2',voc('category'),'btn');
+        $r['editbt'].=admin::bt($a,$r['pub'],'posts');
         //$r['editbt'].=self::editbt();
         //$r['content']=divarea('p4',$r['content']);
         $r['editbt'].=conn::bt('p4');
@@ -99,6 +100,12 @@ class posts{
         $r['tracks']='';
         $ret=view::call('blocks/post',$r);
         return $ret;
+    }
+
+    static function create($p){
+        $ex=sql::read('id','posts','v',['uid'=>ses('uid'),'title'=>voc('title')]);
+        if(!$ex)$ex=self::save(['cat'=>'public','tit'=>voc('title'),'exc'=>voc('excerpt'),'msg'=>voc('text')]);
+        return self::edit(['a'=>$ex]);
     }
 
     static function read($p){

@@ -53,7 +53,7 @@ scroll{max-height:400px; min-width:140px; overflow-y:auto; overflow-x:hidden; wo
 cols{columns:auto 250px; margin-top:16px}
 .small{font-size:small}
 .info{margin:2px; padding:2px; color:#c700ff}
-.infos{font-size:small; margin-top:16px}
+.infos{font-size:small}
 .infos span{}
 .right{float:right}
 @media only screen and (max-width: 720px){.react{display:none}

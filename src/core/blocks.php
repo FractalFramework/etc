@@ -13,6 +13,23 @@ class blocks{
         return $ret;
     }
 
+    static function footer($p){
+        $ret='dav@2023';
+        return $ret;
+    }
+    
+    static function user(){
+        $ret=edit::call(['a'=>'profile2','b'=>'play','c'=>ses('uid')]);
+        $ret.=edit::call(['a'=>'socials','b'=>'play','c'=>'']);
+        return $ret;
+    }
+    
+    static function socials(){$ret='';
+        $r=sql::read('url','socials','a',['uid'=>ses('uid')]);
+        foreach($r as $k=>$v)$ret.=li(lk($v,$v));
+        return tag('ul',[],$ret);
+    }
+
     static function nav($p){$rb=[];
         //$rb[]=bj('home','wrapper|blocks,content');
         $rb[]=bh(icovoc('home','home_bt','react'),'home');
@@ -33,11 +50,6 @@ class blocks{
         return $ret;
     }
 
-    static function footer($p){
-        $ret='dav@2023';
-        return $ret;
-    }
-
     static function forbidden(){
         return div(voc('forbiden_access'),'frame-red');
     }
@@ -50,7 +62,7 @@ class blocks{
         if(method_exists($a,'call'))return $a::call($p);
         return match($a){//todo:resolve blocks in #body
             'post'=>posts::read($p),
-            'create'=>auth(4)?posts::form($p):self::forbidden(),
+            'create'=>auth(4)?posts::create($p):self::forbidden(),
             'edit'=>auth(4)?posts::edit($p):self::forbidden(),
             'home'=>posts::call($p),
             default=>posts::call($p),

@@ -39,10 +39,12 @@ class tracks{
     static function stream($p){
         $ret='';
         [$a,$b]=vals($p,['a','b']);
-        $sq=['bid'=>$a,'pub'=>'1'];
-        $r=sql::inner('b2.id,name,txt,date_format(b2.up,"%d/%m/%Y") as up','users','tracks','uid','ra',$sq,0);
+        $pbs=['1']; if(auth(4))$pbs[]='0';
+        $sq=['bid'=>$a,'pub('=>$pbs];
+        $r=sql::inner('b2.id,name,txt,pub,date_format(b2.up,"%d/%m/%Y") as up','users','tracks','uid','ra',$sq);
         if($r)foreach($r as $k=>$v){
             $r[$k]['date']=day('ymd',$v['up']);
+            $r[$k]['editbt']=auth(4)?admin::bt($v['id'],$v['pub'],'tracks'):'';
             $ret.=view::call('blocks/track',$r[$k]);}
         else $ret=ico('comment');
         return $ret;

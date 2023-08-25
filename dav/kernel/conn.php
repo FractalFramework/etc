@@ -32,13 +32,16 @@ foreach($r as $k=>$v){if($v=trim($v)){$cn=substr($v,0,3);
     if(strpos($ex,$cn)!==false)$ret.=$v; else $ret.='<p>'.$v.'</p>';}}
 return $ret;}
 
+static function socialk($u,$d=''){
+$r=['','twitter','youtube','facebook','linkedin','instagram'];
+$k=in_array_k($u,$r); echo $k;
+if($k)$d=img('/img/socials/'.$r[$k].'.png').$d;
+return $d;}
+
 static function connectors($da,$p=[]){$c='';
 [$p,$o]=self::cprm($da);
-if(isimg($p)){
-    return '<figure>'.img(imgroot($p)).($o?'<figcaption>'.$o.'</figcaption>':'').'</figure>';}
-if(strpos($da,'://')){
-    //$r=['twitter','youtu','facebook',''];
-    return lk($o?$o:domain($p),$p);}
+if(isimg($p))return '<figure>'.img(imgroot($p)).($o?'<figcaption>'.$o.'</figcaption>':'').'</figure>';
+if(strpos($da,'://')){$o=self::socialk($p,$o); return lk($o?$o:domain($p),$p);}
 if($cp=strrpos($da,':')){$c=substr($da,$cp+1); $d=substr($da,0,$cp);} else $d=$da;
 if($cp=strrpos($d,'|')){$o=substr($d,$cp+1); $d=substr($d,0,$cp);}
 if($c)return match($c){
@@ -46,32 +49,25 @@ if($c)return match($c){
     'i'=>'<i>'.$d.'</i>',
     'u'=>'<u>'.$d.'</u>',
     'h'=>'<big>'.$d.'</big>',
-    //'h1'=>'<h1>'.$d.'</h1>',
-    //'h2'=>'<h2>'.$d.'</h2>',
-    //'h3'=>'<h3>'.$d.'</h3>',
-    //'h4'=>'<h4>'.$d.'</h4>',
-    //'h5'=>'<h5>'.$d.'</h5>',
     'e'=>'<sup>'.$d.'</sup>',
     'n'=>'<sub>'.$d.'</sub>',
     's'=>'<small>'.$d.'</small>',
     'k'=>'<del>'.$d.'</del>',
     'q'=>'<blockquote>'.$d.'</blockquote>',
-    //'aside'=>'<aside>'.$d.'</aside>',
-    //'time'=>'<time>'.$d.'</time>',
     'qu'=>'<q>'.$d.'</q>',
     'clr'=>tag('span',['style'=>'color:'.$o],$d),
     'bkg'=>tag('span',['style'=>'background-color:'.$o],$d),
     'anchor'=>tag('a',['name'=>$o],$d),
     'post'=>bh($o?$o:ico('url'),'post/'.$p,'btn'),
     'list'=>mkli($d),
-default=>tag($c,[],$d)};}
+    default=>tag($c,[],$d)};}
 
 //edit
 static function bt($id){
 $r=json::call('lang/conn');
 $rt[]=btj('[ ]','embed',['[',']',$id]);
 foreach($r as $k=>$v){[$t,$o]=arr($v,2); if($o)$o='|'.$o;
-    $rt[]=btj($k,'embed',['[',$o.''.$k.']',$id],'',['title'=>$t]);}
+    $rt[]=btj($k,'embed',['[',$o.':'.$k.']',$id],'',['title'=>$t]);}
 return div(join('',$rt),'menu');}
 
 //apps

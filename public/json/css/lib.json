@@ -266,8 +266,7 @@
         "color":"#c700ff"
     },
     ".infos":{
-        "font-size":"small",
-        "margin-top":"16px"
+        "font-size":"small"
     },
     ".infos span":{
     },

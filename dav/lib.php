@@ -125,6 +125,19 @@ if($rb)return implode($b,$rb);}
 function implode_j($d){$rb=[]; if(!is_array($d))$r[]=$d; else $r=$d;
 foreach($r as $k=>$v)if($v=='this' or $v=='event')$rb[]=$v; else $rb[]='\''.$v.'\'';
 if($rb)return implode(',',$rb);}
+function in_array_k($d,$r){foreach($r as $k=>$v)if(strpos($d,$v)!==false)return $k;}
+
+//str
+function strto($v,$s){$p=mb_strpos($v??'',$s); return $p!==false?mb_substr($v,0,$p):$v;}
+function struntil($v,$s){$p=mb_strrpos($v??'',$s); return $p!==false?mb_substr($v,0,$p):$v;}
+function strfrom($v,$s){$p=mb_strpos($v??'',$s); return $p!==false?mb_substr($v,$p+mb_strlen($s)):$v;}
+function strend($v,$s){$p=mb_strrpos($v??'',$s); return $p!==false?mb_substr($v,$p+mb_strlen($s)):$v;}function between($d,$a,$b,$na='',$nb='',$o=''){$pa=$na?mb_strrpos($d,$a):mb_strpos($d,$a);
+    if($pa!==false){$pa+=mb_strlen($a); $pb=$nb?mb_strrpos($d,$b,$pa):mb_strpos($d,$b,$pa);
+        if($pb!==false)return mb_substr($d,$pa,$pb-$pa); elseif($o)return mb_substr($d,$pa); else return '';}}
+function split_one($s,$v,$n=''){if($n)$p=mb_strrpos($v,$s); else $p=mb_strpos($v,$s);
+if($p!==false)return [mb_substr($v,0,$p),mb_substr($v,$p+1)]; else return [$v,''];}
+function split_right($s,$v,$n=''){if($n)$p=mb_strrpos($v,$s); else $p=mb_strpos($v,$s);
+if($p!==false)return [mb_substr($v,0,$p),mb_substr($v,$p+1)]; else return ['',$v];}
 
 //dir
 function scandir_b($d){$r=scandir($d); unset($r[0]); unset($r[1]); return $r;}
@@ -162,18 +175,6 @@ if($e!==false)return 1;}
 function ftime($f,$d=''){if(is_file($f))return date($d?$d:'ymd.His',filemtime($f));}
 function fsize($f,$o=''){if(is_file($f))return round(filesize($f)/1024,1).($o?' Ko':'');}
 function opcache($d){if(!cnfg('local'))opcache_invalidate($d);}
-
-//str
-function strto($v,$s){$p=mb_strpos($v??'',$s); return $p!==false?mb_substr($v,0,$p):$v;}
-function struntil($v,$s){$p=mb_strrpos($v??'',$s); return $p!==false?mb_substr($v,0,$p):$v;}
-function strfrom($v,$s){$p=mb_strpos($v??'',$s); return $p!==false?mb_substr($v,$p+mb_strlen($s)):$v;}
-function strend($v,$s){$p=mb_strrpos($v??'',$s); return $p!==false?mb_substr($v,$p+mb_strlen($s)):$v;}function between($d,$a,$b,$na='',$nb='',$o=''){$pa=$na?mb_strrpos($d,$a):mb_strpos($d,$a);
-    if($pa!==false){$pa+=mb_strlen($a); $pb=$nb?mb_strrpos($d,$b,$pa):mb_strpos($d,$b,$pa);
-        if($pb!==false)return mb_substr($d,$pa,$pb-$pa); elseif($o)return mb_substr($d,$pa); else return '';}}
-function split_one($s,$v,$n=''){if($n)$p=mb_strrpos($v,$s); else $p=mb_strpos($v,$s);
-if($p!==false)return [mb_substr($v,0,$p),mb_substr($v,$p+1)]; else return [$v,''];}
-function split_right($s,$v,$n=''){if($n)$p=mb_strrpos($v,$s); else $p=mb_strpos($v,$s);
-if($p!==false)return [mb_substr($v,0,$p),mb_substr($v,$p+1)]; else return ['',$v];}
 
 //dates
 function day($d='',$p=''){return date($p?$p:'ymd.Hi',is_numeric($d)?$d:time());}
@@ -231,7 +232,7 @@ $s=$w?'width:'.$w.'px; ':''; $s.='max-height:'.($h?$h:'420px').';';
 $c=strlen($d)>$max?'scroll':''; return div($d,$c,$id,$s);}
 
 //ses
-function voc($d){$r=sesmk('json::call','lang/voc',0); return nbsp($r[$d]??$d);}
+function voc($d){$r=sesmk('json::call','lang/voc',0); return ucfirst($r[$d]??$d);}
 function ico($d){$r=sesmk('json::call','lang/ico',0); return span($r[$d]??'','ico');}
 function icovoc($d,$b='',$c=''){return ico($d).thin().span(voc($b?$b:$d),$c);}
 

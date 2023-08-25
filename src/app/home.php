@@ -2,16 +2,16 @@
 class home{
 
     static function presentation($p){
-        $r=sql::inner('name,surname,mail,slogan,logo','users','profile2','uid','a',['b1.id'=>ses('uid')],0); //pr($r);
+        $r=sql::inner('name,surname,mail,slogan,logo','users','profile2','uid','a',['b1.id'=>ses('uid')]);
         $ret=h1($r['surname']);
         $ret.=h2($r['slogan']);
-        $ret.=is_img($r['logo'])?img('/img/'.$r['logo'],['width'=>'180px']):ico('img');
+        $ret.=isimg($r['logo'])?img('/img/'.$r['logo'],['width'=>'180px']):ico('img');
         return $ret;
     }
 
     static function socials($p){$ret='';
-        $r=sql::read('url','socials','rv',['uid'=>ses('uid')],0); //pr($rb);
-        foreach($r as $k=>$v)$ret.=tag('li',[],lk($v,$v));
+        $r=sql::read('url','socials','rv',['uid'=>ses('uid')]);
+        foreach($r as $k=>$v)$ret.=tag('li',[],lk(conn::socialk($v,$v),$v));
         return tag('ul',[],$ret);
     }
 

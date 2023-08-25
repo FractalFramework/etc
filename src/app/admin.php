@@ -16,12 +16,16 @@ class admin{
         return $ret;
     }
 
+    static function bt($id,$pub,$b='posts'){
+        return span(admin::switchbt($id,$pub,$b),'',$b.'pub'.$id);
+    }
+
     static function waiting($b){
         if($b=='tracks')$cnt='txt'; else $cnt='excerpt';
-        $r=sql::inner('b2.id,name,'.$cnt.',pub','users',$b,'uid','ra',['_order'=>'pub asc']);
+        $r=sql::inner('b2.id,name,'.$cnt.',pub','users',$b,'uid','ra',['_order'=>'b2.id desc']);
         foreach($r as $k=>$v){
             $r[$k]['id']=bh($v['id'],'post/'.$v['id'],'btn');
-            $r[$k]['pub']=div(self::switchbt($v['id'],$v['pub'],$b),'',$b.'pub'.$v['id']);
+            $r[$k]['pub']=self::bt($v['id'],$v['pub'],$b);
         }
         return tabler($r,['id','author',$cnt,'pub']);
     }
