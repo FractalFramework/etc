@@ -10,11 +10,16 @@ class tracks{
         return $ret;
     }
 
-    static function save($p){
-        [$a,$b]=vals($p,['bid','msg']);
-        $x=sql::sav('tracks',[ses('uid'),$a,$b,0],0);
-        if($x)return div(voc('pending_track'),'frame-green');
-        else return div(voc('already_said'),'frame-red');
+    static function save($p){$uid=ses('uid'); $psw='';
+        [$a,$b,$c,$d]=vals($p,['bid','msg','name','mail']);
+        if($c && $d)$psw=unid(time());
+        if($c && $d)$uid=login::fastsave(['name'=>$c,'mail'=>$d,'pswd'=>$psw]);
+        $x=sql::sav('tracks',[$uid,$a,$b,0],0);
+        $back=bh(icovoc('back'),'post/'.$a,'btn');
+        if($x)$ret=div(voc('pending_track').' '.$back,'frame-green');
+        else $ret=div(voc('already_said').' '.$back,'frame-red');
+        if($psw)$ret.=div(voc('new_password').' '.tagb('pre',$psw),'frame-blue');
+        return $ret;
     }
 
     static function form($p){
@@ -25,6 +30,16 @@ class tracks{
         $ret.=hidden('bid',$a);
         $ret.=bj(voc('send'),'track_form|tracks,save||bid,msg','btsav');//tgtrk
         //$ret.=div('','','tgtrk');
+        return $ret;
+    }
+
+    static function miniform($a){
+        $ret=bj(voc('send'),'track_form|tracks,save||bid,msg,name,mail','btsav');
+        //$ret.=div(textarea('msg','',64,12));
+        if(!auth(8))$ret.=input('name','','',['placeholder'=>'name']).inpmail('mail','');
+        else $ret.=hidden('name','').hidden('mail','');
+        $ret.=divarea('msg','','track-content');
+        $ret.=hidden('bid',$a);
         return $ret;
     }
 
@@ -43,7 +58,7 @@ class tracks{
         $sq=['bid'=>$a,'pub('=>$pbs];
         $r=sql::inner('b2.id,name,txt,pub,date_format(b2.up,"%d/%m/%Y") as up','users','tracks','uid','ra',$sq);
         if($r)foreach($r as $k=>$v){
-            $r[$k]['date']=day('ymd',$v['up']);
+            $r[$k]['date']=$v['up'];
             $r[$k]['editbt']=auth(4)?admin::bt($v['id'],$v['pub'],'tracks'):'';
             $ret.=view::call('blocks/track',$r[$k]);}
         else $ret=ico('comment');
@@ -55,8 +70,9 @@ class tracks{
         $r['tracks_title']=voc('tracks_title');
         $r['tracks_nb']=sql::read('count(id)','tracks','v',['bid'=>$a,'pub'=>1]);
         $r['tracks_nb_title']=voc('tracks_nb_title');
-        if(ses('uid'))$r['let_track']=bjtog(icovoc('asterix','let_track'),'track_form|tracks,form|a='.$a);
-        else $r['let_track']=bh(voc('need_auth'),'login');
+        //if(ses('uid'))$r['track_form']=bjtog(icovoc('asterix','let_track'),'track_form|tracks,form|a='.$a);
+        if(ses('uid'))$r['track_form']=self::miniform($a);
+        else $r['track_form']=bh(voc('need_auth'),'login','frame-red');
         $r['tracks']=self::stream($p);
         $ret=view::call('blocks/tracks',$r);
         return $ret;

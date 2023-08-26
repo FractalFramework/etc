@@ -32,13 +32,15 @@ foreach($r as $k=>$v){if($v=trim($v)){$cn=substr($v,0,3);
     if(strpos($ex,$cn)!==false)$ret.=$v; else $ret.='<p>'.$v.'</p>';}}
 return $ret;}
 
-static function connectors($da,$rp=[]){$c=''; $p=''; $o=''; $no=ishtml($da);
-$cp=strrpos($da,':'); if($cp!==false){$c=substr($da,$cp+1); $d=substr($da,0,$cp);} else $d=$da;
+static function connectors($da,$rp=[]){
+$c=''; $p=''; $o=''; $ret=''; $no=ishtml($da); $ht=ishttp($da);
+$cp=strrpos($da,':',$ht?7:0); if($cp!==false){$c=substr($da,$cp+1); $d=substr($da,0,$cp);} else $d=$da;
 $cp=strrpos($da,'|'); if($cp!==false){$o=substr($d,$cp+1); $p=substr($d,0,$cp);} else $p=$d;
+//echo 'da='.$da.'-p='.$p.'-o='.$o.'-c='.$c.br();
 if(isimg($p) && !$no)return tagb('figure',img(imgroot($p)).($o?tagb('figcaption',$o):''));
-if(strpos($da,'://') && !$no){$o=conns::socialk($p,$o); return lk($o?$o:domain($p),$p);}
+if(strpos($da,'://') && !$no){$o=conns::socialk($p,$o); return lk($p,$o);}
 if(method_exists('conns',$c))return conns::$c($p,$o);
-if($c)return match($c){
+if($c)$ret=match($c){
     'b'=>'<b>'.$d.'</b>',
     'i'=>'<i>'.$d.'</i>',
     'u'=>'<u>'.$d.'</u>',
@@ -49,14 +51,17 @@ if($c)return match($c){
     'k'=>'<del>'.$d.'</del>',
     'q'=>'<blockquote>'.$d.'</blockquote>',
     'qu'=>'<q>'.$d.'</q>',
-    'clr'=>tag('span',['style'=>'color:'.$o],$d),
-    'bkg'=>tag('span',['style'=>'background-color:'.$o],$d),
+    'clr'=>tag('span',['style'=>'color:'.($o?$o:'red')],$p),
+    'bkg'=>tag('span',['style'=>'background-color:'.($o?$o:'yellow')],$p),
     'anchor'=>tag('a',['name'=>$o],$d),
     //'read'=>conns::read($p,$o),
     //'list'=>conns::list($p,$o),
     'ko'=>tagb('pre',$da),
     'no'=>'',
-    default=>tag($c,[],$d)};}
+    //default=>tag($c,[],$d)
+    default=>''};
+if($ret)$da=$ret;
+return $da;}
 
 static function call($p){
 [$d,$m,$id]=vals($p,['msg','m','id']);

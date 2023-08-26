@@ -1,7 +1,7 @@
 body{background-color:#444; font-family:arial; color:#ddd; margin:0px}
 p{margin:16px 0}
 a{cursor:pointer; color:#222}
-a.active,a .active,a:hover{cursor:pointer; color:#777}
+a.active,a .active,a:hover{cursor:pointer; color:#666}
 img{max-width:100%}
 h1,h2,h3,h4,h5{margin:16px 0}
 input,textarea,select{transition:background 0.3s ease; font-size:small; padding:3px 5px; background-color:#ddd4; border:1px solid #bbb}
@@ -11,6 +11,7 @@ form{padding:0px; margin:0px}
 button{background-color:#fffa; border:1px solid black}
 footer{}
 section{padding:16px; margin:16px 0; background-color:#fffa; border:1px solid #7777}
+section:hover{border-color:#777}
 article{padding:0px; margin:0 0 16px 0}
 figure{padding:0px; margin:0px}
 figcaption{color:cornflowerblue; font-style:italic}
@@ -19,19 +20,19 @@ table{margin:0px; border-width:2px; border-style:solid; border-color:#222; borde
 tr:nth-of-type(2n){background:#0000001c}
 td,th{color:#222; padding:4px}
 th{color:#fff; text-align:left; background-color:#0000009c}
-.grid{transition:all 0.3s ease; display:grid; grid-template-columns:280px auto; grid-template-rows:60px auto; gap:0px}
-.grid-top{grid-column:1 / 3; grid-row:1}
-.grid-ban{grid-column:1; grid-row:1}
-.grid-left{grid-column:1; grid-row:2}
-.grid-right{grid-column:2; grid-row:2}
-.grid-body{grid-column:2; grid-row:1 / 2}
-.grid-bottom{grid-column:1 / 3; grid-row:3}
+.grid{transition:all 0.3s ease; display:grid; gap:0px}
 .grid-c1{grid-column:1}
 .grid-c2{grid-column:2}
 .grid-c3{grid-column:3}
 .grid-r1{grid-row:1}
 .grid-r2{grid-row:2}
 .grid-r3{grid-row:3}
+.grid-top{grid-column:1 / 3; grid-row:1}
+.grid-ban{grid-column:1; grid-row:1}
+.grid-left{grid-column:1; grid-row:2}
+.grid-body{grid-column:2; grid-row:1 / 2}
+.grid-right{grid-column:3; grid-row:2}
+.grid-footer{grid-column:1; grid-row:3}
 tabs{line-height:20px}
 .tabs span{transition:all 0.3s ease; padding:2px 7px; border-radius:6px 6px 0px 0px; color:#333333; background-color:#e9e7e8; box-shadow:0px 0px 4px -3px #777777}
 .tabs span:hover{color:#171717; background-color:#ffffff}

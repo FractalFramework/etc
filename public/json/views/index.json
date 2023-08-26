@@ -28,8 +28,13 @@
                 ]
             ],
             [
+                "div",
+                {"class":"shutter grid-right"},
+                "{shutter}"
+            ],
+            [
                 "footer",
-                {"class":"grid-r3 grid-c1"},
+                {"class":"grid-footer"},
                 [
                     [
                         "div",

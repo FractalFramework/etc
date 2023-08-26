@@ -1,45 +1,51 @@
 [
     [
-        "section",
-        {
-            "id":"post{id}"
-        },
+        "a",
+        {"href":"post/{id}"},
         [
             [
-                "div",
-                {"class":"infos"},
+                "section",
+                {
+                    "id":"post{id}"
+                },
                 [
                     [
-                        "span",
-                        {"class":"author"},
-                        "{author}"
+                        "div",
+                        {"class":"infos"},
+                        [
+                            [
+                                "span",
+                                {"class":"author"},
+                                "{author}"
+                            ],
+                            [
+                                "span",
+                                {"class":"date"},
+                                "{date}"
+                            ],
+                            [
+                                "span",
+                                {"class":"category"},
+                                "{category}"
+                            ],
+                            [
+                                "span",
+                                {"class":"info"},
+                                "{tracks_nb} {tracks_nb_title}"
+                            ]
+                        ]
                     ],
                     [
-                        "span",
-                        {"class":"date"},
-                        "{date}"
+                        "h2",
+                        {"class":"title-small"},
+                        "{title}"
                     ],
                     [
-                        "span",
-                        {"class":"category"},
-                        "{category}"
-                    ],
-                    [
-                        "span",
-                        {"class":"info"},
-                        "{tracks_nb} {tracks_nb_title}"
+                        "div",
+                        {"class":"excerpt"},
+                        "{excerpt}"
                     ]
                 ]
-            ],
-            [
-                "h2",
-                {"class":"title-small"},
-                "{bt_title}"
-            ],
-            [
-                "div",
-                {"class":"excerpt"},
-                "{excerpt}"
             ]
         ]
     ]

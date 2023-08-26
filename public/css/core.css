@@ -1,9 +1,9 @@
-#page{width:auto; max-width:1000px; padding:0px; margin:auto}
+#page{width:auto; max-width:100%; padding:0px; margin:auto}
 .banner{padding:10px 8px; width:auto; background-position:contain; background-image:linear-gradient(#797979,#4a4a4a)}
 .main{padding:8px 16px; color:#444; border-color:#9f9f9f; border-style:solid; border-width:0px}
 .wrapper{padding:0px; color:#222; background-color:#fffc; border-width:0px; border-color:grey; border-style:solid; height:100vh; overflow-y:auto; overflow-x:hidden; word-wrap:break-word; scrollbar-width:thin}
 .wrapper a{text-decoration:none}
-.content{margin:0px; padding:16px; background-color:#fffa; border:1px solid #7777; font-family:Lucida Console}
+.content{margin:0px; padding:16px; background-color:#fffa; border:1px solid #7777; font-family:Georgia; font-size:22px}
 nav{padding:0px}
 nav a{margin:4px; color:#aaa; padding:0px 8px 4px; font-size:larger; border-color:#d9d9d9; border-style:solid; border-width:0px; text-decoration:none; background-color:none; display:block; transition:all 0.3s ease}
 nav a:hover,nav a.active{color:#fff; background-color:#0000004a}
@@ -36,3 +36,9 @@ nav a.admin:hover{border-color:#0d83ec}
 .author{font-weight:bold}
 .date{color:gray}
 .category{border:1px solid silver; padding:2px 4px}
+.grid{grid-template-columns:280px auto auto; grid-template-rows:60px auto auto}
+@media only screen and (max-width: 720px){.grid{grid-template-columns:50px auto auto; grid-template-rows:42px auto 42px}
+.grid-ban{grid-column:2}
+.grid-body{grid-row:2}
+.grid-footer{grid-column:2}
+.wrapper{height:calc(100vh - 88px)}}

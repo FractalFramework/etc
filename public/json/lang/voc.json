@@ -19,6 +19,7 @@
     "registered":"ayé on te connaîtra maintenant",
     "notregistered":"enh bah comment dire, non",
     "first_user":"premier arrivé, premier admin",
+    "new_password":"note bien ton mot de passe parce qu'après, c'est fini !",
 
     "hello":"saluuuuuut",
     "logout":"ouais c'est ça, bonjour et au revoir !",
@@ -46,7 +47,7 @@
     "new_track":"dis-le, mais dis-le !",
     "let_track":"ajoute ton grain de sel",
     "pending_track":"on va vérifier quand même si tu ne dis pas trop de c**ner*es",
-    "tracks_moderation":"modération de commentaires",
+    "tracks_moderation":"modérons, on verra ce qu'il en reste",
     "posts_title":"articles en pagaille",
     "posts_nb_title":"rédaction(s)",
     "posts_moderation":"modération d'articles",

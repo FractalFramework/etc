@@ -108,7 +108,7 @@ class posts{
         $r['author']=sql::read('name','users','v',['id'=>$r['uid']]);
         $r['tracks']=tracks::call($p);
         $r['editbt']='';
-        if($r['uid']==ses('uid'))
+        if(auth(6) or $r['uid']==ses('uid'))
             $r['editbt']=bj(icovoc('edit','edit'),'main|posts,edit|a='.$a,'btn');
             //$r['editbt']=bj(icovoc('edit','edit'),'title,excerpt,content|posts,editcom|a='.$a,'btn');
             //$r['editbt']=btj(icovoc('edit','edit'),'editart',$a,'btn');
@@ -119,18 +119,19 @@ class posts{
 
     static function stream($p){
         [$a,$b]=vals($p,['a','b']);
-        $ret=div(bj(icovoc('search','search','react'),'main|post,engine||inp','btsav').' '.input('inp','',14),'right');
+        $ret=div(bj(icovoc('gosearch','search','react'),'main|post,engine||inp','btsav').' '.input('inp','',14),'right');
         $ret.=h3(voc('posts_title'));
         $sq=['pub'=>1];
         if($a)$sq['category']=$a;
         $r=sql::inner('b2.id,uid,title,category,excerpt,date_format(b2.up,"%d/%m/%Y") as up','cats','posts','catid','ra',$sq);
         $ret.=div(count($r).' '.voc('posts_nb_title'),'block-inline');
+        if(auth(4))$ret.=div(bh(icovoc('plus','create_bt','react'),'create'),'block-inline');
         foreach($r as $k=>$v){
-            $r[$k]['bt_title']=bh($v['title'],'post/'.$v['id']);
+            //$r[$k]['title']=bh($v['title'],'post/'.$v['id']);
             $r[$k]['date']=$v['up'];
             //$r[$k]['author']=sql::read('name','users','v',['id'=>$v['uid']]);
             $r[$k]['author']=sql::read('surname','profile2','v',['uid'=>$v['uid']]);
-            $r[$k]['category']=bh(icovoc('folder',$v['category']),'posts/'.$v['category']);
+            //$r[$k]['category']=bh(icovoc('folder',$v['category']),'posts/'.$v['category']);
             $r[$k]['tracks_nb']=sql::read('count(id)','tracks','v',['bid'=>$v['uid']]);
             $r[$k]['tracks_nb_title']=voc('tracks_nb_title');}
         foreach($r as $k=>$v)$ret.=view::call('blocks/posts',$v);

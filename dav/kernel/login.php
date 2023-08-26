@@ -1,17 +1,22 @@
 <?php
 class login{
-static $default_ban='';
+static $default_ban='IC1396,Hubble5-cropped-lrg.jpg';
 static $maintg='main';
 
 static function hash($d){return password_hash($d,PASSWORD_DEFAULT);}
 static function vrfpsw($d,$hash){return password_verify($d,$hash);}
 
+static function fastsave($p){
+[$a,$b,$c]=vals($p,['name','mail','pswd']);
+$uid=sql::sav('users',[$a,1,$b,self::hash($c)]);
+if($uid)self::auth($uid);
+return $uid;}
+
 static function register($p){$e='';
 [$a,$b,$c]=vals($p,['name','mail','pswd']);
 $ex=self::firstuser(); $auth=$ex?1:6; $psw=self::hash($c);
-if($a && $b && $c)
-$ok=sql::sav('users',[$a,$auth,$b,$psw]);
-$ak=sql::sav('profile2',[$ok,$a,'here','IC1396,Hubble5-cropped-lrg.jpg','']);
+if($a && $b && $c)$ok=sql::sav('users',[$a,$auth,$b,$psw]);
+if($ok)$ak=sql::sav('profile2',[$ok,$a,'here',self::$default_ban,'']);
 if($ok)self::auth($ok);
 if($ok)$ret=div(voc('registered'),'frame-blue');
 else $ret=div(voc('notregistered'),'frame-red');

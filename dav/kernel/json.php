@@ -19,7 +19,7 @@ static function edit($p){
 $f=self::$json_location.$p['a'].'.json';
 $d=file_get_contents($f);
 $ret=bj(icovoc('save'),'jedt|json,save|a='.$p['a'].'|inp','btsav');
-$ret.=div(textarea('inp',$d,'',48,['class'=>'console']),'area');
+$ret.=div(textarea('inp',$d,'',24,['class'=>'console']),'area');
 return div($ret,'','jedt');}
 
 static function file($a){

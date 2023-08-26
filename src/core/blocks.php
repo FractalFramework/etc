@@ -20,16 +20,7 @@ class blocks{
         return $ret;
     }
     
-    static function user(){
-        $ret=edit::call(['a'=>'profile2','b'=>'play','c'=>ses('uid')]);
-        $ret.=edit::call(['a'=>'socials','b'=>'play','c'=>'']);
-        return $ret;
-    }
-    
-    static function socials(){$ret='';
-        $r=sql::read('url','socials','a',['uid'=>ses('uid')]);
-        foreach($r as $k=>$v)$ret.=li(lk($v));
-        return tag('ul',[],$ret);
+    static function shutter($p){
     }
 
     static function nav($p){$rb=[];
@@ -48,6 +39,19 @@ class blocks{
         if(auth(6))$rb[]=bh(icovoc('admin','admin_bt','react'),'admin');
         $rc['menu']=div(join('',$rb));
         $ret=view::call('blocks/nav',$rc);
+        return $ret;
+    }
+    
+    static function home($p){
+        $r['presentation']=conns::profile($p);
+        $r['socials']=conns::socials($p);
+        $ret=view::call('blocks/home',$r);
+        return $ret;
+    }
+    
+    static function user(){
+        $ret=edit::call(['a'=>'profile2','b'=>'play','c'=>ses('uid')]);
+        $ret.=edit::call(['a'=>'socials','b'=>'play','c'=>'']);
         return $ret;
     }
 

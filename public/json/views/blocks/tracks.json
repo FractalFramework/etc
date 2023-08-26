@@ -15,13 +15,8 @@
         "{tracks}"
     ],
     [
-        "h4",
-        {"class":"let-track"},
-        "{let_track}"
-    ],
-    [
         "div",
         {"id":"track_form"},
-        ""
+        "{track_form}"
     ]
 ]
