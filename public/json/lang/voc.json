@@ -70,6 +70,14 @@
     "result":"résultat",
     "results":"résultat(s)",
     "del":"x",
-    "sure?":"vraiment ?"
+    "really?":"vraiment ?",
+    "no!":"non, je rigole",
+    "empty":"dis quelque chose, John !",
+    "required":"tu n'as pas oublié quelque chose ?",
+    "required_name":"dis ton nom",
+    "required_mail":"ton mail stp, ça fait deux fois qu'on te le demande, t'es lourd là !",
+    "already_exists":"la place est prise",
+    "done":"ça, c'est fait",
+    "trash":"poubelle"
 
 }

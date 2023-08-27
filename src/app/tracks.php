@@ -3,7 +3,10 @@ class tracks{
 
 static function del($p){
 [$a,$b,$ok]=vals($p,['a','b','ok']);
-if(!$ok)return bj(voc('sure?'),'track'.$b.'|tracks,del|a='.$a.',b='.$b.',ok=1','btdel');
+if(!$ok){
+    $ret=bj(voc('really?'),'track'.$b.'|tracks,del|a='.$a.',b='.$b.',ok=1','btdel');
+    $ret.=bj(ico('laugh').voc('no!'),'track'.$b.'|tracks,read|a='.$b,'btn');
+    return $ret;}
 else sql::upd('tracks',['pub'=>-1],['id'=>$b]);}
 
 static function edit($p){
@@ -13,49 +16,49 @@ $r['date']=date('ymd',strtotime($r['date']));
 $r['name']=sql::read('name','users','v',['id'=>$a]);
 $ret=view::call('blocks/post',$r);return $ret;}
 
-static function save($p){$uid=ses('uid'); $psw='';
+static function save($p){
+$uid=ses('uid'); $ret=''; $psw=''; $er=''; $ok=''; $psw=''; $ex='';
 [$a,$b,$c,$d]=vals($p,['bid','msg','name','mail']);
-if($c && $d)$psw=unid(time());
-if($c && $d)$uid=login::fastsave(['name'=>$c,'mail'=>$d,'pswd'=>$psw]);
-$x=sql::sav('tracks',[$uid,$a,$b,0],0);
-$back=bh(icovoc('back'),'post/'.$a,'btn');
-if($x)$ret=div(voc('pending_track').' '.$back,'frame-green');
-else $ret=div(voc('already_said').' '.$back,'frame-red');
-if($psw)$ret.=div(voc('new_password').' '.tagb('pre',$psw),'frame-blue');
+$own=$uid==conns::usrart($a)?1:0;
+if(!$uid && !$c)$er='required_name';
+elseif(!$uid && !$d)$er='required_mail';
+elseif($c && $d){$psw=unid(time());
+    $uid=login::fastsave(['name'=>$c,'mail'=>$d,'pswd'=>$psw]);}
+if($a && $b && $uid){$pub=$own?1:0;
+    $ex=sql::sav('tracks',[$uid,$a,$b,$pub],0);
+    if($ex)$ok='pending_track'; else $er='already_said';}
+elseif(!$b)$er='empty';
+elseif(!$a)$er='error';
+if($er)$ret=div(voc($er),'frame-red');
+elseif($ok && $own)$ret=self::read(['a'=>$ex]);
+elseif($ok)$ret=div(voc($ok),'frame-green');
+if($psw && $uid)$ret=div(voc('new_password').' '.tagb('pre',$psw),'frame-blue');
+$ret.=bh(icovoc('back'),'post/'.$a,'block-inline');
 return $ret;}
 
-static function form($p){
-[$a,$b]=vals($p,['a','b']);
-$ret=h3(voc('new_track'));
-$ret.=div(label('msg',voc('message'),'btn'));
-$ret.=div(textarea('msg','',64,12));
-$ret.=hidden('bid',$a);
-$ret.=bj(voc('send'),'track_form|tracks,save||bid,msg','btsav');//tgtrk
-//$ret.=div('','','tgtrk');
-return $ret;}
-
-static function miniform($a){
+static function form($a){
 $ret=bj(voc('send'),'track_form|tracks,save||bid,msg,name,mail','btsav');
 //$ret.=div(textarea('msg','',64,12));
-if(!auth(8))$ret.=input('name','','',['placeholder'=>'name']).inpmail('mail','');
+if(!auth(1))$ret.=input('name','','',['placeholder'=>'name']).inpmail('mail','');
 else $ret.=hidden('name','').hidden('mail','');
 $ret.=divarea('msg','','track-content');
 $ret.=hidden('bid',$a);
 return $ret;}
 
-/*static function read($p){
+static function read($p){
 [$a,$b]=vals($p,['a','b']);
-$r=sql::inner('b2.id,name,txt,b2.up','users','tracks','uid','ra',['id'=>$a]);
-$r['date']=date('ymd',strtotime($r['date']));
+$r=sql::inner('b2.id,name,txt,pub,date_format(b2.up,"%d/%m/%Y") as up','users','tracks','uid','a',['b2.id'=>$a]);
+$r['date']=$r['up'];
+$r['pub']=auth(4)?admin::bt($r['id'],$r['pub'],'tracks'):'';
 $ret=view::call('blocks/track',$r);
-return $ret;}*/
+return $ret;}
 
 static function stream($p){
 $ret='';
 [$a,$b]=vals($p,['a','b']);
 $pbs=['1']; if(auth(4))$pbs[]='0';
-$sq=['bid'=>$a,'pub('=>$pbs];
-$r=sql::inner('b2.id,name,txt,pub,date_format(b2.up,"%d/%m/%Y") as up','users','tracks','uid','ra',$sq);
+$q=['bid'=>$a,'pub('=>$pbs];
+$r=sql::inner('b2.id,name,txt,pub,date_format(b2.up,"%d/%m/%Y") as up','users','tracks','uid','ra',$q);
 if($r)foreach($r as $k=>$v){
     $r[$k]['date']=$v['up'];
     $r[$k]['pub']=auth(4)?admin::bt($v['id'],$v['pub'],'tracks'):'';
@@ -69,8 +72,7 @@ static function call($p){
 $r['tracks_title']=voc('tracks_title');
 $r['tracks_nb']=sql::read('count(id)','tracks','v',['bid'=>$a,'pub'=>1]);
 $r['tracks_nb_title']=voc('tracks_nb_title');
-//if(ses('uid'))$r['track_form']=bjtog(icovoc('asterix','let_track'),'track_form|tracks,form|a='.$a);
-if(ses('uid'))$r['track_form']=self::miniform($a);
+if(ses('uid'))$r['track_form']=self::form($a);
 else $r['track_form']=bh(voc('need_auth'),'login','frame-red');
 $r['tracks']=self::stream($p);
 $ret=view::call('blocks/tracks',$r);

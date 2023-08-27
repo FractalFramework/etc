@@ -52,7 +52,7 @@ static function play($p){$r=[];
 if(!$id)return er('no');
 //$ra=db::cols_k($b);
 if($id)$r=sql::read('all',$b,'a',$id);
-return tabler($r);}
+return build::tabler($r);}
 
 static function list(){$rt=[];
 $r=sql::call('show tables','rv');

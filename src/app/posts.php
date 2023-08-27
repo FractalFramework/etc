@@ -12,8 +12,12 @@ return conn::embed_p($d);}
 
 static function del($p){
 [$a,$b,$ok]=vals($p,['a','b','ok']);
-if(!$ok)return bj(voc('sure?'),'post'.$b.'|posts,del|a='.$a.',ok=1','btdel');
-else sql::upd('posts',['pub'=>-1],['id'=>$a]);}
+if(!$ok){
+    $ret=bj(ico('cry').voc('really?'),'main|posts,del|a='.$a.',ok=1','btdel');
+    $ret.=bj(ico('laugh').voc('no!'),'main|posts,read|a='.$a,'btn');
+    return $ret;}
+else sql::upd('posts',['pub'=>-1],['id'=>$a]);
+return bh(ico('back').voc('done'),'main|posts,call','block-inline');}
 
 static function save($p){
 [$a,$b,$c,$d]=vals($p,['cat','tit','exc','msg']);
@@ -40,20 +44,21 @@ static function datas($p){$q=[];
 if(is_numeric($a))$q['b2.id']=$a;
 elseif($a)$q['category']=$a;
 if($inp)$q['%content']=$inp;
+$pbs=['1']; if(auth(4))$pbs[]='0'; $q['pub(']=$pbs;
 $q['_group']='b2.id';
 $cl='b2.id,uid,title,category,excerpt,content,pub,date_format(lastup,"%d/%m/%Y") as up';
 $r=sql::inner($cl,'cats','posts','catid','ra',$q);
 return $r;}
 
 static function read($p){
-[$a,$b]=vals($p,['a','b']); $pr=[];
+[$a,$b]=vals($p,['a','b']); $pr=[]; $pr1=[]; $pr2=[];
 $r=self::datas($p); if($r)$r=$r[0];
 if(!$r)return div(icovoc('nothing'),'frame-red');
-if(!auth(4) && $r['pub']==0)return div(icovoc('moderated'),'frame-red');
-if(auth(6) or $r['uid']==ses('uid')){
+if(!auth(4) && $r['pub']<1)return div(icovoc('moderated'),'frame-red');
+if(auth(6) or ($r['uid']==ses('uid') && $r['pub'])){
     $pr=['contenteditable'=>'false','class'=>'editable'];
     $pr1=['onclick'=>'editxt(this,'.$a.')','onblur'=>'savtxt(this,'.$a.')'];
-    $pr2=['ondblclick'=>'editbt(\'content\','.$a.',1)','onblur'=>'savtxt(this,'.$a.',1)'];}
+    $pr2=['ondblclick'=>'editbt(\'content\','.$a.',1)'];}//,'onblur'=>'savtxt(this,'.$a.',1)'
 $r['date']=$r['up'];
 $r['author']=sql::read('name','users','v',['id'=>$r['uid']]);
 $r['pub']=auth(4)?admin::bt($a,$r['pub'],'posts'):'';
@@ -64,10 +69,13 @@ $r['category']=tag('span',['id'=>'catid']+$pr+$pr1,$r['category']);
 $txt=conn::call(['msg'=>$r['content'],'m'=>0,'id'=>$a]);
 //$txt=$r['content'];
 $r['content']=tag('div',['id'=>'content']+$pr+$pr2,$txt);
-$r['editbt']=auth(4)?btj(voc('edit'),'editbt',['content',$a],'btn',['id'=>'bt'.$a]):'';
+$r['editbt']='';
+$r['editbt']=conns::bt(['id'=>$a,'bt'=>1]);
+//$r['editbt']=auth(4)?btj(voc('edit'),'editbt',['content',$a],'btn',['id'=>'bt'.$a]):'';
 $r['tracks']=tracks::call($p);
+$bt=div(bh(icovoc('back','back'),'posts'),'block-inline');
 $ret=view::call('blocks/post',$r);
-return $ret;}
+return $bt.$ret;}
 
 static function stream($p){
 [$a,$b,$inp]=vals($p,['a','b','inp']); $uid=ses('uid');
@@ -76,7 +84,7 @@ $ret.=h3(voc('posts_title'));
 $r=self::datas($p);
 $ret.=div(count($r).' '.voc('posts_nb_title'),'block-inline');
 if(auth(4))$ret.=div(bh(icovoc('plus','create_bt','react'),'create'),'block-inline');
-foreach($r as $k=>$v)if(auth(6) or $v['uid']==$uid){
+foreach($r as $k=>$v){
     $r[$k]['date']=$v['up'];
     //$r[$k]['pub']=auth(4)?admin::bt($v['id'],$v['pub'],'posts'):'';
     $r[$k]['author']=sql::read('surname','profile2','v',['uid'=>$v['uid']]);

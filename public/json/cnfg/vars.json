@@ -7,6 +7,7 @@
     "savecss":"1",
     "savehtml":"1",
     "usrhome":"1",
+    "tgmain":"main",
     "css_location":"public/",
     "js_location":"public/",
     "json_location":"public/json/",

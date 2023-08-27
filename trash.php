@@ -1,5 +1,20 @@
 <?php
 
+//tracks
+///call
+//if(ses('uid'))$r['track_form']=bjtog(icovoc('asterix','let_track'),'track_form|tracks,form|a='.$a);
+
+/*static function form($p){
+[$a,$b]=vals($p,['a','b']);
+$ret=h3(voc('new_track'));
+$ret.=div(label('msg',voc('message'),'btn'));
+$ret.=div(textarea('msg','',64,12));
+$ret.=hidden('bid',$a);
+$ret.=bj(voc('send'),'track_form|tracks,save||bid,msg','btsav');//tgtrk
+//$ret.=div('','','tgtrk');
+return $ret;}*/
+
+
 //posts
     //stream
             //$r['editbt']=bj(icovoc('edit','edit'),'main|posts,edit|a='.$a,'btn');
