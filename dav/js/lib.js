@@ -1,5 +1,6 @@
 //states
 oldj='';
+//var maintg is defined from call
 
 function pr(d){return console.log(d);}
 function und(d){return typeof d=='undefined'?'':d;}
@@ -7,8 +8,10 @@ function getbyid(id){return document.getElementById(id);}
 function falseClose(id){getbyid(id).innerHTML='';}
 
 function active(id,ob,a){if(id)ob=getbyid(id); var op=ob.className;
-if(op.indexOf('active')==-1 && !a){ob.classList.add("active"); return 1;}
-else{ob.classList.remove("active"); return 0;}}
+if(op.indexOf('active')==-1){ob.classList.add("active"); return 1;}
+else if(!a){ob.classList.remove("active"); return 0;}}
+function isactive(id,ob){if(id)ob=getbyid(id); var op=ob.className;
+return op.indexOf('active')==-1?0:1;}
 
 //urls
 function updateurl(u,j){

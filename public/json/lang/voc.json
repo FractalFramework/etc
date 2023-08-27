@@ -47,16 +47,17 @@
     "new_track":"dis-le, mais dis-le !",
     "let_track":"ajoute ton grain de sel",
     "pending_track":"on va vérifier quand même si tu ne dis pas trop de c**ner*es",
-    "tracks_moderation":"modérons, on verra ce qu'il en reste",
+    "already_said":"ta l'as déjà dis, ça, espèce de vieux radoteur",
     "posts_title":"articles en pagaille",
     "posts_nb_title":"rédaction(s)",
-    "posts_moderation":"modération d'articles",
+    "moderated":"bah il est pas là, c'est tout",
     "article":"rédaction",
     "articles":"rédactions",
 
     "save":"sauve",
     "saved":"on est sauvés !",
     "error":"oulalaaa",
+    "nothing":"rien à voir mon gars",
     "on":"allumé",
     "off":"éteint",
     "read":"état des lieux",
@@ -68,6 +69,7 @@
     "zero":"0",
     "result":"résultat",
     "results":"résultat(s)",
-    "already_said":"ta l'as déjà dis, ça, espèce de vieux radoteur"
+    "del":"x",
+    "sure?":"vraiment ?"
 
 }

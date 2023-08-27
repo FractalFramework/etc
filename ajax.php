@@ -10,7 +10,8 @@ $p=posts();
 boot::call();
 $com=get('com');
 [$app,$mth]=expl($com,',');
-if(method_exists($app,$mth))$ret=$app::$mth($p);
+$no=secur::call($app,$mth);
+if(!$no && method_exists($app,$mth))$ret=$app::$mth($p);
 if(isset($ret)){
     if(is_array($ret)){
         //header('Content-Type: application/json');

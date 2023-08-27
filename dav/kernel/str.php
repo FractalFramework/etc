@@ -3,9 +3,9 @@ class str{
 
 static function acc($o=1){
 $a=['À','Á','Â','Ã','Ä','Ç','È','É','Ê','Ë','Ì','Í','Î','Ï','Ñ','Ò','Ó','Ô','Õ','Ö','Ù','Ú','Û','Ü','Ý'];
-$am=[,'à','á','â','ã','ä','å','ç','è','é','ê','ë','ì','í','î','ï','ð','ò','ó','ô','õ','ö','ù','ú','û','ü','ý','ÿ'];
+$am=['à','á','â','ã','ä','å','ç','è','é','ê','ë','ì','í','î','ï','ð','ò','ó','ô','õ','ö','ù','ú','û','ü','ý','ÿ'];
 $b=['à','á','â','ã','ä','ç','è','é','ê','ë','ì','í','î','ï','ñ','ò','ó','ô','õ','ö','ù','ú','û','ü','ý'];
-$bm=[,'a','a','a','a','a','a','c','e','e','e','e','i','i','i','i','o','o','o','o','o','o','u','u','u','u','y','y'];
+$bm=['a','a','a','a','a','a','c','e','e','e','e','i','i','i','i','o','o','o','o','o','o','u','u','u','u','y','y'];
 if($o){$a+=$am; $b+=$bm;}
 return [$a,$b];}
 
@@ -104,7 +104,36 @@ return $d;}
 
 static function trim($d,$o=''){
 if($o)$d=self::clean_whitespaces($d);
-return trim($d,'  ');}//&nbsp;//kill &
+return trim($d,'  ');}//&nbsp;//kill
+
+static function clean_mail($d){
+$d=delr($d);
+$d=delbr($d,"\n");
+$d=delsp($d);
+$d=str_replace("M.\n",'M. ',$d);
+$d=str_replace(".\n",'.µµ',$d);
+$d=str_replace("\n",'µ',$d);
+$d=str_replace('µµ',"\n\n",$d);
+$d=str_replace('µ',' ',$d);
+$d=self::clean_lines($d);
+$d=delsp($d);
+return $d;}
+
+static function clean_n($d){
+$d=str_replace("\r\n","\n",$d);
+$d=str_replace("\r","\n",$d);
+$d=str_replace('<br>'."\n","\n",$d);
+$d=delsp($d);
+$d=delnl($d);
+return trim($d);}
+
+static function clean_br($d){
+$d=delbr($d,' ');
+$d=self::clean_lines($d);
+$d=deln($d,' ');
+$d=delsp($d,' ');
+$d=delsp($d);
+return trim($d);}
 
 }
 ?>

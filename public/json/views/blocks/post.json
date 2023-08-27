@@ -2,12 +2,12 @@
     [
         "article",
         {
-            "id":"post{id}}"
+            "id":"post{id}"
         },
         [
             [
                 "h1",
-                {"id":"title","class":"title"},
+                {"class":"title"},
                 "{title}"
             ],
             [
@@ -28,12 +28,17 @@
                         "span",
                         {"class":"category"},
                         "{category}"
+                    ],
+                    [
+                        "span",
+                        {"class":"publish"},
+                        "{pub}"
                     ]
                 ]
             ],
             [
                 "div",
-                {"id":"excerpt","class":"excerpt"},
+                {"class":"excerpt"},
                 "{excerpt}"
             ],
             [
@@ -43,7 +48,7 @@
             ],
             [
                 "div",
-                {"id":"content","class":"content"},
+                {"class":"content"},
                 "{content}"
             ],
             [

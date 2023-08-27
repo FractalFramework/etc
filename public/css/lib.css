@@ -7,6 +7,7 @@ h1,h2,h3,h4,h5{margin:16px 0}
 input,textarea,select{transition:background 0.3s ease; font-size:small; padding:3px 5px; background-color:#ddd4; border:1px solid #bbb}
 input:hover,input:focus,textarea:hover,textarea:focus,select:hover,select:focus{border:1px solid #777}
 input:focus-visible,textarea:focus-visible,select:focus-visible{outline:none}
+div:focus-visible{outline:2px dashed darkorange}
 form{padding:0px; margin:0px}
 button{background-color:#fffa; border:1px solid black}
 footer{}
@@ -42,13 +43,15 @@ tabs{line-height:20px}
 .frame-blue{font-size:big; padding:8px 16px; margin:4px; background-color:#0064ff4a; border-color:#0064ff; border-style:solid; border-width:1px}
 .frame-red{font-size:big; padding:8px 16px; margin:4px; background-color:#dc143c4a; border-color:#dc143c; border-style:solid; border-width:1px}
 .frame-green{font-size:big; padding:8px 16px; margin:4px; background-color:#9acd3273; border-color:#608e00; border-style:solid; border-width:1px}
-.btn,.btsav,.btdel{transition:all 0.3s ease; font-size:small; padding:2px 4px; background-color:#ffffff7d; border-width:1px; border-color:grey; border-style:solid; line-height:24px; color:#444}
+.btn,.btsav,.btdel{transition:all 0.3s ease; font-size:small; padding:1px 3px; background-color:#ffffff7d; border-width:1px; border-color:grey; border-style:solid; line-height:24px; color:#444}
 .btn:hover{background-color:white; border-color:black}
 .btsav{background-color:#0064ff4a; border-color:#0064ff; color:#222}
 .btsav:hover{background-color:#0064ff; border-color:#0064ff; color:#fff !important}
 .btdel{background-color:#dc143c4a; border-color:#dc143c; color:#222}
 .btdel:hover{background-color:#dc143c; border-color:#dc143c; color:#fff !important}
-.ico{font-size:normal}
+.editable{outline-width:2px; outline-style:dotted; outline-color:#eee}
+.editable:hover{outline-color:#777}
+.editable.active{outline-color:red}
 .console{font-family:Lucida Console; word-wrap:break-word; padding:16px; background-color:#222; color:#fff}
 scroll{max-height:400px; min-width:140px; overflow-y:auto; overflow-x:hidden; word-wrap:break-word; scrollbar-width:thin}
 .block-inline{display:inline-block; border: 1px solid #ffffffe5; padding:5px 10px; margin:16px 0; border-radius:16px; background:#dddddd75}
@@ -58,5 +61,6 @@ cols{columns:auto 250px; margin-top:16px}
 .info{padding:2px 0; color:#c700ff}
 .small{font-size:small}
 .right{float:right}
+.ico{font-size:normal}
 @media only screen and (max-width: 720px){.react{display:none}
 .grid{grid-template-columns:50px auto}}

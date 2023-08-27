@@ -40,10 +40,8 @@
     "home":"🏘️",
     "light":"🔆",
     "night":"🌙",
-    "done":"✔",
-    "not-done":"✖",
-    "valid":"✅",
-    "not-valid":"❎",
+    "true":"✔",
+    "false":"✖",
     "case-empty":"☐",
     "case-checked":"☑",
     "case-not-checked":"☒",
@@ -87,5 +85,10 @@
     "facebook":"😵",
     "linkedin":"🤡",
     "youtube":"🤕",
-    "url":"🔗"
+    "url":"🔗",
+    "nothing":"⌀",
+    "moderated":"🤫",
+    "on":"✅",
+    "off":"❎",
+    "del":"❌"
 }

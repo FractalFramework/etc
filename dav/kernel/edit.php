@@ -4,7 +4,6 @@ static $tg='main';//target
 
 static function save($p){
 $b=$p['b']??'';
-$no=secur::call(__CLASS__,__FUNCTION__);
 if($no && $b!='tracks')return $no;//derogation
 $ra=db::cols_k($b);
 $rd=walk($ra,'unid');
@@ -17,8 +16,7 @@ $ret.=bj(voc('return'),self::$tg.'|edit,call|a='.$b.',b=play,c='.$nid,'btn');
 return $ret;}
 
 static function update($p){
-[$b,$id]=vals($p,['b','id']); 
-$no=secur::call(__CLASS__,__FUNCTION__);
+[$b,$id]=vals($p,['b','id']);
 if($no)return $no;
 $ra=db::cols_k($b);
 $rd=walk($ra,'unid');

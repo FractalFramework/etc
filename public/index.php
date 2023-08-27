@@ -7,9 +7,9 @@ boot::call();
 css::build('lib');
 css::build('core');
 
-head::json('cnfg/headers');
+head::json('cnfg/head');
 head::add('jscode','state='.json_encode($g).';
-var maintg="main|blocks,call"');
+var maintg="content|blocks,call"');
 echo head::run();
 
 $ret=main::call($g);

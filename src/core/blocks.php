@@ -68,8 +68,8 @@ class blocks{
         return match($a){
             'post'=>posts::read($p),
             'create'=>auth(4)?posts::create($p):self::forbidden(),
-            'edit'=>auth(4)?posts::edit($p):self::forbidden(),
-            'home'=>posts::call($p),
+            'edit'=>auth(4)?posts::read($p):self::forbidden(),
+            'home'=>posts::call(['a'=>'home']),
             default=>posts::call($p),
         };
     }

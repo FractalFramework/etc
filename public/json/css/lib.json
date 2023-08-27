@@ -35,6 +35,9 @@
     "input:focus-visible,textarea:focus-visible,select:focus-visible":{
         "outline":"none"
     },
+    "div:focus-visible":{
+        "outline":"2px dashed darkorange"
+    },
     "form":{
         "padding":"0px",
         "margin":"0px"
@@ -196,7 +199,7 @@
     ".btn,.btsav,.btdel":{
         "transition":"all 0.3s ease",
         "font-size":"small",
-        "padding":"2px 4px",
+        "padding":"1px 3px",
         "background-color":"#ffffff7d",
         "border-width":"1px",
         "border-color":"grey",
@@ -228,8 +231,16 @@
         "border-color":"#dc143c",
         "color":"#fff !important"
     },
-    ".ico":{
-        "font-size":"normal"
+    ".editable":{
+        "outline-width":"2px",
+        "outline-style":"dotted",
+        "outline-color":"#eee"
+    },
+    ".editable:hover":{
+        "outline-color":"#777"
+    },
+    ".editable.active":{
+        "outline-color":"red"
     },
 
     ".console":{
@@ -274,6 +285,9 @@
     },
     ".right":{
         "float":"right"
+    },
+    ".ico":{
+        "font-size":"normal"
     },
     
     "@media only screen and (max-width: 720px)":{
