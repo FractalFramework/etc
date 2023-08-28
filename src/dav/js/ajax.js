@@ -43,7 +43,7 @@ if(dn[3]){prm=dn[3].split(','); for(i=0;i<prm.length;i++){var p=prm[i].split('='
 ajax_req(dn[0],dn[1],fd,pp,tp);}
 
 
-function bjtog(ob){var j=ob.dataset.bj; var act=active('',ob); var dn=j.split('|');
+function bg(ob){var j=ob.dataset.bj; var act=active('',ob); var dn=j.split('|');
 if(act)bjcall(j); else falseClose(dn[0]);}
 
 function bh(o){var com=o.href; var r=com.split('/');

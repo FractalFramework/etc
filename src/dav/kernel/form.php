@@ -13,7 +13,7 @@ switch($ty){
 	case('radio'):$d=radio($k,$o,$va,1); break;
 	case('hidden'):$d=hidden($k,$va); break;
 	case('bar'):$d=bar($k,$va); break;
-	case('submit'):$d=bj($va,langp($lbl),'btsav'); break;
+	case('submit'):$d=bj(langp($lbl),$va,'btsav'); break;
 	//case('submit'):$d=input($k,langp($lbl),'','','submit'); break;
 	}
 $rt[$k]['field']=$d;

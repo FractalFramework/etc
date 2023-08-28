@@ -21,19 +21,19 @@ return $ret;}
 static function shutter($p){}
 
 static function nav($p){$rb=[];
-$rb[]=bh(icovoc('home','home_bt','react'),'home');
+$rb[]=bh('home',icovoc('home','home_bt','react'));
 //$r=sql::read('distinct(catid)','posts','w',['pub'=>1]);
 //$r=sql::inner('distinct(category)','cats','posts','catid','rv','where pub>0');
-//foreach($r as $k=>$v)$rb[]=bh(icovoc('folder',$v),'posts/'.$v);
-$rb[]=bh(icovoc('folder','articles','react'),'posts');
-$rb[]=bh(icovoc('mail','contact_bt','react'),'contact');
-//$rb[]=bh(icovoc('search','search_bt','react'),'search');
-//$rb[]=bj(icovoc('search','search','react').' '.input('inp','',8),'main|post,engine||inp','btsav');
-if(auth(4))$rb[]=bh(icovoc('plus','create_bt','react'),'create');
+//foreach($r as $k=>$v)$rb[]=bh('posts/'.$v,icovoc('folder',$v));
+$rb[]=bh('posts',icovoc('folder','articles','react'));
+$rb[]=bh('contact',icovoc('mail','contact_bt','react'));
+//$rb[]=bh('search',icovoc('search','search_bt','react'));
+//$rb[]=bj('main|post,engine||inp',icovoc('search','search','react').' '.input('inp','',8),'btsav');
+if(auth(4))$rb[]=bh('create',icovoc('plus','create_bt','react'));
 $rb[]=div('','line');
-$rb[]=bh(icovoc('login','login_bt','react'),'login');
-if(auth(1))$rb[]=bh(icovoc('user','user_bt','react'),'user');
-if(auth(6))$rb[]=bh(icovoc('admin','admin_bt','react'),'admin');
+$rb[]=bh('login',icovoc('login','login_bt','react'));
+if(auth(1))$rb[]=bh('user',icovoc('user','user_bt','react'));
+if(auth(6))$rb[]=bh('admin',icovoc('admin','admin_bt','react'));
 $rc['menu']=div(join('',$rb));
 $ret=view::call('blocks/nav',$rc);
 return $ret;}

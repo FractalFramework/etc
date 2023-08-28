@@ -5,7 +5,7 @@ echo head::run();
 */
 
 class head{static $r=[]; static $rid='';
-static $js_location='/dav';
+static $js_location='/src/dav';
 static $css_location='/public';
 static function add($k,$v){self::$r[][$k]=$v;}
 static function json($a){self::$r=json::call($a);}
@@ -38,3 +38,4 @@ static function run($lg='fr'){return self::html($lg).tag('head',[],self::build()
 static function page($d,$lg='fr'){return self::run($lg).tag('body',[],$d).'</html>';}
 static function call($r=[]){if($r)self::$r=array_merge($r,self::$r); return self::build();}
 static function get(){return self::build();}}
+?>

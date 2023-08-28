@@ -36,7 +36,7 @@ static function form($p){
 [$a,$b]=vals($p,['a','b']);
 $ret=h3(voc('login'));
 if(!self::firstuser())$ret.=div(voc('first_user'),'frame-white');
-$ret.=bj(voc('go'),self::$maintg.',nav|login,call||name,pswd','btsav');
+$ret.=bj(self::$maintg.',nav|login,call||name,pswd',voc('go'),'btsav');
 $ret.=div(input('name','').label('name',voc('knowname'),'btn'));
 $ret.=div(inpsw('pswd','').label('pswd',voc('password'),'btn'));
 return $ret;}
@@ -49,16 +49,16 @@ $ok=self::vrfpsw($b,$psw);
 if($ok){self::auth($uid); $ret=div(voc('loged').', '.$a,'frame-green');}
 elseif($uid){
 	$ret=div(voc('bad_password'),'frame-blue');
-	$ret.=div(bh(voc('redo'),'login','btn'));
+	$ret.=div(bh('login',voc('redo'),'btn'));
 	$ret.=hidden('name',$a);
 	$ret.=div(inpsw('pswd',$b).label('pswd',voc('password'),'btn'));
-	$ret.=bj(voc('go'),self::$maintg.',nav|login,call||name,pswd','btsav');}
+	$ret.=bj(self::$maintg.',nav|login,call||name,pswd',voc('go'),'btsav');}
 else{
 	$ret=div(voc('inexistant_user'),'frame-red');
-	$ret.=div(bh(voc('go'),'login','btn'));
+	$ret.=div(bh('login',voc('go'),'btn'));
 	$ret.=hidden('name',$a).hidden('pswd',$b);
 	$ret.=div(inpmail('mail','').label('mail',voc('knownmail'),'btn'));
-	$ret.=bj(voc('register?'),self::$maintg.',nav|login,register||name,mail,pswd','btsav');
+	$ret.=bj(self::$maintg.',nav|login,register||name,mail,pswd',voc('register?'),'btsav');
 	$ret.=div('','','tgreg');}
 return [$ret,blocks::nav([])];}
 
@@ -88,7 +88,7 @@ return [$d,blocks::nav([])];}
 
 static function loged(){
 $ret=div(voc('hello').' '.ses('usr'),'frame-blue');
-$ret.=div(bj(voc('logout'),self::$maintg.',nav|login,logout','btn'));
+$ret.=div(bj(self::$maintg.',nav|login,logout',voc('logout'),'btn'));
 return $ret;}
 
 static function call($p){

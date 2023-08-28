@@ -18,7 +18,7 @@ static function tabs($r,$id='tab1',$c=''){
 $b=0; $mnu=''; $ret=''; $sp=span(' ','space');
 if($r)foreach($r as $k=>$v){$b++;
     $dsp=$b==1?'block':'none'; $cs=$b==1?'active':'';
-    $mnu.=span(btj($k,'tabs',[$id,$b]),$cs).$sp;
+    $mnu.=span(btj('tabs',[$id,$b]),$k,$cs).$sp;
     $ret.=div($v,$c,'div'.$id.$b,'display:'.$dsp);}
 return div($mnu,'tabs','mn'.$id).$ret;}
 
@@ -30,5 +30,5 @@ return tag($ul,[],$ret);}
 static function scroll($d,$max=10,$w='',$h='',$id=''){$h=is_numeric($h)?$h.'px':$h;
 $s=$w?'width:'.$w.'px; ':''; $s.='max-height:'.($h?$h:'420px').';';
 $c=strlen($d)>$max?'scroll':''; return div($d,$c,$id,$s);}
-
 }
+?>

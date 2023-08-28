@@ -1,9 +1,8 @@
 <?php
 
 spl_autoload_register(function($a){
-    if(is_file($f='dav/kernel/'.$a.'.php')){require($f); return;}
-    $r=sesmk('scandir_b','src',0);
-    if($r)foreach($r as $v)if(is_file($f='src/'.$v.'/'.$a.'.php')){require($f); return;}
+    $r=sesmk('scandir_r','src',0);
+    if($r)foreach($r as $v)if(is_file($f=$v.'/'.$a.'.php')){require($f); return;}
 });
 
 //html
@@ -31,11 +30,11 @@ function h4($v){return tagb('h4',$v);}
 function li($v){return tagb('li',$v);}
 
 function atj($d,$j){return $d.'('.implode_j($j).');';}
-function bt($v,$j,$pj=[],$c='',$p=[]){return tag('button',['onclick'=>atj($j,$pj),'class'=>$c]+$p,$v);}
-function btj($v,$j,$pj=[],$c='',$p=[]){return tag('a',['onclick'=>atj($j,$pj),'class'=>$c]+$p,$v);}
-function bj($v,$j,$c='',$p=[]){return tag('a',['onclick'=>'bj(this)','data-bj'=>$j,'title'=>$j,'class'=>$c]+$p,$v);}
-function bjtog($v,$j,$c='',$p=[]){return tag('a',['onclick'=>'bjtog(this)','data-bj'=>$j,'title'=>$j,'class'=>$c]+$p,$v);}
-function bh($v,$h,$c='',$p=[]){return tag('a',['href'=>'/'.$h,'onclick'=>'return bh(this)','class'=>$c]+$p,$v);}
+function bt($j,$pj,$v,$c='',$p=[]){return tag('button',['onclick'=>atj($j,$pj),'class'=>$c]+$p,$v);}
+function btj($j,$pj,$v,$c='',$p=[]){return tag('a',['onclick'=>atj($j,$pj),'class'=>$c]+$p,$v);}
+function bj($j,$v,$c='',$p=[]){return tag('a',['onclick'=>'bj(this)','data-bj'=>$j,'title'=>$j,'class'=>$c]+$p,$v);}
+function bg($j,$v,$c='',$p=[]){return tag('a',['onclick'=>'bg(this)','data-bj'=>$j,'title'=>$j,'class'=>$c]+$p,$v);}
+function bh($h,$v,$c='',$p=[]){return tag('a',['href'=>'/'.$h,'onclick'=>'return bh(this)','class'=>$c]+$p,$v);}
 
 function input($d,$v,$s='',$p=[]){
 if($p['type']??''){$vy=$p['type']; unset($p['type']);} else $vy='text';
@@ -143,7 +142,11 @@ if($p!==false)return [mb_substr($v,0,$p),mb_substr($v,$p+1)]; else return ['',$v
 function scandir_b($d){$r=scandir($d); unset($r[0]); unset($r[1]); return $r;}
 function scandir_r($d,$r=[]){$dr=opendir($d);
 while($f=readdir($dr))if($f!='..' && $f!='.' && $f!='_notes'){$df=$d.'/'.$f;
-	if(is_dir($df))$r=scandir_r($df,$r); else $r[]=$df;}
+	if(is_dir($df)){$r[]=$df; $r+=scandir_r($df,$r);}}
+return $r;}
+function scanfiles($d,$r=[]){$dr=opendir($d);
+while($f=readdir($dr))if($f!='..' && $f!='.' && $f!='_notes'){$df=$d.'/'.$f;
+	if(is_dir($df))$r=scanfiles($df,$r); else $r[]=$df;}
 return $r;}
 function mkdir_r($u){$nu=explode('/',$u); if(count($nu)>10)return;
 if(strpos($u,'Warning')!==false)return; $ret='';

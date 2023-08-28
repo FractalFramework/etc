@@ -3,10 +3,10 @@ class conns{
 //edit
 static function bt($p){
 $r=json::call('lang/conn'); $id=$p['id']??'';
-$rt[]=btj('[ ]','embed',['[',']',$id]);
+$rt[]=btj('embed',['[',']',$id],'[ ]');
 foreach($r as $k=>$v){[$t,$o,$a]=arr($v,3); if($o)$o='|'.$o;
-	if($a)$rt[]=btj($k,'embed',['[',$o.':'.$k.']',$id],'',['title'=>$t]);}
-if($p['bt'])$rt[]=btj(ico('save'),'editbt',['content',$id],'btsav',['id'=>'bt'.$id]);
+	if($a)$rt[]=btj('embed',['[',$o.':'.$k.']',$id],$k,'',['title'=>$t]);}
+if($p['bt'])$rt[]=btj('editbt',['content',$id],ico('save'),'btsav',['id'=>'bt'.$id]);
 return div(join('',$rt),'menu');}
 
 //builders
@@ -23,12 +23,12 @@ return build::mkli($r,$o?'ol':'ul');}
 //conns
 static function art($id,$t=''){
 if(!$t)$t=sql::read('title','posts','v',$id);
-return bh(ico('url').thin().$t,'post/'.$id,'btn');}
+return bh('post/'.$id,ico('url').thin().$t,'btn');}
 
 static function read($id,$o=''){$d='';
 if(!$o)$d=posts::content(['id'=>$id]);
 $t=sql::read('title','posts','v',$id);
-$ret=h3(bjtog($t,'cnt'.$id.'|conns,read_content|id='.$id,!$o?'active':''));
+$ret=h3(bg('cnt'.$id.'|conns,read_content|id='.$id,$t,!$o?'active':''));
 $ret.=div($d,'','cnt'.$id);
 return $ret;}
 
@@ -55,3 +55,4 @@ $r=sql::read('url','socials','rv',['uid'=>$uid]); if(!$r)return;
 foreach($r as $k=>$v)$rt[]=self::socialk($v);
 return rdiv($rt);}
 }
+?>

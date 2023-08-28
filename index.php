@@ -9,7 +9,7 @@ error_reporting(E_ALL);
 session_start();
 //header('Content-Type: text/html; charset=utf-8');
 define('root',__DIR__);
-require('dav/lib.php');
+require('src/dav/lib.php');
 require('cnfg/'.nohttp(host()).'.php');
 require('public/index.php');
 sql::$qr=null;

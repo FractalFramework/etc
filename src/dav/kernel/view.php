@@ -1,10 +1,10 @@
 <?php
 class view{
 static $json_views='views/';
-static $templates_location='public/templates/';
+static $html_location='public/html/';
 
 static function file($a){
-return self::$templates_location.$a.'.html';}
+return self::$html_location.$a.'.html';}
 
 static function vars($r){static $rv=[];
 foreach($r as $k=>$v)
@@ -47,3 +47,4 @@ if($r)$ret=self::com($r,$ra);
 if(ses::cnfg('savehtml'))self::save_html($a);
 return $ret;}
 }
+?>

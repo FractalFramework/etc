@@ -3,7 +3,7 @@ ini_set('display_errors','1');
 error_reporting(E_ALL);
 //ini_set('default_charset','utf-8');
 session_start();
-require('dav/lib.php');
+require('src/dav/lib.php');
 require('cnfg/'.nohttp(host()).'.php');
 $g=gets();
 $p=posts();

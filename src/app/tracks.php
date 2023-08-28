@@ -4,8 +4,8 @@ class tracks{
 static function del($p){
 [$a,$b,$ok]=vals($p,['a','b','ok']);
 if(!$ok){
-    $ret=bj(voc('really?'),'track'.$b.'|tracks,del|a='.$a.',b='.$b.',ok=1','btdel');
-    $ret.=bj(ico('laugh').voc('no!'),'track'.$b.'|tracks,read|a='.$b,'btn');
+    $ret=bj('track'.$b.'|tracks,del|a='.$a.',b='.$b.',ok=1',voc('really?'),'btdel');
+    $ret.=bj('track'.$b.'|tracks,read|a='.$b,icovoc('laugh','no!'),'btn');
     return $ret;}
 else sql::upd('tracks',['pub'=>-1],['id'=>$b]);}
 
@@ -33,11 +33,11 @@ if($er)$ret=div(voc($er),'frame-red');
 elseif($ok && $own)$ret=self::read(['a'=>$ex]);
 elseif($ok)$ret=div(voc($ok),'frame-green');
 if($psw && $uid)$ret=div(voc('new_password').' '.tagb('pre',$psw),'frame-blue');
-$ret.=bh(icovoc('back'),'post/'.$a,'block-inline');
+$ret.=bh('post/'.$a,icovoc('back'),'block-inline');
 return $ret;}
 
 static function form($a){
-$ret=bj(voc('send'),'track_form|tracks,save||bid,msg,name,mail','btsav');
+$ret=bj('track_form|tracks,save||bid,msg,name,mail',voc('send'),'btsav');
 //$ret.=div(textarea('msg','',64,12));
 if(!auth(1))$ret.=input('name','','',['placeholder'=>'name']).inpmail('mail','');
 else $ret.=hidden('name','').hidden('mail','');
@@ -62,7 +62,7 @@ $r=sql::inner('b2.id,name,txt,pub,date_format(b2.up,"%d/%m/%Y") as up','users','
 if($r)foreach($r as $k=>$v){
     $r[$k]['date']=$v['up'];
     $r[$k]['pub']=auth(4)?admin::bt($v['id'],$v['pub'],'tracks'):'';
-    $r[$k]['pub'].=auth(4)?bj(voc('del'),'track'.$v['id'].'|tracks,del|a='.$a.',b='.$v['id'],'btdel'):'';
+    $r[$k]['pub'].=auth(4)?bj('track'.$v['id'].'|tracks,del|a='.$a.',b='.$v['id'],ico('trash'),''):'';
     $ret.=view::call('blocks/track',$r[$k]);}
 else $ret=ico('comment');
 return $ret;}
@@ -73,8 +73,9 @@ $r['tracks_title']=voc('tracks_title');
 $r['tracks_nb']=sql::read('count(id)','tracks','v',['bid'=>$a,'pub'=>1]);
 $r['tracks_nb_title']=voc('tracks_nb_title');
 if(ses('uid'))$r['track_form']=self::form($a);
-else $r['track_form']=bh(voc('need_auth'),'login','frame-red');
+else $r['track_form']=bh('login',voc('need_auth'),'frame-red');
 $r['tracks']=self::stream($p);
 $ret=view::call('blocks/tracks',$r);
 return $ret;}
 }
+?>

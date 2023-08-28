@@ -1,5 +1,15 @@
 <?php
 
+
+//lib
+/*function pc($d){return ['class'=>$d];}
+function pd($d){return ['id'=>$d];}
+function ps($d){return ['style'=>$d];}
+function pn($d){return ['name'=>$d];}
+function pv($d){return ['value'=>$d];}
+function pz($d){return ['size'=>$d];}
+function pt($d){return ['title'=>$d];}*/
+
 //tracks
 ///call
 //if(ses('uid'))$r['track_form']=bjtog(icovoc('asterix','let_track'),'track_form|tracks,form|a='.$a);
