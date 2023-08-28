@@ -61,6 +61,16 @@ tabs{line-height:20px}
 .console{font-family:Lucida Console; word-wrap:break-word; padding:16px; background-color:#222; color:#fff}
 scroll{max-height:400px; min-width:140px; overflow-y:auto; overflow-x:hidden; word-wrap:break-word; scrollbar-width:thin}
 .block-inline{display:inline-block; border: 1px solid #ffffffe5; padding:5px 10px; margin:0px 0; border-radius:16px; background:#dddddd75}
+.topology ol{list-style-type:upper-roman}
+.topology ol ol{list-style-type:upper-alpha}
+.topology ol ol ol{list-style-type:upper-alpha}
+.topology ol ol ol ol{list-style-type:decimal}
+.topology ol ol ol ol ol{list-style-type:disclosure-closed}
+.topology li{color:#171717; padding:0px}
+.topology li a{padding:1px 2px; color:#171717; background-color:#e9e7e8}
+.topology li ul{border-left:1px dotted #777}
+.topology li ul.on{display:block}
+.topology li ul.off{display:none}
 cols{columns:auto 250px; margin-top:16px}
 .infos{font-size:small}
 .infos span{padding:2px}

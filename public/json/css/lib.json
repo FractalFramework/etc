@@ -253,6 +253,18 @@
         "border-radius":"16px",
         "background":"#dddddd75"
     },
+
+    ".topology ol":{"list-style-type":"upper-roman"},
+    ".topology ol ol":{"list-style-type":"upper-alpha"},
+    ".topology ol ol ol":{"list-style-type":"upper-alpha"},
+    ".topology ol ol ol ol":{"list-style-type":"decimal"},
+    ".topology ol ol ol ol ol":{"list-style-type":"disclosure-closed"},
+    ".topology li":{"color":"#171717","padding":"0px"},
+    ".topology li a":{"padding":"1px 2px","color":"#171717","background-color":"#e9e7e8"},
+    ".topology li ul":{"border-left":"1px dotted #777"},
+    ".topology li ul.on":{"display":"block"},
+    ".topology li ul.off":{"display":"none"},
+
     "cols":{
         "columns":"auto 250px",
         "margin-top":"16px"

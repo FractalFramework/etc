@@ -81,3 +81,8 @@ if(!s2)slctstart=finalend;
 tg.scrollTop=slcttop;
 tg.focus();
 return s2;}
+
+//
+function liul(el){var a=active('',el);
+var ul=el.nextSibling;
+ul.className=a?'on':'off';}

@@ -27,7 +27,7 @@ return build::tabler($r,['id','author',$cnt,'pub']);}
 
 static function jsonfiles(){
 $dr='public/json';
-$r=scandir_r($dr);
+$r=scanfiles($dr);
 foreach($r as $k=>$v){
 	$vb=str_replace([$dr.'/','.json'],'',$v);
 	$rt[]=bj('jmnu|json,edit|a='.$vb,$vb);}

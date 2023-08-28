@@ -1,8 +1,8 @@
 <?php
 
 spl_autoload_register(function($a){
-    $r=sesmk('scandir_r','src',0);
-    if($r)foreach($r as $v)if(is_file($f=$v.'/'.$a.'.php')){require($f); return;}
+    $r=sesmk('scandir_b','src',1);
+    if($r)foreach($r as $v)if(is_file($f='src/'.$v.'/'.$a.'.php')){require($f); return;}
 });
 
 //html
@@ -171,7 +171,8 @@ curl_setopt($c,CURLOPT_ENCODING,'UTF-8'); $enc=curl_getinfo($c,CURLINFO_CONTENT_
 $ret=curl_exec($c); if($ret===false)$er=curl_errno($c);
 curl_close($c); if($er)er($er); else return $ret;}
 
-function getfile($f){return curl_get_contents($f);}
+function getcurl($f){return curl_get_contents($f);}
+function getfile($f){return file_get_contents($f);}
 function putfile($f,$d){$e=file_put_contents($f,$d,LOCK_EX); opcache($f);
 if($e!==false)return 1;}
 

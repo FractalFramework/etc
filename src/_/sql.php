@@ -25,12 +25,13 @@ foreach($r as $k=>$v)switch($p){
 	case('w'):$rt=$v; break;//num
 	case('r'):$rt=$v; break;//both
 	case('v'):$rt=$v[0]; break;
-	case('k'):$rt[$v[0]]=($rt[$v[0]]??0)+1; break;//radd($rt,$v[0])
+	case('k'):$rt[$v[0]]=($rt[$v[0]]??0)+1; break;
 	case('ra'):$rt[]=$v; break;//assoc
 	case('rr'):$rt[]=$v; break;//both
+	case('rn'):$rt[]=$v; break;//num
 	case('rv'):$rt[]=$v[0]; break;//r
 	case('kv'):$rt[$v[0]]=$v[1]??''; break;
-	case('kk'):$rt[$v[0]][$v[1]]=($rt[$v[0]][$v[1]]??0)+1; break;//radd($rt[$v[0]],$v[1])
+	case('kk'):$rt[$v[0]][$v[1]]=($rt[$v[0]][$v[1]]??0)+1; break;
 	case('vv'):$rt[]=[$v[0],$v[1]]; break;
 	case('kr'):$rt[$v[0]][]=$v[1]; break;
 	case('kkv'):$rt[$v[0]][$v[1]]=$v[2]; break;
@@ -74,9 +75,10 @@ return $d;}
 static function mkv($r){$rt=[]; foreach($r as $k=>$v)$rt[]=':'.$k; return implode(',',$rt);}
 static function mkvk($r){$rt=[]; foreach($r as $k=>$v)$rt[]=$k.'=:'.$k; return implode(',',$rt);}
 static function mkvr($r){$rt=[]; foreach($r as $k=>$v)$rt[]=$k.'="'.$v.'"'; return implode(',',$rt);}
-static function mkq($r){[$r,$q]=self::where($r); pr($r);//oldschool
+static function mkq($r){[$r,$q]=self::where($r);//oldschool
 foreach($r as $k=>$v){$vb='"'.$v.'"'; if(substr($v,0,9)=='password(' or $v=='null')$vb=$v;
 $q=str_replace(':'.$k,$vb,$q);} return $q;}
+static function mkvq($r){$q=[]; foreach($r as $k=>$v)$q[':'.$k]=$v; return $q;}
 static function see($sql,$r){foreach($r as $k=>$v)$sql=str_replace(':'.$k,'"'.$v.'"',$sql); return $sql;}
 
 static function fetch($stmt,$p){$rt=[];
@@ -104,7 +106,7 @@ return $ret;}
 
 static function read2($d,$b,$p,$q,$z=''){$rt=[];
 $qr=self::rq(); $q=self::mkq($q); $ret=$p=='v'?'':[];
-$sql='select '.self::sqcl($d,$b).' from '.$b.' '.$q; self::$sq=$sql; if($z)echo $sql;
+$sql='select '.self::sqcl($d,$b).' from '.$b.' '.$q; self::$sq=$sql;
 $stmt=$qr->query($sql);
 $rt=self::fetch($stmt,$p);
 if($p)$ret=self::format($rt,$p);
@@ -141,7 +143,8 @@ $stmt=self::prep($sql,$q,$z);
 return self::$qr->lastInsertId();}
 
 static function sav2($b,$q,$z=''){
-$sql='insert into '.$b.' value ('.self::mkq($q).')';
+$sk=self::mkv($q); $sq=self::mkvq($q); //eco($q);
+$sql='insert into '.$b.' value ('.$sk.')';
 $stmt=self::prep($sql,$q,$z);
 return self::$qr->lastInsertId();}
 
@@ -178,12 +181,12 @@ return self::qr($sql,$z);}
 static function cols($b,$n=''){if($n)$b=cnfg('db').'.'.$b;
 $sql='select column_name,data_type from information_schema.columns where table_name="'.$b.'"';
 return self::call($sql,'kv');}
-static function drop($b){return 'drop table '.$b;}
-static function trunc($b){return 'truncate table '.$b;}
-static function setinc($b,$n){return 'alter table '.$b.' auto_increment='.$n;}
-static function unikey($b,$d){return 'alter table '.$b.' add unique key '.$d.' ('.$d.')';}
-static function show($b){return 'show tables like "'.$b.'"';}
-static function ex($b){$rq=self::qr(self::show($b)); return $rq?1:0;}
+static function drop($b){self::qr('drop table '.$b);}
+static function trunc($b){self::qr('truncate table '.$b);}
+static function setinc($b,$n){self::qr('alter table '.$b.' auto_increment='.$n);}
+static function unikey($b,$d){self::qr('alter table '.$b.' add unique key '.$d.' ('.$d.')');}
+static function show($b){self::qr('show tables like "'.$b.'"');}
+static function ex($b){$rq=self::show($b); return $rq?1:0;}
 static function backup($b,$d=''){$bb='z_'.$b.'_'.$d;
 if(self::ex($bb))self::drop($bb);
 self::qr('create table '.$bb.' like '.$b);

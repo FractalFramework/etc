@@ -49,5 +49,17 @@
         "name":"var",
         "mail":"var",
         "msg":"text"
+    },
+    "_prog":{
+        "dir":"var",
+        "page":"var",
+        "func":"var",
+        "vars":"var",
+        "code":"text",
+        "uses":"int"
+    },
+    "_progr":{
+        "parent":"var",
+        "child":"var"
     }
 }

@@ -68,7 +68,7 @@ $rb=self::type_cols($b); $rnew=[]; $rold=[];
 if(isset($rb['id']))unset($rb['id']); if(isset($rb['up']))unset($rb['up']);
 if($rb){$rnew=array_diff_assoc($ra,$rb); $rold=array_diff_assoc($rb,$ra);}//old
 if($rnew or $rold){echo $b; pr([$rnew,$rold]);
-	$bb=sql::backup($b,date('ymdHis')); sql::qr(sql::drop($b));
+	$bb=sql::backup($b,date('ymdHis')); sql::drop($b);
 	$rtwo=array_intersect_assoc($ra,$rb);//common
 	//$rak=array_keys($ra); $rav=array_values($ra);
 	$rnk=array_keys($rnew); $rnv=array_values($rnew); $nn=count($rnk);
@@ -89,11 +89,8 @@ sql::qr('create table if not exists `'.$b.'` (
 	`up` timestamp on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB collate utf8mb4_unicode_ci;',0);
-//if($b=='users' && $r['name']??'')self::unikey($b,'name');
+//if($b=='users' && $r['name']??'')sql::unikey($b,'name');
 if(isset($sql))sql::qr($sql,1);}
-
-static function unikey($b,$d){
-sql::com(sql::unikey($b,$d));}
 
 static function table($b){
 $r=json::call('cnfg/db');

@@ -5,7 +5,7 @@ echo head::run();
 */
 
 class head{static $r=[]; static $rid='';
-static $js_location='/src/dav';
+static $js_location='/src';
 static $css_location='/public';
 static function add($k,$v){self::$r[][$k]=$v;}
 static function json($a){self::$r=json::call($a);}
