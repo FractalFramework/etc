@@ -1,5 +1,3 @@
-## index
-
 `index.php` call `/public/index.php`, where things begin.
 
     //we put the gets in a ses, joinable by `get()`

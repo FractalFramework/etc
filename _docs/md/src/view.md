@@ -1,4 +1,4 @@
-## view
+## Overview
 
 This is a templater.
 
@@ -47,3 +47,14 @@ Which finally constructs the html : `<div id="content">$content</div>`.
 Where `$content` is a variable.
 
 So, to imbricate tags in tags, we have to replicate this structure instead of `$content`.
+
+## Functions
+
+- file($a)
+- vars($r)
+- trigger($a)
+- save($a,$d)
+- save_html($a)
+- build($r,$ra,$rc)
+- com($r,$ra)
+- call($a,$ra)

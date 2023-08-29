@@ -11,6 +11,34 @@ static $rb=[];//counts
 static $rc=[];//funcs
 static $rd=[];//tree
 static $rr=[];//prep
+static $doc='_docs/md/';
+
+#doc
+static function doc(){$rt=[];
+$r=sql::read('page,func,vars','_prog','kkv',[]);
+mkdir_r(self::$doc.'res/');
+foreach($r as $k=>$v){$ret='';
+	$fa=self::$doc.'src/'.$k.'.md';
+	//$fb=self::$doc.'res/'.$k.'.md';
+	//if(is_file($fa))$da=getfile($fa);
+	if(is_file($fa))$d=getfile($fa);
+	$ret.='## Overview'.n().n();
+	$n=strpos($d,'## Overview');
+	if($n!==false)$d=mb_substr($d,13);
+	$n=strpos($d,'## Functions');
+	if($n!==false)$d=mb_substr($d,0,$n);
+	if($d)$d=trim($d);
+	if(!$d)echo $d='n/a'; //$da?$da:
+	$ret.=$d.n().n();
+	$ret.='## Functions'.n().n();
+	foreach($v as $ka=>$va){
+		$ret.='- '.$ka.'('.$va.')'.n();}
+	putfile($fa,$ret);
+	$rt[$k]=$ret;}
+$ret=''; $f=self::$doc.'readme.md';
+foreach($rt as $k=>$v)$ret.='# '.$k.n().n().$v.n();
+putfile($f,$ret);
+return div($f,'console');}
 
 #descent
 static function iter2($ka){$rt=[];
@@ -102,7 +130,7 @@ if(self::$save)self::save2($rt);
 if(self::$save)$ret=self::state($a);
 return $ret;}
 
-##prog
+#prog
 
 //see
 static function funcsee($r){$rb=[];$rt=[];//child=>parent
@@ -171,15 +199,15 @@ return $n;}
 static function occurrences($dr,$r){$rt=[];
 $a=strpos($dr,'/')?between($dr,'/','.',1).'::':'';
 foreach($r as $k=>$v){//0=>func
-	foreach(self::$r as $ka=>$va){$n=0; //console.php 
+	foreach(self::$r as $ka=>$va){$n=0; //a/b.php 
 		if(!$a)$n=self::count_cases($v,$va);//not class
 		if($a)$n+=substr_count($va,$a.$v.'(');
-		$kb=between($ka,'/','.').'::';
+		$kb=between($ka,'/','.',1).'::';
 		if($a==$kb)$n+=substr_count($va,'self::'.$v.'(');
-		if($n)$rt[$a.$v][$ka]=$n;}}
+		$rt[$a.$v][$ka]=$n;}}//if($n)//if is_related
 return $rt;}
 
-static function funcount($r){$rt=[];
+static function funcount($r){$rt=[]; //pr($r);
 foreach($r as $k=>$v)$rt[$k]=self::occurrences($k,$v);
 return $rt;}
 
@@ -198,7 +226,7 @@ foreach($r as $k=>$v){
 			$rt[$dr.$v]=self::analys($d);}}}
 return $rt;}
 
-#rapport
+#load
 static function rapport($r,$p){
 return build::tabler($r[$p]??'','',1);}
 
@@ -208,9 +236,9 @@ $r=scanfiles(self::$dr);
 $ra=self::capture($r); $rb=[]; $rc=[]; $rd=[]; $ret=''; //dr/page=>func
 $rb=self::funcount($ra); //dr/page=>func=>dr/page=>nb
 $rc=self::funclist($rb,0); //page=>func=>content
-$rd=self::functree($rc);
+$rd=self::functree($rc); //pr($rb);
 //$re=self::funcsee($rd);
-if($p)$ret=self::rapport($rd,$a);
+if($b)$ret=self::rapport($rd,$b);
 if(self::$save)$ret=self::state($a);
 return $ret;}
 
@@ -222,11 +250,12 @@ return div($ret,'frame-blue');}
 
 static function read($p){
 [$a,$b]=vals($p,['a','inp']);
-if($b)self::$dr=$b; //if($a)self::$save=0;
+if($b)self::$dr=$b; if($b)self::$save=0;
 if($a=='tree')$ret=self::mktree($a,$b);
 elseif($a=='vue')$ret=self::vue($a);
 elseif($a=='see')$ret=self::see($b);
 elseif($a=='see2')$ret=self::see2($b);
+elseif($a=='doc')$ret=self::doc($b);
 else $ret=self::build($p);
 return $ret;}
 
@@ -238,7 +267,7 @@ $ret.=bj($j.'a=tree|inp','tree','btsav').' ';
 $ret.=bj($j.'a=vue|inp','datas','btn').' ';
 $ret.=bj($j.'a=see|inp','see','btn').' ';
 $ret.=bj($j.'a=see2|inp','see2','btn').' ';
-$ret.=bj($j.'a=rapport|inp','rapport','btn').' ';
+$ret.=bj($j.'a=doc|inp','doc','btn').' ';
 return $ret;}
 
 static function call($p){

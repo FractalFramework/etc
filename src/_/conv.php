@@ -5,7 +5,7 @@ static $conn=['b'=>'b','i'=>'i','u'=>'u','small'=>'s','em'=>'b','strike'=>'k','c
 static $conb=['h1'=>'h1','h2'=>'h2','h3'=>'h3','h4'=>'h4','h5'=>'h5','h6'=>'h6','big'=>'h','blockquote'=>'q','ul'=>'list','ol'=>'numlist','table'=>'table'];
 static $th='';
 
-static function repari($d){
+static function repair($d){
 $r=array_keys(self::$conn)+self::$conb;
 foreach($r as $k=>$v)$d=str_replace("\n".':'.$v.']',':'.$v.']',$d);
 return $d;}

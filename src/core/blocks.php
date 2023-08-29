@@ -54,14 +54,14 @@ return div(voc('forbiden_access'),'frame-red');}
 
 static function call($p){
 [$a,$b,$c,$d]=vals($p,['a','b','c','d']);
-if($a=='main')$a=get('a');//root for main
+if($a=='main')$a=get('a');//root for main//discard loop
 $p=['a'=>$b,'b'=>$c,'c'=>$d];//join ajax cmd
 if(method_exists('blocks',$a))return self::$a($p);
 if(method_exists($a,'call'))return $a::call($p);
 return match($a){
 	'post'=>posts::read($p),
 	'create'=>auth(4)?posts::create($p):self::forbidden(),
-	'edit'=>auth(4)?posts::read($p):self::forbidden(),
-	'home'=>posts::call(['a'=>'home']),
+	//'edit'=>auth(4)?posts::read($p):self::forbidden(),
+	//'home'=>posts::call(['a'=>'home']),
 	default=>posts::call($p)};}
 }

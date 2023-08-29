@@ -1,5 +1,3 @@
-## Sql Connection
-
     <?php
     new sql(['localhost','root','dev','etc']);
 
