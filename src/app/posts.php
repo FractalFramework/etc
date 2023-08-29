@@ -31,7 +31,7 @@ static function update($p){
 $d=$d=conv::call(['txt'=>$d]);
 $r=[$c=>$c=='catid'?self::catid($d):$d];
 if($d)sql::upd('posts',$r,$id);
-if($c=='content')$d=conn::call(['msg'=>$d,'m'=>0,'id'=>$id]);
+if($c=='content')$d=conn::call(['txt'=>$d,'m'=>0,'id'=>$id]);
 return $d;}
 
 static function create($p){
@@ -67,7 +67,7 @@ $r['pub'].=auth(4)?bj('post'.$a.'|posts,del|a='.$a,ico('trash'),''):'';
 $r['title']=tag('div',['id'=>'title']+$pr+$pr1,$r['title']);
 $r['excerpt']=tag('div',['id'=>'excerpt']+$pr+$pr1,$r['excerpt']);
 $r['category']=tag('span',['id'=>'catid']+$pr+$pr1,$r['category']);
-$txt=conn::call(['msg'=>$r['content'],'m'=>0,'id'=>$a]);
+$txt=conn::call(['txt'=>$r['content'],'m'=>0,'id'=>$a]);
 //$txt=$r['content'];
 $r['content']=tag('div',['id'=>'content']+$pr+$pr2,$txt);
 $r['editbt']='';

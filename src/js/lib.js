@@ -82,7 +82,7 @@ tg.scrollTop=slcttop;
 tg.focus();
 return s2;}
 
-//
+//toggle bt
 function liul(el){var a=active('',el);
 var ul=el.nextSibling;
 ul.className=a?'on':'off';}

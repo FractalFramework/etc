@@ -5,6 +5,25 @@ static $conn=['b'=>'b','i'=>'i','u'=>'u','small'=>'s','em'=>'b','strike'=>'k','c
 static $conb=['h1'=>'h1','h2'=>'h2','h3'=>'h3','h4'=>'h4','h5'=>'h5','h6'=>'h6','big'=>'h','blockquote'=>'q','ul'=>'list','ol'=>'numlist','table'=>'table'];
 static $th='';
 
+static function repari($d){
+$r=array_keys(self::$conn)+self::$conb;
+foreach($r as $k=>$v)$d=str_replace("\n".':'.$v.']',':'.$v.']',$d);
+return $d;}
+
+static function md2conn($d){
+$ma=['# '=>'h1','## '=>'h2','### '=>'h3','#### '=>'h4'];
+$mb=['*'=>'i','**'=>'b','~~'=>'k','>'=>'q',"\t"=>'q','`'=>'code'];
+$r=explode("\n",$d);
+foreach($r as $k=>$v){
+    foreach($ma as $ka=>$va)
+        if(str_starts_with($v,$ka))$r[$k]='['.substr(trim($v),strlen($ka)).':'.$va.']';
+    $rb=explode(' ',$r[$k]);
+    foreach($rb as $ka=>$va)
+        foreach($mb as $kb=>$vb){$n=strlen($kb);
+            if(str_starts_with($va,$kb))$rb[$ka]='['.substr(trim($va),$n,-$n).':'.$vb.']';}
+    $r[$k]=join(' ',$rb);}
+return join("\n",$r);}
+
 static function tags($tag,$atb,$d){
 if(strpos($atb,'align="center"')!==false)$d='['.$d.':c]';
 switch($tag){

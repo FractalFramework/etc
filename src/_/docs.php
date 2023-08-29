@@ -238,6 +238,7 @@ $ret.=bj($j.'a=tree|inp','tree','btsav').' ';
 $ret.=bj($j.'a=vue|inp','datas','btn').' ';
 $ret.=bj($j.'a=see|inp','see','btn').' ';
 $ret.=bj($j.'a=see2|inp','see2','btn').' ';
+$ret.=bj($j.'a=rapport|inp','rapport','btn').' ';
 return $ret;}
 
 static function call($p){

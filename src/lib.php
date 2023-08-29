@@ -191,7 +191,7 @@ $nbh=$h>1?$h.' h ':''; $nbi=$i>0?$i.' min ':''; return $nbh.$nbi;} else return d
 function xt($d,$o=0){return substr(strtolower(strrchr($d??'','.')),$o);}
 function isimg($d){if(!$d)return; $d=xt($d); $r=['.jpg','.png','.gif','.jpeg','.webp'];
 for($i=0;$i<5;$i++)if(mb_strpos($d,$r[$i])!==false)return $r[$i];}
-function ishttp($d){return substr($d,0,4)=='http'?1:0;}
+function ishttp($d){return strpos($d,'://')?1:0;}
 function ishtml($d){return strpos($d,'<')!==false?1:0;}
 
 //roots
