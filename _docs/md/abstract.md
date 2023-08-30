@@ -2,52 +2,56 @@ etc by dav
 © All rights reserved
 release alpha
 
-# simple and fast php project using dav's library
+# simple and fast php project using dav's lib
 
 This package let create a simple website for publication of articles with comments.
-It do not use any depandancie.
-The Framework abilities are located in the dav's lib.
-The doc of the framework is in the folder /dav.
+It use no depandancies.
+The kernel is located in `/_`.
+The core determines the chosen architecture.
+Tha app folder is a free place to create anything.
 
 ## Introduction
 
-This is an exercice for a little cms based of the library of dav.
-
+This is an exercice for a microcms based of the dav's lib.
 It must display articles, list of articles, a contact, a login, and some attempted features for a personal website.
 
-## Resolution of urls
+## Navigation by state
 
-The core works using Ajax.
-All the links are not links, but commands for Ajax, who, after, update the Url.
-Calling any page will just call the root until the desired functions.
-This is called *navigation by states*.
+The sate navigation consiste to never change the current page, but only the needed contents.
+Howover, you can go back and forward in the navigation of your browser. 
+
+The `core` roots calls from url and from ajax in the same way.
+If you call a page from a button, it call ajax, and dispay the logic url.
+If you are freshly coming with tat url, it will find the associated action.
+
+It's a full-ajax framework.
 
 ## Structure of the directories
 
 - /img
 - /public/json
-- /src/_kernel
+- /src/_ (kernel)
 - /src/app
 - /srv/core
 
-Are :
+Either:
 
-- public/json are the easy-to-modificate settings
-- Kernel don't have to be modified.
-- public/core don't have the vocation to be modified, but can be modified.
-- public/blocks can be added, modified or deleted freely.
+- `public/json` here are all the settings
+- `src/_` don't have to be modified.
+- `src/core` don't have the vocation to be modified, but can be modified.
+- `src/apps` can be added, modified or deleted freely.
 
 ## Rules of indentation
 
-Please note we don't respect the Psr for superior reasons.
+Please note we *do not* respect the Psr-4 for superior reasons.
 
 The rules are :
 - no unusefull spaces or tabs
 - short names without cases
 - autodoc of names of variables (follow the rabbit)
-- standardized names : each name have it's own meaning (see doc of kernel).
+- standardized names : each name have it's own meaning
 
-See more in `_docs/md/technotes.md`.
+See more in `_docs/technotes.md`.
 
 ## How it's works
 

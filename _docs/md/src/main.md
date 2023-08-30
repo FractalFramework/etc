@@ -7,5 +7,5 @@ The reader currently knows only one client, `index`, whose expected variables it
 
 ## Functions
 
-- read($a,$g)
-- call($g)
+- `read($a,$g)` -- used in : `main::call`
+- `call($g)`

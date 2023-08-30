@@ -34,29 +34,23 @@ From the index :
     head::json('cnfg/head');
     echo head::run();
 
-#
-
-#
-
-#
-
 ## Functions
 
-- add($k,$v)
-- json($a)
-- ra($r)
-- meta($d,$v,$c='')
-- csslink($d)
-- jslink($d)
-- csscode($d)
-- jscode($d)
-- css($d)
-- js($d)
-- link($d,$v)
-- relod($v)
-- build()
-- html($lg='fr')
-- run($lg='fr')
-- page($d,$lg='fr')
-- call($r=[])
-- get()
+- `add($k,$v)`
+- `json($a)`
+- `ra($r)`
+- `meta($d,$v,$c='')`
+- `csslink($d)`
+- `jslink($d)`
+- `csscode($d)`
+- `jscode($d)` -- used in : `head::relod`
+- `css($d)`
+- `js($d)`
+- `link($d,$v)`
+- `relod($v)`
+- `build()` -- used in : `head::call`, `head::get`
+- `html($lg='fr')` -- used in : `head::run`
+- `run($lg='fr')` -- used in : `head::page`
+- `page($d,$lg='fr')`
+- `call($r=[])`
+- `get()`

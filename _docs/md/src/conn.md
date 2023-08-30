@@ -30,10 +30,10 @@ The parameter `$nop` will say "no p-tags".
 
 ## Functions
 
-- cprm($d)
-- poc($da)
-- parser($d,$p=[],$e='conn::connectors')
-- embed_p($d)
-- markdown($da,$rp)
-- connectors($da,$rp=[])
-- call($p)
+- `cprm($d)`
+- `poc($da)` -- used in : `conn::connectors`
+- `parser($d,$p=[],$e='conn::connectors')` -- used in : `conn::parser`, `conn::call`
+- `embed_p($d)` -- used in : `conn::call`, `posts::content`
+- `markdown($da,$rp)`
+- `connectors($da,$rp=[])`
+- `call($p)` -- used in : `posts::update`, `posts::read`, `test::md`

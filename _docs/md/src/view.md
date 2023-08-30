@@ -50,11 +50,11 @@ So, to imbricate tags in tags, we have to replicate this structure instead of `$
 
 ## Functions
 
-- file($a)
-- vars($r)
-- trigger($a)
-- save($a,$d)
-- save_html($a)
-- build($r,$ra,$rc)
-- com($r,$ra)
-- call($a,$ra)
+- `file($a)` -- used in : `view::vars`, `view::trigger`
+- `vars($r)` -- used in : `view::vars`, `main::read`
+- `trigger($a)` -- used in : `view::vars`, `view::save`
+- `save($a,$d)` -- used in : `view::vars`, `view::save_html`
+- `save_html($a)` -- used in : `view::vars`, `view::call`, `main::read`
+- `build($r,$ra,$rc)` -- used in : `view::vars`, `view::save_html`, `view::build`, `view::com`
+- `com($r,$ra)` -- used in : `view::vars`, `view::call`, `main::read`
+- `call($a,$ra)` -- used in : `posts::read`, `posts::stream`, `tracks::edit`, `tracks::read`, `tracks::stream`, `tracks::call`, `blocks::banner`, `blocks::nav`, `blocks::home`

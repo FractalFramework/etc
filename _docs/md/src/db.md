@@ -36,18 +36,18 @@ The Sql motor will verify if the requests are conform to the known types ot the 
 
 ## Functions
 
-- jsoncolfromattr($b,$c,$k)
-- modifjsonvar($b,$c,$k,$v,$q='')
-- create_cols($r)
-- cleanup($r)
-- cols($b,$n='')
-- type_cols($b)
-- trigger($b,$ra)
-- create($b,$r,$up='')
-- table($b)
-- cols_r($b)
-- cols_k($b)
-- cols_s($b)
-- install($b,$z=0)
-- install_all()
-- call()
+- `jsoncolfromattr($b,$c,$k)`
+- `modifjsonvar($b,$c,$k,$v,$q='')`
+- `create_cols($r)` -- used in : `db::create`
+- `cleanup($r)` -- used in : `db::type_cols`
+- `cols($b,$n='')` -- used in : `db::type_cols`
+- `type_cols($b)` -- used in : `db::trigger`
+- `trigger($b,$ra)` -- used in : `db::create`
+- `create($b,$r,$up='')`
+- `table($b)`
+- `cols_r($b)` -- used in : `sql::integrity`, `db::cols_k`, `edit::create`, `edit::form`
+- `cols_k($b)` -- used in : `sql::alex`, `sql::combine`, `db::cols_s`, `edit::save`, `edit::update`, `edit::play`
+- `cols_s($b)` -- used in : `sql::sqcl`
+- `install($b,$z=0)`
+- `install_all()` -- used in : `boot::call`
+- `call()`

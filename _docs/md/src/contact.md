@@ -5,6 +5,6 @@ It will use the table `contacts`.
 
 ## Functions
 
-- save($p)
-- read($p)
-- call($p)
+- `save($p)`
+- `read($p)` -- used in : `admin::call`
+- `call($p)`

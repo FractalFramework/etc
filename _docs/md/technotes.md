@@ -51,7 +51,9 @@ Sometime we use a `::com()` instead of the `::call()` for internal queries (like
 You will be surprized, but we use short names of variables.
 You will not be surprized if i say i was sometimes fired from jobs for using this very beautiful protocole :)
 
-- historically, `$p` an `$o` were the two-only variables as strings for each methods in all the code (Philum). Later `$p` became the only-array-variable used for all the methods. Understand the methods are called from the user and from the system ; from the url and from Ajax.
+The thing is, my father always told me never to leave the light on if there's no-one in the room. It's the same with white spaces. It's even much worse on a global scale. "*It uses electricity, and electricity is paid for with money!*".
+
+Historically, `$p` an `$o` were the two-only variables as strings for each methods in all the code (Philum). Later `$p` became the only-array-variable used for all the methods (Fractal).
 
 - `$d` was a reason to fire me. Let me just say it mean "any *data*".
 - `$k=>$v` currently become more used theses days. Finally. (*key*, *value*).

@@ -21,8 +21,8 @@ From the index, before to reports `lib` in the config of the headers, it's build
 
 ## Functions
 
-- file($a)
-- trigger($a)
-- save($a,$d)
-- read($r)
-- build($a)
+- `file($a)` -- used in : `css::trigger`, `css::build`
+- `trigger($a)` -- used in : `css::save`
+- `save($a,$d)` -- used in : `css::build`
+- `read($r)` -- used in : `css::read`, `css::build`
+- `build($a)`

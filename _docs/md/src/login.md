@@ -7,16 +7,16 @@ We were the first to purpose, by laziness, to allow an unrecognized user to regi
 
 ## Functions
 
-- hash($d)
-- vrfpsw($d,$hash)
-- alex($a)
-- fastsave($p)
-- register($p)
-- firstuser()
-- form($p)
-- response($p)
-- auth($id='')
-- recognize()
-- logout()
-- loged()
-- call($p)
+- `hash($d)` -- used in : `login::register`
+- `vrfpsw($d,$hash)` -- used in : `login::response`
+- `alex($a)` -- used in : `login::fastsave`, `login::register`
+- `fastsave($p)` -- used in : `tracks::save`
+- `register($p)`
+- `firstuser()` -- used in : `login::register`
+- `form($p)` -- used in : `login::call`
+- `response($p)` -- used in : `login::call`
+- `auth($id='')` -- used in : `login::fastsave`, `login::register`, `login::response`, `login::recognize`
+- `recognize()` -- used in : `boot::call`
+- `logout()`
+- `loged()` -- used in : `login::call`
+- `call($p)`

@@ -14,4 +14,4 @@ The security definitions are in `public/json/cnfg/secur.json`.
 
 ## Functions
 
-- call($a,$b)
+- `call($a,$b)`

@@ -1,3 +1,151 @@
+etc by dav
+© All rights reserved
+release alpha
+
+# simple and fast php project using dav's lib
+
+This package let create a simple website for publication of articles with comments.
+It use no depandancies.
+The kernel is located in `/_`.
+The core determines the chosen architecture.
+Tha app folder is a free place to create anything.
+
+## Introduction
+
+This is an exercice for a microcms based of the dav's lib.
+It must display articles, list of articles, a contact, a login, and some attempted features for a personal website.
+
+## Navigation by state
+
+The sate navigation consiste to never change the current page, but only the needed contents.
+Howover, you can go back and forward in the navigation of your browser. 
+
+The `core` roots calls from url and from ajax in the same way.
+If you call a page from a button, it call ajax, and dispay the logic url.
+If you are freshly coming with tat url, it will find the associated action.
+
+It's a full-ajax framework.
+
+## Structure of the directories
+
+- /img
+- /public/json
+- /src/_ (kernel)
+- /src/app
+- /srv/core
+
+Either:
+
+- `public/json` here are all the settings
+- `src/_` don't have to be modified.
+- `src/core` don't have the vocation to be modified, but can be modified.
+- `src/apps` can be added, modified or deleted freely.
+
+## Rules of indentation
+
+Please note we *do not* respect the Psr-4 for superior reasons.
+
+The rules are :
+- no unusefull spaces or tabs
+- short names without cases
+- autodoc of names of variables (follow the rabbit)
+- standardized names : each name have it's own meaning
+
+See more in `_docs/technotes.md`.
+
+## How it's works
+
+General path of actions :
+
+- build the datas
+- algorithmics
+- render
+
+## Architecture
+
+The software build results to place in the main container of the index.html.
+
+The sequence of calls is :
+- index.php | ajax.php
+- public/index.php : boot the framework
+- src/core/main.php : build the main page
+- src/core/blocks : roots the calls
+- src/app/(etc.) : called action, from url or from ajax.
+
+## Json
+
+If a system is a stack of layers, from the kernel to the surface layer (kernel, core, app), configurations are delegated in Json files.
+
+They concern all the software layers:
+
+- general config, used by the kernel
+- css, headers and settings of mysql tables
+- verbose and icons
+- templates
+
+## Kernel
+
+The kernel is a set of classes which depend each other.
+they are designed to be as independent as possible.
+They sometimes depend on the general configuration.
+
+Here are some of his skills :
+
+### Sql
+
+The Sql system concentrate all the actions in a machine to build requests, from arrays commands.
+It's the better way to keep a global control on all the requests of the application.
+Also, your application become *de facto* callble by an Api.
+
+### Db
+
+The tables, columns and types of columns are set in a Json file.
+Any modification of the table will be *repaired* by the application.
+So you must/can make evoluate the structure of your table from the Json file.
+
+### Heads
+
+The header is following a system of constrution from parameters in Json.
+You only have to change theses parameters.
+
+### Css
+
+The Css are built from Json parameters.
+You only have to change theses parameters.
+Css sheets are cached.
+
+## View
+
+View is the templater.
+It uses it's own protocole to transform recursive arrays in html tags.
+The Json template cas receive {variables} that will be detected and reserched by the rooter (blocks).
+
+## Voc
+
+The verbose is entirelly externalized in a Json file.
+You only have to add new terms, or translate them.
+It's the same for the icones.
+
+## Edit
+
+This component will just build forms from tables definitions, to edit them automatically.
+
+## Forms
+
+This component will build any form from instructions given in an array.
+
+## Str
+
+It's a compilation of usefull operations on strings.
+
+## Lib
+
+It's the core of the kernel.
+These are functions of the level zero.
+See more in `_docs/md/src/lib.md`.
+
+The full details of all classes is in `_docs/md/readme.md`
+
 # admin
 
 ## Overview
@@ -9,12 +157,12 @@
 
 ## Functions
 
-- pub($p)
-- btswitch($id,$pub,$b)
-- bt($id,$pub,$b='posts')
-- waiting($b)
-- jsonfiles()
-- call($p)
+- `pub($p)`
+- `btswitch($id,$pub,$b)` -- used in : `admin::pub`, `admin::bt`
+- `bt($id,$pub,$b='posts')` -- used in : `admin::waiting`
+- `waiting($b)` -- used in : `admin::call`
+- `jsonfiles()` -- used in : `admin::call`
+- `call($p)`
 
 # contact
 
@@ -25,9 +173,9 @@ It will use the table `contacts`.
 
 ## Functions
 
-- save($p)
-- read($p)
-- call($p)
+- `save($p)`
+- `read($p)` -- used in : `admin::call`
+- `call($p)`
 
 # posts
 
@@ -39,16 +187,16 @@ The upload is as fast as 'paste'.
 
 ## Functions
 
-- catid($a)
-- content($p)
-- del($p)
-- save($p)
-- update($p)
-- create($p)
-- datas($p)
-- read($p)
-- stream($p)
-- call($p)
+- `catid($a)` -- used in : `posts::save`
+- `content($p)` -- used in : `conns::read`
+- `del($p)`
+- `save($p)` -- used in : `posts::create`
+- `update($p)`
+- `create($p)`
+- `datas($p)` -- used in : `posts::read`, `posts::stream`
+- `read($p)` -- used in : `posts::save`, `posts::create`
+- `stream($p)` -- used in : `posts::call`
+- `call($p)`
 
 # test
 
@@ -58,8 +206,8 @@ n/a
 
 ## Functions
 
-- md($p)
-- call($p)
+- `md($p)` -- used in : `test::call`
+- `call($p)`
 
 # tracks
 
@@ -69,13 +217,13 @@ Standalone application for the commentaries.
 
 ## Functions
 
-- del($p)
-- edit($p)
-- save($p)
-- form($a)
-- read($p)
-- stream($p)
-- call($p)
+- `del($p)`
+- `edit($p)`
+- `save($p)`
+- `form($a)` -- used in : `tracks::call`
+- `read($p)` -- used in : `tracks::save`
+- `stream($p)` -- used in : `tracks::call`
+- `call($p)` -- used in : `posts::read`
 
 # blocks
 
@@ -94,14 +242,14 @@ Actions on other containers of the main template can be given by ajax actions.
 
 ## Functions
 
-- banner($p)
-- footer($p)
-- shutter($p)
-- nav($p)
-- home($p)
-- user()
-- forbidden()
-- call($p)
+- `banner($p)`
+- `footer($p)`
+- `shutter($p)`
+- `nav($p)`
+- `home($p)`
+- `user()`
+- `forbidden()`
+- `call($p)` -- used in : `main::read`
 
 # boot
 
@@ -116,8 +264,8 @@ We can switch of basename during the script.
 
 ## Functions
 
-- cnfg()
-- call()
+- `cnfg()`
+- `call()`
 
 # conns
 
@@ -131,15 +279,15 @@ Collection of sub-actions for Connectors.
 
 ## Functions
 
-- bt($p)
-- socialk($u,$d='')
-- list($p,$o='')
-- art($id,$t='')
-- read($id,$o='')
-- usrart($id)
-- uid($a)
-- profile($id,$o='')
-- socials($id,$o='')
+- `bt($p)` -- used in : `posts::read`
+- `socialk($u,$d='')` -- used in : `conn::connectors`, `conns::socials`
+- `list($p,$o='')`
+- `art($id,$t='')`
+- `read($id,$o='')`
+- `usrart($id)` -- used in : `tracks::save`, `conns::profile`, `conns::socials`
+- `uid($a)`
+- `profile($id,$o='')` -- used in : `blocks::home`
+- `socials($id,$o='')` -- used in : `blocks::home`
 
 # main
 
@@ -152,142 +300,142 @@ The reader currently knows only one client, `index`, whose expected variables it
 
 ## Functions
 
-- read($a,$g)
-- call($g)
+- `read($a,$g)` -- used in : `main::call`
+- `call($g)`
 
 # lib
 
 ## Overview
 
-n/a
+Contains the most used of basic functions for every site.
 
 ## Functions
 
-- n()
-- br()
-- hr()
-- sp()
-- st()
-- thin()
-- atr($r)
-- tag($b,$p,$d)
-- taga($b,$p)
-- tagb($b,$d)
-- tagc($b,$c,$d)
-- lk($u,$v='',$c='',$p=[])
-- img($d,$s='',$o='')
-- div($v,$c='',$d='',$s='')
-- span($v,$c='',$d='',$s='')
-- block($v)
-- h1($v)
-- h2($v)
-- h3($v)
-- h4($v)
-- li($v)
-- atj($d,$j)
-- bt($j,$pj,$v,$c='',$p=[])
-- btj($j,$pj,$v,$c='',$p=[])
-- bj($j,$v,$c='',$p=[])
-- bg($j,$v,$c='',$p=[])
-- bh($h,$v,$c='',$p=[])
-- input($d,$v,$s='',$p=[])
-- hidden($d,$v)
-- label($id,$t,$c='',$idb='')
-- inpsw($d,$v,$s='',$p=[])
-- inpnb($id,$v,$min='',$max='',$st=1)
-- inpmail($id,$v='',$p=[])
-- inpdate($id,$v,$o='',$min='',$max='')
-- inpclr($id,$v='')
-- inptel($id,$v,$pl='06-01-02-03')
-- inprange($id,$v,$st=1,$min='',$max='')
-- bar($id,$v=50,$st=10,$min=0,$max=100,$js='jumphtml',$s='240px')
-- progress($v='',$max=100,$w=240,$t='')
-- checkbox($id,$v,$t,$ck='')
-- radio($id,$r,$h)
-- textarea($id,$v,$w='40',$h='4',$p=[])
-- divarea($id,$d,$c='',$s='',$p=[])
-- select($id,$r,$ck='',$o='',$js='')
-- datalist($id,$r,$v,$s=34,$t='')
-- submit($id,$v,$c='')
-- form($id,$d,$c='',$p=[])
-- delbr($d,$o='')
-- deln($d,$o='')
-- delr($d,$o='')
-- delt($d,$o='')
-- delnl($d)
-- delsp($d)
-- delnbsp($d)
-- nbsp($d)
-- delr_r($r)
-- hed($d)
-- gets()
-- posts()
-- get($k,$v='')
-- post($k)
-- get2($k)
-- post2($k)
-- cookie($d,$v='')
-- ses($d,$v=null)
-- sesz($d)
-- sesmk($v,$p='',$b='')
-- arr($r,$n='')
-- expl($d,$s,$n=2)
-- vals($r,$ra)
-- valk($r,$ra)
-- explode_k($d,$a,$b)
-- implode_k($r,$a,$b)
-- implode_j($d)
-- in_array_k($d,$r)
-- strto($v,$s)
-- struntil($v,$s)
-- strfrom($v,$s)
-- strend($v,$s)
-- split_one($s,$v,$n='')
-- split_right($s,$v,$n='')
-- scandir_b($d)
-- scandir_r($d,$r=[])
-- scanfiles($d,$r=[])
-- mkdir_r($u)
-- rmdir_r($dr)
-- curl_get_contents($f,$post=[],$json=0)
-- getcurl($f)
-- getfile($f)
-- putfile($f,$d)
-- ftime($f,$d='')
-- fsize($f,$o='')
-- opcache($d)
-- day($d='',$p='')
-- sqldate()
-- time_ago($dt)
-- xt($d,$o=0)
-- isimg($d)
-- ishttp($d)
-- ishtml($d)
-- imgroot($d)
-- nohttp($f)
-- domain($f)
-- host()
-- hostname()
-- rdiv($r)
-- walk($r,$fc)
-- voc($d)
-- ico($d)
-- icovoc($d,$b='',$c='')
-- rid($p='')
-- unid($p,$n=6)
-- k($k,$v)
-- r($k)
-- z($k)
-- er($v)
-- usr($k)
-- cnfg($k)
-- auth($n)
-- exc($d)
-- chmodf($f)
-- p($r)
-- pr($r)
-- eco($d)
-- trace()
+- `n()`
+- `br()`
+- `hr()`
+- `sp()`
+- `st()`
+- `thin()`
+- `atr($r)`
+- `tag($b,$p,$d)`
+- `taga($b,$p)`
+- `tagb($b,$d)`
+- `tagc($b,$c,$d)`
+- `lk($u,$v='',$c='',$p=[])`
+- `img($d,$s='',$o='')`
+- `div($v,$c='',$d='',$s='')`
+- `span($v,$c='',$d='',$s='')`
+- `block($v)`
+- `h1($v)`
+- `h2($v)`
+- `h3($v)`
+- `h4($v)`
+- `li($v)`
+- `atj($d,$j)`
+- `bt($j,$pj,$v,$c='',$p=[])`
+- `btj($j,$pj,$v,$c='',$p=[])`
+- `bj($j,$v,$c='',$p=[])`
+- `bg($j,$v,$c='',$p=[])`
+- `bh($h,$v,$c='',$p=[])`
+- `input($d,$v,$s='',$p=[])`
+- `hidden($d,$v)`
+- `label($id,$t,$c='',$idb='')`
+- `inpsw($d,$v,$s='',$p=[])`
+- `inpnb($id,$v,$min='',$max='',$st=1)`
+- `inpmail($id,$v='',$p=[])`
+- `inpdate($id,$v,$o='',$min='',$max='')`
+- `inpclr($id,$v='')`
+- `inptel($id,$v,$pl='06-01-02-03')`
+- `inprange($id,$v,$st=1,$min='',$max='')`
+- `bar($id,$v=50,$st=10,$min=0,$max=100,$js='jumphtml',$s='240px')`
+- `progress($v='',$max=100,$w=240,$t='')`
+- `checkbox($id,$v,$t,$ck='')`
+- `radio($id,$r,$h)`
+- `textarea($id,$v,$w='40',$h='4',$p=[])`
+- `divarea($id,$d,$c='',$s='',$p=[])`
+- `select($id,$r,$ck='',$o='',$js='')`
+- `datalist($id,$r,$v,$s=34,$t='')`
+- `submit($id,$v,$c='')`
+- `form($id,$d,$c='',$p=[])`
+- `delbr($d,$o='')`
+- `deln($d,$o='')`
+- `delr($d,$o='')`
+- `delt($d,$o='')`
+- `delnl($d)`
+- `delsp($d)`
+- `delnbsp($d)`
+- `nbsp($d)`
+- `delr_r($r)`
+- `hed($d)`
+- `gets()`
+- `posts()`
+- `get($k,$v='')`
+- `post($k)`
+- `get2($k)`
+- `post2($k)`
+- `cookie($d,$v='')`
+- `ses($d,$v=null)`
+- `sesz($d)`
+- `sesmk($v,$p='',$b='')`
+- `arr($r,$n='')`
+- `expl($d,$s,$n=2)`
+- `vals($r,$ra)`
+- `valk($r,$ra)`
+- `explode_k($d,$a,$b)`
+- `implode_k($r,$a,$b)`
+- `implode_j($d)`
+- `in_array_k($d,$r)`
+- `strto($v,$s)`
+- `struntil($v,$s)`
+- `strfrom($v,$s)`
+- `strend($v,$s)`
+- `split_one($s,$v,$n='')`
+- `split_right($s,$v,$n='')`
+- `scandir_b($d)`
+- `scandir_r($d,$r=[])`
+- `scanfiles($d,$r=[])`
+- `mkdir_r($u)`
+- `rmdir_r($dr)`
+- `curl_get_contents($f,$post=[],$json=0)`
+- `getcurl($f)`
+- `getfile($f)`
+- `putfile($f,$d)`
+- `ftime($f,$d='')`
+- `fsize($f,$o='')`
+- `opcache($d)`
+- `day($d='',$p='')`
+- `sqldate()`
+- `time_ago($dt)`
+- `xt($d,$o=0)`
+- `isimg($d)`
+- `ishttp($d)`
+- `ishtml($d)`
+- `imgroot($d)`
+- `nohttp($f)`
+- `domain($f)`
+- `host()`
+- `hostname()`
+- `rdiv($r)`
+- `walk($r,$fc)`
+- `voc($d)`
+- `ico($d)`
+- `icovoc($d,$b='',$c='')`
+- `rid($p='')`
+- `unid($p,$n=6)`
+- `k($k,$v)`
+- `r($k)`
+- `z($k)`
+- `er($v)`
+- `usr($k)`
+- `cnfg($k)`
+- `auth($n)`
+- `exc($d)`
+- `chmodf($f)`
+- `p($r)`
+- `pr($r)`
+- `eco($d)`
+- `trace()`
 
 # build
 
@@ -297,15 +445,15 @@ It's a sum of useful builders
 
 ## Functions
 
-- tabler($r,$head='',$keys='',$frame='')
-- tabs($r,$id='tab1',$c='')
-- playr($r,$c='',$o='')
-- tree($r,$c='',$o='')
-- mkli($r,$ul='ul')
-- scroll($d,$max=10,$w='',$h='',$id='')
-- writecsv($f,$r)
-- readcsv($f)
-- csvfile($f,$r,$t='')
+- `tabler($r,$head='',$keys='',$frame='')` -- used in : `docs::vue`, `docs::find_func`, `docs::count_cases`, `docs::rapport`, `edit::play`, `admin::waiting`, `contact::read`
+- `tabs($r,$id='tab1',$c='')` -- used in : `admin::call`
+- `playr($r,$c='',$o='')` -- used in : `build::playr`, `build::tree`
+- `tree($r,$c='',$o='')` -- used in : `docs::see2`, `docs::see`
+- `mkli($r,$ul='ul')` -- used in : `conns::list`
+- `scroll($d,$max=10,$w='',$h='',$id='')`
+- `writecsv($f,$r)` -- used in : `build::csvfile`
+- `readcsv($f)`
+- `csvfile($f,$r,$t='')` -- used in : `docs::vue`
 
 # conn
 
@@ -341,13 +489,13 @@ The parameter `$nop` will say "no p-tags".
 
 ## Functions
 
-- cprm($d)
-- poc($da)
-- parser($d,$p=[],$e='conn::connectors')
-- embed_p($d)
-- markdown($da,$rp)
-- connectors($da,$rp=[])
-- call($p)
+- `cprm($d)`
+- `poc($da)` -- used in : `conn::connectors`
+- `parser($d,$p=[],$e='conn::connectors')` -- used in : `conn::parser`, `conn::call`
+- `embed_p($d)` -- used in : `conn::call`, `posts::content`
+- `markdown($da,$rp)`
+- `connectors($da,$rp=[])`
+- `call($p)` -- used in : `posts::update`, `posts::read`, `test::md`
 
 # conv
 
@@ -361,15 +509,15 @@ Converts Html into Connectors.
 
 ## Functions
 
-- repari($d)
-- md2conn($d)
-- tags($tag,$atb,$d)
-- cleanhtml($d)
-- cleanconn($d)
-- ecart($v,$a,$b)
-- recursearch($v,$ab,$ba,$tag)
-- parse($v,$x='')
-- call($p)
+- `repair($d)`
+- `md2conn($d)` -- used in : `test::md`
+- `tags($tag,$atb,$d)` -- used in : `conv::parse`
+- `cleanhtml($d)` -- used in : `conv::call`
+- `cleanconn($d)` -- used in : `conv::call`
+- `ecart($v,$a,$b)` -- used in : `conv::recursearch`, `conv::parse`
+- `recursearch($v,$ab,$ba,$tag)` -- used in : `conv::recursearch`, `conv::parse`
+- `parse($v,$x='')` -- used in : `conv::parse`, `conv::call`
+- `call($p)` -- used in : `posts::update`
 
 # css
 
@@ -396,11 +544,11 @@ From the index, before to reports `lib` in the config of the headers, it's build
 
 ## Functions
 
-- file($a)
-- trigger($a)
-- save($a,$d)
-- read($r)
-- build($a)
+- `file($a)` -- used in : `css::trigger`, `css::build`
+- `trigger($a)` -- used in : `css::save`
+- `save($a,$d)` -- used in : `css::build`
+- `read($r)` -- used in : `css::read`, `css::build`
+- `build($a)`
 
 # db
 
@@ -442,21 +590,21 @@ The Sql motor will verify if the requests are conform to the known types ot the 
 
 ## Functions
 
-- jsoncolfromattr($b,$c,$k)
-- modifjsonvar($b,$c,$k,$v,$q='')
-- create_cols($r)
-- cleanup($r)
-- cols($b,$n='')
-- type_cols($b)
-- trigger($b,$ra)
-- create($b,$r,$up='')
-- table($b)
-- cols_r($b)
-- cols_k($b)
-- cols_s($b)
-- install($b,$z=0)
-- install_all()
-- call()
+- `jsoncolfromattr($b,$c,$k)`
+- `modifjsonvar($b,$c,$k,$v,$q='')`
+- `create_cols($r)` -- used in : `db::create`
+- `cleanup($r)` -- used in : `db::type_cols`
+- `cols($b,$n='')` -- used in : `db::type_cols`
+- `type_cols($b)` -- used in : `db::trigger`
+- `trigger($b,$ra)` -- used in : `db::create`
+- `create($b,$r,$up='')`
+- `table($b)`
+- `cols_r($b)` -- used in : `sql::integrity`, `db::cols_k`, `edit::create`, `edit::form`
+- `cols_k($b)` -- used in : `sql::alex`, `sql::combine`, `db::cols_s`, `edit::save`, `edit::update`, `edit::play`
+- `cols_s($b)` -- used in : `sql::sqcl`
+- `install($b,$z=0)`
+- `install_all()` -- used in : `boot::call`
+- `call()`
 
 # docs
 
@@ -469,36 +617,36 @@ And it can produce the software's automatic documentation.
 
 ## Functions
 
-- doc()
-- iter2($ka)
-- see2($p)
-- iter($ka)
-- see($p)
-- vue()
-- save2($r)
-- unused($r,$rb)
-- find($d,$fc)
-- arbo($r)
-- mktree($a,$b)
-- funcsee($r)
-- functree($r)
-- save($p,$r)
-- find_func($d,$fc)
-- '.$fc.'(')
-- funcnt($p,$r)
-- funclist($r)
-- count_cases($a,$va)
-- occurrences($dr,$r)
-- funcount($r)
-- analys($d)
-- ')!==false)$rf[]=between($v,'function ','(')
-- capture($r,$dr='')
-- rapport($r,$p)
-- build($p)
-- state($d)
-- read($p)
-- menu($p,$o)
-- call($p)
+- `doc()` -- used in : `docs::find_func`, `docs::count_cases`, `docs::read`
+- `iter2($ka)` -- used in : `docs::see2`
+- `see2($p)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::read`
+- `iter($ka)` -- used in : `docs::iter2`, `docs::iter`, `docs::see`, `docs::mktree`, `docs::funcsee`
+- `see($p)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::read`
+- `vue()` -- used in : `docs::find_func`, `docs::count_cases`, `docs::read`
+- `save2($r)` -- used in : `docs::mktree`
+- `unused($r,$rb)` -- used in : `docs::mktree`
+- `find($d,$fc)` -- used in : `docs::arbo`
+- `arbo($r)` -- used in : `docs::mktree`, `docs::functree`
+- `mktree($a,$b)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::read`
+- `funcsee($r)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::build`
+- `functree($r)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::build`
+- `save($p,$r)` -- used in : `docs::find_func`, `docs::funcnt`
+- `find_func($d,$fc)` -- used in : `docs::find_func`, `docs::funcnt`
+- `'.$fc.'(')`
+- `funcnt($p,$r)` -- used in : `docs::find_func`, `docs::funclist`
+- `funclist($r)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::build`
+- `count_cases($a,$va)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::occurrences`
+- `occurrences($dr,$r)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::funcount`
+- `funcount($r)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::build`
+- `analys($d)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::')!==false)$rf[]=between`, `docs::capture`
+- `')!==false)$rf[]=between($v,'function ','(')`
+- `capture($r,$dr='')` -- used in : `docs::find_func`, `docs::count_cases`, `docs::')!==false)$rf[]=between`, `docs::capture`, `docs::build`
+- `rapport($r,$p)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::build`
+- `build($p)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::read`
+- `state($d)` -- used in : `docs::mktree`, `docs::find_func`, `docs::count_cases`, `docs::build`, `docs::call`
+- `read($p)`
+- `menu($p,$o)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::call`
+- `call($p)`
 
 # edit
 
@@ -510,24 +658,18 @@ Permet de produire des formulaires d'après les définitions des tables.
 
 `edit::call(['a'=>$tablename,'b'=>'play'|'edit'|'create','c'=>$id]);`
 
-##
-
-##
-
-##
-
 ## Functions
 
-- save($p)
-- update($p)
-- create($p)
-- form($p)
-- play($p)
-- list()
-- eligibles($a,$b,$rid)
-- menu($a,$c,$rid)
-- read($p)
-- call($p)
+- `save($p)`
+- `update($p)`
+- `create($p)` -- used in : `edit::read`
+- `form($p)` -- used in : `edit::read`
+- `play($p)` -- used in : `edit::read`
+- `list()` -- used in : `edit::read`
+- `eligibles($a,$b,$rid)` -- used in : `edit::read`
+- `menu($a,$c,$rid)` -- used in : `edit::call`
+- `read($p)` -- used in : `edit::call`
+- `call($p)` -- used in : `blocks::user`
 
 # form
 
@@ -541,8 +683,8 @@ Produce a formated form from definitions and array of values.
 
 ## Functions
 
-- build($r)
-- call($rp,$j='',$mode='')
+- `build($r)` -- used in : `form::call`
+- `call($ra,$r=[])` -- used in : `edit::create`, `edit::form`
 
 # head
 
@@ -582,32 +724,26 @@ From the index :
     head::json('cnfg/head');
     echo head::run();
 
-#
-
-#
-
-#
-
 ## Functions
 
-- add($k,$v)
-- json($a)
-- ra($r)
-- meta($d,$v,$c='')
-- csslink($d)
-- jslink($d)
-- csscode($d)
-- jscode($d)
-- css($d)
-- js($d)
-- link($d,$v)
-- relod($v)
-- build()
-- html($lg='fr')
-- run($lg='fr')
-- page($d,$lg='fr')
-- call($r=[])
-- get()
+- `add($k,$v)`
+- `json($a)`
+- `ra($r)`
+- `meta($d,$v,$c='')`
+- `csslink($d)`
+- `jslink($d)`
+- `csscode($d)`
+- `jscode($d)` -- used in : `head::relod`
+- `css($d)`
+- `js($d)`
+- `link($d,$v)`
+- `relod($v)`
+- `build()` -- used in : `head::call`, `head::get`
+- `html($lg='fr')` -- used in : `head::run`
+- `run($lg='fr')` -- used in : `head::page`
+- `page($d,$lg='fr')`
+- `call($r=[])`
+- `get()`
 
 # img
 
@@ -621,12 +757,12 @@ The images are located in `/img`.
 
 ## Functions
 
-- b64img($u)
-- imgthumb($f)
-- getim($f,$w=240,$h=180)
-- scale($w,$h,$wo,$ho,$s)
-- thumb($in,$out,$w,$h,$s)
-- alpha($img)
+- `b64img($u)` -- used in : `conv::tags`
+- `imgthumb($f)`
+- `getim($f,$w=240,$h=180)` -- used in : `conv::tags`
+- `scale($w,$h,$wo,$ho,$s)` -- used in : `img::thumb`
+- `thumb($in,$out,$w,$h,$s)` -- used in : `img::imgthumb`, `img::getim`
+- `alpha($img)` -- used in : `img::thumb`
 
 # json
 
@@ -642,14 +778,14 @@ Let edit these files.
 
 ## Functions
 
-- add($p)
-- save($p)
-- edit($p)
-- file($a)
-- error()
-- er($r,$a='')
-- build($r)
-- call($a)
+- `add($p)`
+- `save($p)`
+- `edit($p)`
+- `file($a)` -- used in : `json::er`, `json::call`, `view::vars`, `view::trigger`, `css::trigger`
+- `error()` -- used in : `json::er`
+- `er($r,$a='')` -- used in : `json::build`, `json::call`
+- `build($r)`
+- `call($a)` -- used in : `head::json`, `secur::call`, `view::vars`, `view::save_html`, `view::call`, `css::build`, `db::table`, `db::install_all`, `boot::cnfg`, `conns::bt`, `main::read`
 
 # login
 
@@ -662,19 +798,19 @@ We were the first to purpose, by laziness, to allow an unrecognized user to regi
 
 ## Functions
 
-- hash($d)
-- vrfpsw($d,$hash)
-- alex($a)
-- fastsave($p)
-- register($p)
-- firstuser()
-- form($p)
-- response($p)
-- auth($id='')
-- recognize()
-- logout()
-- loged()
-- call($p)
+- `hash($d)` -- used in : `login::register`
+- `vrfpsw($d,$hash)` -- used in : `login::response`
+- `alex($a)` -- used in : `login::fastsave`, `login::register`
+- `fastsave($p)` -- used in : `tracks::save`
+- `register($p)`
+- `firstuser()` -- used in : `login::register`
+- `form($p)` -- used in : `login::call`
+- `response($p)` -- used in : `login::call`
+- `auth($id='')` -- used in : `login::fastsave`, `login::register`, `login::response`, `login::recognize`
+- `recognize()` -- used in : `boot::call`
+- `logout()`
+- `loged()` -- used in : `login::call`
+- `call($p)`
 
 # secur
 
@@ -694,7 +830,7 @@ The security definitions are in `public/json/cnfg/secur.json`.
 
 ## Functions
 
-- call($a,$b)
+- `call($a,$b)`
 
 # sql
 
@@ -780,47 +916,47 @@ The last parameter `0` is the verbose of the action, used in dev.
 
 ## Functions
 
-- __construct($r)
-- dbq()
-- rq()
-- qrr($r)
-- qra($r)
-- qrw($r)
-- qr($sql,$z='')
-- format($r,$p)
-- where($r)
-- sqcl($d,$b)
-- mkv($r)
-- mkvk($r)
-- mkvr($r)
-- mkq($r)
-- mkvq($r)
-- see($sql,$r)
-- fetch($stmt,$p)
-- bind($stmt,$r)
-- prep($sql,$r,$z='')
-- read($d,$b,$p,$q,$z='')
-- read2($d,$b,$p,$q,$z='')
-- alex($b,$r)
-- combine($b,$r)
-- integrity($b,$r)
-- complete($r)
-- sav($b,$q,$z='')
-- sav2($b,$q,$z='')
-- upd($b,$r,$q,$z='')
-- inner($d,$b1,$b2,$k2,$p,$q,$z='')
-- call($sql,$p,$z='')
-- call2($sql,$p)
-- com($sql)
-- com2($sql,$z='')
-- cols($b,$n='')
-- drop($b)
-- trunc($b)
-- setinc($b,$n)
-- unikey($b,$d)
-- show($b)
-- ex($b)
-- backup($b,$d='')
+- `__construct($r)`
+- `dbq()` -- used in : `sql::__construct`, `sql::rq`
+- `rq()` -- used in : `sql::qr`, `sql::prep`, `sql::read2`, `sql::call2`, `sql::com`
+- `qrr($r)`
+- `qra($r)`
+- `qrw($r)`
+- `qr($sql,$z='')` -- used in : `sql::inner`, `sql::call`, `sql::com2`, `sql::backup`, `db::jsoncolfromattr`, `db::modifjsonvar`, `db::create`
+- `format($r,$p)` -- used in : `sql::read`, `sql::read2`, `sql::inner`, `sql::call`
+- `where($r)` -- used in : `sql::mkq`, `sql::read`, `sql::upd`, `sql::inner`
+- `sqcl($d,$b)` -- used in : `sql::read`, `sql::read2`, `sql::inner`
+- `mkv($r)` -- used in : `sql::sav`, `sql::sav2`
+- `mkvk($r)` -- used in : `sql::upd`
+- `mkvr($r)`
+- `mkq($r)` -- used in : `sql::read2`, `db::modifjsonvar`
+- `mkvq($r)` -- used in : `sql::sav2`
+- `see($sql,$r)` -- used in : `sql::prep`, `sql::inner`
+- `fetch($stmt,$p)` -- used in : `sql::read`, `sql::read2`, `sql::inner`, `sql::call`, `sql::call2`
+- `bind($stmt,$r)` -- used in : `sql::prep`
+- `prep($sql,$r,$z='')` -- used in : `sql::read`, `sql::sav`, `sql::sav2`, `sql::upd`, `sql::inner`
+- `read($d,$b,$p,$q,$z='')` -- used in : `edit::eligibles`, `login::alex`, `login::firstuser`, `login::response`, `login::auth`, `sql::alex`, `docs::doc`, `docs::see2`, `docs::see`, `docs::vue`, `docs::mktree`, `docs::find_func`, `docs::count_cases`, `docs::state`, `edit::create`, `edit::form`, `edit::play`, `admin::pub`, `contact::read`, `posts::catid`, `posts::content`, `posts::create`, `posts::read`, `posts::stream`, `tracks::edit`, `tracks::call`, `blocks::banner`, `blocks::nav`, `conns::art`, `conns::read`, `conns::usrart`, `conns::uid`, `conns::socials`
+- `read2($d,$b,$p,$q,$z='')`
+- `alex($b,$r)` -- used in : `sql::sav`
+- `combine($b,$r)` -- used in : `sql::sav`
+- `integrity($b,$r)` -- used in : `sql::sav`
+- `complete($r)` -- used in : `sql::sav`
+- `sav($b,$q,$z='')` -- used in : `login::fastsave`, `login::register`, `docs::save2`, `docs::save`, `edit::save`, `contact::save`, `posts::catid`, `posts::save`, `tracks::save`
+- `sav2($b,$q,$z='')`
+- `upd($b,$r,$q,$z='')` -- used in : `edit::update`, `admin::pub`, `posts::del`, `posts::update`, `tracks::del`
+- `inner($d,$b1,$b2,$k2,$p,$q,$z='')` -- used in : `login::auth`, `admin::waiting`, `posts::datas`, `tracks::read`, `tracks::stream`, `blocks::nav`, `conns::profile`
+- `call($sql,$p,$z='')` -- used in : `sql::cols`, `db::cols`, `edit::list`
+- `call2($sql,$p)`
+- `com($sql)`
+- `com2($sql,$z='')`
+- `cols($b,$n='')` -- used in : `sql::combine`
+- `drop($b)` -- used in : `sql::backup`, `db::trigger`, `db::create`
+- `trunc($b)` -- used in : `docs::save`
+- `setinc($b,$n)`
+- `unikey($b,$d)` -- used in : `db::create`
+- `show($b)` -- used in : `sql::ex`
+- `ex($b)` -- used in : `sql::backup`
+- `backup($b,$d='')` -- used in : `db::trigger`
 
 # str
 
@@ -830,28 +966,28 @@ Collection of filters for the strings.
 
 ## Functions
 
-- acc($o=1)
-- eradic_acc($d)
-- normalize_alpha($d,$o='')
-- normalize_ext($d)
-- normalize($d,$o='')
-- numentities($d)
-- clean_acc($d)
-- clean_punctuation($d,$o='')
-- nicequotes($d,$o='')
-- add_nbsp($d)
-- mb_ucfirst($d,$e='utf-8')
-- mb_uclet($d,$e='utf-8')
-- lowcase($d)
-- letcase($d)
-- lowercase($d)
-- clean_lines($d,$o='')
-- delspc($d)
-- clean_whitespaces($d)
-- trim($d,$o='')
-- clean_mail($d)
-- clean_n($d)
-- clean_br($d)
+- `acc($o=1)` -- used in : `str::eradic_acc`, `str::lowcase`
+- `eradic_acc($d)` -- used in : `str::normalize`
+- `normalize_alpha($d,$o='')` -- used in : `str::normalize`
+- `normalize_ext($d)` -- used in : `str::normalize`
+- `normalize($d,$o='')` -- used in : `form::build`
+- `numentities($d)`
+- `clean_acc($d)` -- used in : `str::clean_punctuation`, `str::nicequotes`
+- `clean_punctuation($d,$o='')`
+- `nicequotes($d,$o='')` -- used in : `str::clean_punctuation`
+- `add_nbsp($d)` -- used in : `str::nicequotes`
+- `mb_ucfirst($d,$e='utf-8')`
+- `mb_uclet($d,$e='utf-8')`
+- `lowcase($d)`
+- `letcase($d)` -- used in : `str::lowercase`
+- `lowercase($d)`
+- `clean_lines($d,$o='')` -- used in : `str::clean_mail`, `str::clean_br`, `conv::call`
+- `delspc($d)`
+- `clean_whitespaces($d)` -- used in : `str::clean_lines`, `str::trim`
+- `trim($d,$o='')` -- used in : `str::clean_lines`
+- `clean_mail($d)`
+- `clean_n($d)` -- used in : `conv::call`
+- `clean_br($d)`
 
 # view
 
@@ -907,12 +1043,13 @@ So, to imbricate tags in tags, we have to replicate this structure instead of `$
 
 ## Functions
 
-- file($a)
-- vars($r)
-- trigger($a)
-- save($a,$d)
-- save_html($a)
-- build($r,$ra,$rc)
-- com($r,$ra)
-- call($a,$ra)
+- `file($a)` -- used in : `view::vars`, `view::trigger`
+- `vars($r)` -- used in : `view::vars`, `main::read`
+- `trigger($a)` -- used in : `view::vars`, `view::save`
+- `save($a,$d)` -- used in : `view::vars`, `view::save_html`
+- `save_html($a)` -- used in : `view::vars`, `view::call`, `main::read`
+- `build($r,$ra,$rc)` -- used in : `view::vars`, `view::save_html`, `view::build`, `view::com`
+- `com($r,$ra)` -- used in : `view::vars`, `view::call`, `main::read`
+- `call($a,$ra)` -- used in : `posts::read`, `posts::stream`, `tracks::edit`, `tracks::read`, `tracks::stream`, `tracks::call`, `blocks::banner`, `blocks::nav`, `blocks::home`
 
+generated by botdoc, 230830.1902

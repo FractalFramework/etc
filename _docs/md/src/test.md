@@ -4,5 +4,5 @@ n/a
 
 ## Functions
 
-- md($p)
-- call($p)
+- `md($p)` -- used in : `test::call`
+- `call($p)`

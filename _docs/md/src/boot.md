@@ -9,5 +9,5 @@ We can switch of basename during the script.
 
 ## Functions
 
-- cnfg()
-- call()
+- `cnfg()`
+- `call()`

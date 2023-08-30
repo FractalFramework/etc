@@ -10,11 +10,11 @@ Let edit these files.
 
 ## Functions
 
-- add($p)
-- save($p)
-- edit($p)
-- file($a)
-- error()
-- er($r,$a='')
-- build($r)
-- call($a)
+- `add($p)`
+- `save($p)`
+- `edit($p)`
+- `file($a)` -- used in : `json::er`, `json::call`, `view::vars`, `view::trigger`, `css::trigger`
+- `error()` -- used in : `json::er`
+- `er($r,$a='')` -- used in : `json::build`, `json::call`
+- `build($r)`
+- `call($a)` -- used in : `head::json`, `secur::call`, `view::vars`, `view::save_html`, `view::call`, `css::build`, `db::table`, `db::install_all`, `boot::cnfg`, `conns::bt`, `main::read`

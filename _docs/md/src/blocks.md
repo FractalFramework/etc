@@ -13,11 +13,11 @@ Actions on other containers of the main template can be given by ajax actions.
 
 ## Functions
 
-- banner($p)
-- footer($p)
-- shutter($p)
-- nav($p)
-- home($p)
-- user()
-- forbidden()
-- call($p)
+- `banner($p)`
+- `footer($p)`
+- `shutter($p)`
+- `nav($p)`
+- `home($p)`
+- `user()`
+- `forbidden()`
+- `call($p)` -- used in : `main::read`

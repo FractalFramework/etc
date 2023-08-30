@@ -7,9 +7,9 @@
 
 ## Functions
 
-- pub($p)
-- btswitch($id,$pub,$b)
-- bt($id,$pub,$b='posts')
-- waiting($b)
-- jsonfiles()
-- call($p)
+- `pub($p)`
+- `btswitch($id,$pub,$b)` -- used in : `admin::pub`, `admin::bt`
+- `bt($id,$pub,$b='posts')` -- used in : `admin::waiting`
+- `waiting($b)` -- used in : `admin::call`
+- `jsonfiles()` -- used in : `admin::call`
+- `call($p)`

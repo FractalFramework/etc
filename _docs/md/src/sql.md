@@ -80,44 +80,44 @@ The last parameter `0` is the verbose of the action, used in dev.
 
 ## Functions
 
-- __construct($r)
-- dbq()
-- rq()
-- qrr($r)
-- qra($r)
-- qrw($r)
-- qr($sql,$z='')
-- format($r,$p)
-- where($r)
-- sqcl($d,$b)
-- mkv($r)
-- mkvk($r)
-- mkvr($r)
-- mkq($r)
-- mkvq($r)
-- see($sql,$r)
-- fetch($stmt,$p)
-- bind($stmt,$r)
-- prep($sql,$r,$z='')
-- read($d,$b,$p,$q,$z='')
-- read2($d,$b,$p,$q,$z='')
-- alex($b,$r)
-- combine($b,$r)
-- integrity($b,$r)
-- complete($r)
-- sav($b,$q,$z='')
-- sav2($b,$q,$z='')
-- upd($b,$r,$q,$z='')
-- inner($d,$b1,$b2,$k2,$p,$q,$z='')
-- call($sql,$p,$z='')
-- call2($sql,$p)
-- com($sql)
-- com2($sql,$z='')
-- cols($b,$n='')
-- drop($b)
-- trunc($b)
-- setinc($b,$n)
-- unikey($b,$d)
-- show($b)
-- ex($b)
-- backup($b,$d='')
+- `__construct($r)`
+- `dbq()` -- used in : `sql::__construct`, `sql::rq`
+- `rq()` -- used in : `sql::qr`, `sql::prep`, `sql::read2`, `sql::call2`, `sql::com`
+- `qrr($r)`
+- `qra($r)`
+- `qrw($r)`
+- `qr($sql,$z='')` -- used in : `sql::inner`, `sql::call`, `sql::com2`, `sql::backup`, `db::jsoncolfromattr`, `db::modifjsonvar`, `db::create`
+- `format($r,$p)` -- used in : `sql::read`, `sql::read2`, `sql::inner`, `sql::call`
+- `where($r)` -- used in : `sql::mkq`, `sql::read`, `sql::upd`, `sql::inner`
+- `sqcl($d,$b)` -- used in : `sql::read`, `sql::read2`, `sql::inner`
+- `mkv($r)` -- used in : `sql::sav`, `sql::sav2`
+- `mkvk($r)` -- used in : `sql::upd`
+- `mkvr($r)`
+- `mkq($r)` -- used in : `sql::read2`, `db::modifjsonvar`
+- `mkvq($r)` -- used in : `sql::sav2`
+- `see($sql,$r)` -- used in : `sql::prep`, `sql::inner`
+- `fetch($stmt,$p)` -- used in : `sql::read`, `sql::read2`, `sql::inner`, `sql::call`, `sql::call2`
+- `bind($stmt,$r)` -- used in : `sql::prep`
+- `prep($sql,$r,$z='')` -- used in : `sql::read`, `sql::sav`, `sql::sav2`, `sql::upd`, `sql::inner`
+- `read($d,$b,$p,$q,$z='')` -- used in : `edit::eligibles`, `login::alex`, `login::firstuser`, `login::response`, `login::auth`, `sql::alex`, `docs::doc`, `docs::see2`, `docs::see`, `docs::vue`, `docs::mktree`, `docs::find_func`, `docs::count_cases`, `docs::state`, `edit::create`, `edit::form`, `edit::play`, `admin::pub`, `contact::read`, `posts::catid`, `posts::content`, `posts::create`, `posts::read`, `posts::stream`, `tracks::edit`, `tracks::call`, `blocks::banner`, `blocks::nav`, `conns::art`, `conns::read`, `conns::usrart`, `conns::uid`, `conns::socials`
+- `read2($d,$b,$p,$q,$z='')`
+- `alex($b,$r)` -- used in : `sql::sav`
+- `combine($b,$r)` -- used in : `sql::sav`
+- `integrity($b,$r)` -- used in : `sql::sav`
+- `complete($r)` -- used in : `sql::sav`
+- `sav($b,$q,$z='')` -- used in : `login::fastsave`, `login::register`, `docs::save2`, `docs::save`, `edit::save`, `contact::save`, `posts::catid`, `posts::save`, `tracks::save`
+- `sav2($b,$q,$z='')`
+- `upd($b,$r,$q,$z='')` -- used in : `edit::update`, `admin::pub`, `posts::del`, `posts::update`, `tracks::del`
+- `inner($d,$b1,$b2,$k2,$p,$q,$z='')` -- used in : `login::auth`, `admin::waiting`, `posts::datas`, `tracks::read`, `tracks::stream`, `blocks::nav`, `conns::profile`
+- `call($sql,$p,$z='')` -- used in : `sql::cols`, `db::cols`, `edit::list`
+- `call2($sql,$p)`
+- `com($sql)`
+- `com2($sql,$z='')`
+- `cols($b,$n='')` -- used in : `sql::combine`
+- `drop($b)` -- used in : `sql::backup`, `db::trigger`, `db::create`
+- `trunc($b)` -- used in : `docs::save`
+- `setinc($b,$n)`
+- `unikey($b,$d)` -- used in : `db::create`
+- `show($b)` -- used in : `sql::ex`
+- `ex($b)` -- used in : `sql::backup`
+- `backup($b,$d='')` -- used in : `db::trigger`

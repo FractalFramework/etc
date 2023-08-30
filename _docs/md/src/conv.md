@@ -8,12 +8,12 @@ Converts Html into Connectors.
 
 ## Functions
 
-- repari($d)
-- md2conn($d)
-- tags($tag,$atb,$d)
-- cleanhtml($d)
-- cleanconn($d)
-- ecart($v,$a,$b)
-- recursearch($v,$ab,$ba,$tag)
-- parse($v,$x='')
-- call($p)
+- `repair($d)`
+- `md2conn($d)` -- used in : `test::md`
+- `tags($tag,$atb,$d)` -- used in : `conv::parse`
+- `cleanhtml($d)` -- used in : `conv::call`
+- `cleanconn($d)` -- used in : `conv::call`
+- `ecart($v,$a,$b)` -- used in : `conv::recursearch`, `conv::parse`
+- `recursearch($v,$ab,$ba,$tag)` -- used in : `conv::recursearch`, `conv::parse`
+- `parse($v,$x='')` -- used in : `conv::parse`, `conv::call`
+- `call($p)` -- used in : `posts::update`

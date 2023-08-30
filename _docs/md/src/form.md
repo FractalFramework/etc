@@ -8,5 +8,5 @@ Produce a formated form from definitions and array of values.
 
 ## Functions
 
-- build($r)
-- call($rp,$j='',$mode='')
+- `build($r)` -- used in : `form::call`
+- `call($ra,$r=[])` -- used in : `edit::create`, `edit::form`
