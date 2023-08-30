@@ -3,7 +3,7 @@
 Application which references classes and functions, and their links, in two tables `_prog` and `_progr`.
 
 It produces csv files for data-visualisation of the programme.
-And it can produce the software's automatic documentation.
+And it can produce the software's automatic documentation (*botdoc*).
 
 ## Functions
 

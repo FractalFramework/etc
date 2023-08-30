@@ -1,0 +1,13 @@
+{
+    "home":["1","home",0],
+    "posts":["tous les trucs","folder",0],
+    "posts/public":[">public","folder",0],
+    "0":["","",0],
+    "contact":["countach","mail",0],
+    "search":["cherchons","search",-1],
+    "create":["nouveau truc","plus",-2],
+    "1":["","",0],
+    "login":["login","login",-2],
+    "user":["#user","user",1],
+    "admin":["admin","admin",6]
+}

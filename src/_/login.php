@@ -34,7 +34,7 @@ return sql::read('id','users','v',1);}
 
 static function form($p){
 [$a,$b]=vals($p,['a','b']);
-$ret=h3(voc('login'));
+$ret=h3(voc('login_bt'));
 if(!self::firstuser())$ret.=div(voc('first_user'),'frame-white');
 $ret.=bj(self::$maintg.',nav|login,call||name,pswd',voc('go'),'btsav');
 $ret.=div(input('name','').label('name',voc('knowname'),'btn'));
