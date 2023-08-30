@@ -20,8 +20,8 @@ static function datas(){$rt=[];
     $r=json::call('cnfg/nav'); $ath=ses('auth');
     $r+=self::defaults();
     foreach($r as $com=>$v){[$bt,$ico,$auth]=$v;
-        if(is_numeric($bt))$com='posts/'.$com;
-        if($bt=='#user')$bt=ses('user');
+        if(substr($com,0,4)=='art:')$com='posts/'.substr($com,4);
+        if($bt=='#user')$bt=ses('usr');
         if(!$bt)$rt[]=div('','line');
         elseif($auth<=$ath)$rt[]=bh($com,span(ico($ico).thin().$bt,'react'));}
     return $rt;}
