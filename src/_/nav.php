@@ -1,5 +1,24 @@
 <?php
 class nav{
+
+static function save($p){
+	$com=array_shift($p);
+    return json::add('cnfg/nav',$com,$p);
+}
+
+static function create(){
+	$r=['com','bt','ico','auth'];
+	$ra=array_combine($r,['var','var','var','int']);
+	$rb=array_combine($r,['com','bt','ico','0']);
+	$keys=implode(',',walk($r,'unid'));
+	$ret=bj('navedt|nav,save||'.$keys,icovoc('save'),'btsav');
+	$ret.=form::call($ra,$rb);
+	return $ret.div('','','navedt');
+}
+
+static function edit(){
+	
+}
     
 //$rt[$com]=[$bt,$ico,$auth];
 static function defaults(){
@@ -7,10 +26,11 @@ static function defaults(){
     //$rt['post']=['sarticles','folder',0];
     //$r=sql::inner('distinct(category)','cats','posts','catid','rv','where pub>0');
     //foreach($r as $k=>$v)$rt[]=$rt['posts/'.$v]=[$v,'folder',0];
-    $rt[]=['','',0];
+    //$rt['addnav']=['menu','plus',1];
+    $rt[0]=['','',0];
     $rt['contact']=['contact','mail',0];
-    $rt['search']=['search','search',-1];
-    $rt['create']=['create','plus',1];
+    //$rt['search']=['search','search',0];
+    //$rt['create']=['create','plus',1];
     $rt['login']=['login','login',0];
     $rt['user']=['#user','user',1];
     $rt['admin']=['admin','admin',6];
@@ -20,8 +40,9 @@ static function datas(){$rt=[];
     $r=json::call('cnfg/nav'); $ath=ses('auth');
     $r+=self::defaults();
     foreach($r as $com=>$v){[$bt,$ico,$auth]=$v;
-        if(substr($com,0,4)=='art:')$com='posts/'.substr($com,4);
-        if($bt=='#user')$bt=ses('usr');
+        if(substr($com,0,4)=='art:')$com='post/'.substr($com,4);
+        if(substr($com,0,4)=='cat:')$com='posts/'.substr($com,4);
+        $bt=str_replace('#user',ses('usr'),$bt);
         if(!$bt)$rt[]=div('','line');
         elseif($auth<=$ath)$rt[]=bh($com,span(ico($ico).thin().$bt,'react'));}
     return $rt;}

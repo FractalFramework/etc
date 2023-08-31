@@ -13,7 +13,7 @@ function sp(){return "&nbsp;";}
 function st(){return "&#8239";}
 function thin(){return "&thinsp;";}
 
-function atr($r){$ret=''; if($r)foreach($r as $k=>$v)if($v)$ret.=' '.$k.'="'.$v.'"'; return $ret;}
+function atr($r){$ret=''; if($r)foreach($r as $k=>$v)if($v||$v==0)$ret.=' '.$k.'="'.$v.'"'; return $ret;}
 function tag($b,$p,$d){return '<'.$b.atr($p).'>'.$d.'</'.$b.'>';}
 function taga($b,$p){return '<'.$b.atr($p).' />';}
 function tagb($b,$d){return '<'.$b.'>'.$d.'</'.$b.'>';}
@@ -35,6 +35,7 @@ function btj($j,$pj,$v,$c='',$p=[]){return tag('a',['onclick'=>atj($j,$pj),'clas
 function bj($j,$v,$c='',$p=[]){return tag('a',['onclick'=>'bj(this)','data-bj'=>$j,'title'=>$j,'class'=>$c]+$p,$v);}
 function bg($j,$v,$c='',$p=[]){return tag('a',['onclick'=>'bg(this)','data-bj'=>$j,'title'=>$j,'class'=>$c]+$p,$v);}
 function bh($h,$v,$c='',$p=[]){return tag('a',['href'=>'/'.$h,'onclick'=>'return bh(this)','class'=>$c]+$p,$v);}
+function bjr($t,$j,$p,$v,$c){return bj($t.'|'.$j.'|'.prm($p),$v,$c);}
 
 function input($d,$v,$s='',$p=[]){
 if($p['type']??''){$vy=$p['type']; unset($p['type']);} else $vy='text';
@@ -109,35 +110,6 @@ function sesmk($v,$p='',$b=''){$rid=rid($v.$p);
 if(!isset($_SESSION[$rid]) or $b or ses('dev'))$_SESSION[$rid]=$v($p);
 return $_SESSION[$rid]??[];}
 
-//vars
-function arr($r,$n=''){$rb=[]; $n=$n?$n:count($r); for($i=0;$i<$n;$i++)$rb[]=$r[$i]??''; return $rb;}
-function expl($d,$s,$n=2){$r=explode($s,$d); for($i=0;$i<$n;$i++)$rb[]=$r[$i]??''; return $rb;}
-function vals($r,$ra){foreach($ra as $k=>$v)$rb[]=$r[$v]??''; return $rb;}
-function valk($r,$ra){foreach($ra as $k=>$v)$rb[$v]=$r[$v]??''; return $rb;}
-
-//arrays
-function explode_k($d,$a,$b){$r=explode($b,$d); $rb=[];
-foreach($r as $k=>$v){if($v){$ra=split_right($a,$v);
-if(!empty($ra[0]))$rb[$ra[0]]=$ra[1]; else $rb[]=$ra[1];}} return $rb;}
-function implode_k($r,$a,$b){$rb=[]; foreach($r as $k=>$v)if($v)$rb[]=$k.$a.$v;
-if($rb)return implode($b,$rb);}
-function implode_j($d){$rb=[]; if(!is_array($d))$r[]=$d; else $r=$d;
-foreach($r as $k=>$v)if($v=='this' or $v=='event')$rb[]=$v; else $rb[]='\''.$v.'\'';
-if($rb)return implode(',',$rb);}
-function in_array_k($d,$r){foreach($r as $k=>$v)if($v && strpos($d,$v)!==false)return $k;}
-
-//str
-function strto($v,$s){$p=mb_strpos($v??'',$s); return $p!==false?mb_substr($v,0,$p):$v;}
-function struntil($v,$s){$p=mb_strrpos($v??'',$s); return $p!==false?mb_substr($v,0,$p):$v;}
-function strfrom($v,$s){$p=mb_strpos($v??'',$s); return $p!==false?mb_substr($v,$p+mb_strlen($s)):$v;}
-function strend($v,$s){$p=mb_strrpos($v??'',$s); return $p!==false?mb_substr($v,$p+mb_strlen($s)):$v;}function between($d,$a,$b,$na='',$nb='',$o=''){$pa=$na?mb_strrpos($d,$a):mb_strpos($d,$a);
-    if($pa!==false){$pa+=mb_strlen($a); $pb=$nb?mb_strrpos($d,$b,$pa):mb_strpos($d,$b,$pa);
-        if($pb!==false)return mb_substr($d,$pa,$pb-$pa); elseif($o)return mb_substr($d,$pa); else return '';}}
-function split_one($s,$v,$n=''){if($n)$p=mb_strrpos($v,$s); else $p=mb_strpos($v,$s);
-if($p!==false)return [mb_substr($v,0,$p),mb_substr($v,$p+1)]; else return [$v,''];}
-function split_right($s,$v,$n=''){if($n)$p=mb_strrpos($v,$s); else $p=mb_strpos($v,$s);
-if($p!==false)return [mb_substr($v,0,$p),mb_substr($v,$p+1)]; else return ['',$v];}
-
 //dir
 function scandir_b($d){$r=scandir($d); unset($r[0]); unset($r[1]); return $r;}
 function scandir_r($d,$r=[]){$dr=opendir($d);
@@ -187,6 +159,40 @@ function time_ago($dt){$dy=time()-$dt; if($dy<86400){$fuseau=3;
 $h=intval(date('H',$dy))-$fuseau; $i=intval(date('i',$dy)); $s=intval(date('s',$dy));
 $nbh=$h>1?$h.' h ':''; $nbi=$i>0?$i.' min ':''; return $nbh.$nbi;} else return day('',$dt);}
 
+//str
+function strto($v,$s){$p=mb_strpos($v??'',$s); return $p!==false?mb_substr($v,0,$p):$v;}
+function struntil($v,$s){$p=mb_strrpos($v??'',$s); return $p!==false?mb_substr($v,0,$p):$v;}
+function strfrom($v,$s){$p=mb_strpos($v??'',$s); return $p!==false?mb_substr($v,$p+mb_strlen($s)):$v;}
+function strend($v,$s){$p=mb_strrpos($v??'',$s); return $p!==false?mb_substr($v,$p+mb_strlen($s)):$v;}function between($d,$a,$b,$na='',$nb='',$o=''){$pa=$na?mb_strrpos($d,$a):mb_strpos($d,$a);
+    if($pa!==false){$pa+=mb_strlen($a); $pb=$nb?mb_strrpos($d,$b,$pa):mb_strpos($d,$b,$pa);
+        if($pb!==false)return mb_substr($d,$pa,$pb-$pa); elseif($o)return mb_substr($d,$pa); else return '';}}
+function split_one($s,$v,$n=''){if($n)$p=mb_strrpos($v,$s); else $p=mb_strpos($v,$s);
+if($p!==false)return [mb_substr($v,0,$p),mb_substr($v,$p+1)]; else return [$v,''];}
+function split_right($s,$v,$n=''){if($n)$p=mb_strrpos($v,$s); else $p=mb_strpos($v,$s);
+if($p!==false)return [mb_substr($v,0,$p),mb_substr($v,$p+1)]; else return ['',$v];}
+function active($d,$v){return $d==$v?' active':'';}
+
+//arrays
+function val($r,$k){return !empty($r[$k])?$r[$k]:'';}
+function vals($r,$ra){foreach($ra as $k=>$v)$rb[]=$r[$v]??''; return $rb;}
+function valk($r,$ra){foreach($ra as $k=>$v)$rb[$v]=$r[$v]??''; return $rb;}
+function arr($r,$n=''){$rb=[]; $n=$n?$n:count($r); for($i=0;$i<$n;$i++)$rb[]=$r[$i]??''; return $rb;}
+function prm($p){$rt=[]; foreach($p as $k=>$v)$rt[]=$k.'='.$v; return implode(',',$rt);}
+function expl($d,$s,$n=2){$r=explode($s,$d); for($i=0;$i<$n;$i++)$rb[]=$r[$i]??''; return $rb;}
+function explode_k($d,$a,$b){$r=explode($b,$d); $rb=[];
+foreach($r as $k=>$v){if($v){$ra=split_right($a,$v);
+if(!empty($ra[0]))$rb[$ra[0]]=$ra[1]; else $rb[]=$ra[1];}} return $rb;}
+function implode_k($r,$a,$b){$rb=[]; foreach($r as $k=>$v)if($v)$rb[]=$k.$a.$v;
+if($rb)return implode($b,$rb);}
+function implode_j($d){$rb=[]; if(!is_array($d))$r[]=$d; else $r=$d;
+foreach($r as $k=>$v)if($v=='this' or $v=='event')$rb[]=$v; else $rb[]='\''.$v.'\'';
+if($rb)return implode(',',$rb);}
+function in_array_k($d,$r){foreach($r as $k=>$v)if($v && strpos($d,$v)!==false)return $k;}
+
+#core
+function rdiv($r){return implode('',array_map('div',$r));}
+function walk($r,$fc){$rt=[]; foreach($r as $k=>$v)$rt[]=$fc($v); return $rt;}
+
 //detection
 function xt($d,$o=0){return substr(strtolower(strrchr($d??'','.')),$o);}
 function isimg($d){if(!$d)return; $d=xt($d); $r=['.jpg','.png','.gif','.jpeg','.webp'];
@@ -201,10 +207,6 @@ function domain($f){$f=nohttp($f); $p=strpos($f??'','/'); return $p?substr($f,0,
 function host(){return 'http://'.$_SERVER['HTTP_HOST'];}
 function hostname(){$ip=$_SERVER['REMOTE_ADDR']??'';
 if(strstr($ip,' ')){$r=explode(' ',$ip); return $r[0];} else return gethostbyaddr($ip);}
-
-#core
-function rdiv($r){return implode('',array_map('div',$r));}
-function walk($r,$fc){$rt=[]; foreach($r as $k=>$v)$rt[]=$fc($v); return $rt;}
 
 //ses
 function voc($d){$r=sesmk('json::call','lang/voc',0); return ucfirst($r[$d]??$d);}

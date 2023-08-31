@@ -81,7 +81,7 @@ return $bt.$ret;}
 static function stream($p){
 [$a,$b,$inp]=vals($p,['a','b','inp']); $uid=ses('uid');
 $ret=div(bj('main|post,call||inp',icovoc('gosearch','search_bt','react'),'btsav').' '.input('inp',$inp,14),'right');
-$ret.=h3(voc('posts_title'));
+$ret.=h3($a?ucfirst($a):voc('posts_title'));
 $r=self::datas($p);
 $ret.=div(count($r).' '.voc('posts_nb_title'),'block-inline');
 if(auth(4))$ret.=bh('create',icovoc('plus','create_bt','react'),'block-inline');

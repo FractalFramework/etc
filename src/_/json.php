@@ -2,12 +2,14 @@
 class json{
 static $json_location='public/json/';
 
-static function add($p){
-[$a,$v,$k]=vals($p,['a','k','v']);
-$f=self::$json_location.$p['a'].'.json';
-$d=file_get_contents($f); $r=json_decode($d,true);
-if(!$r[$k]??'')$r[$k]=$v;
-$d= $r=json_encode($d); file_put_contents($f,$d);
+static function add($a,$k,$v){
+$f=self::$json_location.$a.'.json';
+$d=file_get_contents($f);
+$r=json_decode($d,true);
+//if($r[$k]??'')return div(voc('really?'),'frame-red');
+$r[$k]=array_values($v);
+$d=json_encode($r);
+file_put_contents($f,$d);
 return div(voc('saved'),'frame-green');}
 
 static function save($p){

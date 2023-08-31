@@ -2,9 +2,9 @@
 class build{
 
 //tables
-static function tabler($r,$head='',$keys='',$frame=''){$i=0; $td=''; $tr='';
-if(is_array($head)){array_unshift($r,$head); $head=1;}
-if(is_array($r))foreach($r as $k=>$v){$td=''; $i++; $tag=$i==1&&$head?'th':'td';
+static function tabler($r,$h='',$keys='',$frame=''){$i=0; $td=''; $tr='';
+if(is_array($h)){array_unshift($r,$h); $h=1;}
+if(is_array($r))foreach($r as $k=>$v){$td=''; $i++; $tag=$i==1&&$h?'th':'td';
     if($keys)$td.=tagb($tag,$k);
     if(is_array($v))foreach($v as $ka=>$va)$td.=tagb($tag,$va);
     else $td.=tagb('th',$k).tagb($tag,$v);
@@ -56,6 +56,37 @@ return $rb;}
 static function csvfile($f,$r,$t=''){$t=ico('datas').($t?$t:$f);
 $f='_datas/csv/'.$f.'.csv'; mkdir_r($f); self::writecsv($f,$r);
 return lk('/'.$f,$t,'btn');}
+
+//contents
+static function etc($d,$n=200){$d=deln($d,' '); $d=strip_tags($d);
+if(strlen($d)>$n){$e=strpos($d,' ',$n); $d=substr($d,0,$e?$e:$n).'...';} return $d;}
+
+function btpages_nb($nbp,$pg){
+$cases=5; $left=$pg-1; $right=$nbp-$pg; $r[1]=1; $r[$nbp]=1;
+for($i=0;$i<$left;$i++){$r[$pg-$i]=1; $i*=2;}
+for($i=0;$i<$right;$i++){$r[$pg+$i]=1; $i*=2;}
+if($r)ksort($r);
+return $r;}
+
+function btpages($nbyp,$pg,$nbarts,$j){$ret=''; $nbp=''; $rp=[];
+if($nbarts>$nbyp)$nbp=ceil($nbarts/$nbyp);
+if($nbp)$rp=self::btpages_nb($nbp,$pg);
+if($rp)foreach($rp as $k=>$v)$ret.=bj($j.',pg='.$k,$k,active($k,$pg));
+if($ret)return div($ret,'nbp sticky');}
+
+//editable
+static function editable($r,$j,$h=[]){
+    $pr=['contenteditable'=>'true','class'=>'editable','onblur'=>'editcell(this)'];
+    $i=0; $td=[]; $tr=[]; 
+    if($h){foreach($h as $k=>$v)$td[]=tagb('th',$v); $tr[]=tagb('tr',join('',$td));}
+    if($r)foreach($r as $k=>$v){$td=[]; $i++;
+        $td[]=tagb('td',$k);
+        if(is_array($v))foreach($v as $ka=>$va)$td[]=tag('td',$pr+['id'=>$i.'-'.$ka],$va);
+        else $td[]=tag('td',$pr+['id'=>$i.'-'],$v);
+        $tr[]=tagb('tr',join('',$td));}
+    $ret=tagb('table',tagb('tbody',join('',$tr)));
+    $ret.=hidden('edtcom',$j);
+return tag('div',['width'=>'100%','class'=>'scroll'],$ret);}
 
 }
 ?>

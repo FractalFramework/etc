@@ -17,13 +17,19 @@ return $ret;}
 static function bt($id,$pub,$b='posts'){
 return span(self::btswitch($id,$pub,$b),'',$b.'pub'.$id);}
 
-static function waiting($b){
-if($b=='tracks')$cnt='txt'; else $cnt='excerpt';
-$r=sql::inner('b2.id,name,'.$cnt.',pub','users',$b,'uid','ra',['_order'=>'b2.id desc']);
+static function pending_tracks(){
+$r=sql::inner('b2.id,name,txt,pub','users','tracks','uid','ra',['_order'=>'b2.id desc']);
 foreach($r as $k=>$v){
 	$r[$k]['id']=bh('post/'.$v['id'],$v['id'],'btn');
-	$r[$k]['pub']=self::bt($v['id'],$v['pub'],$b);}
-return build::tabler($r,['id','author',$cnt,'pub']);}
+	$r[$k]['pub']=self::bt($v['id'],$v['pub'],'tracks');}
+return build::tabler($r,['id','author','txt','pub']);}
+
+static function pending_posts(){
+$r=sql::inner('b2.id,name,catid,excerpt,pub','users','posts','uid','ra',['_order'=>'b2.id desc']);
+foreach($r as $k=>$v){
+	$r[$k]['id']=bh('post/'.$v['id'],$v['id'],'btn');
+	$r[$k]['pub']=self::bt($v['id'],$v['pub'],'posts');}
+return build::tabler($r,['id','author','catid','excerpt','pub']);}
 
 static function jsonfiles(){
 $dr='public/json';
@@ -35,9 +41,10 @@ return join('',$rt);}
 
 static function call($p){
 if(!auth(6))return div(voc('forbiden'),'frame-red');
-$rt[voc('tracks')]=h2(voc('tracks_moderation')).div(self::waiting('tracks'));
-$rt[voc('posts')]=h2(voc('posts_moderation')).div(self::waiting('posts'));
+$rt[voc('tracks')]=h2(voc('tracks_moderation')).div(self::pending_tracks());
+$rt[voc('posts')]=h2(voc('posts_moderation')).div(self::pending_posts());
 $rt[voc('contacts')]=h2(voc('contacts')).div(contact::read($p));
+$rt['nav']=h2('nav').div(nav::create());
 $rt['json']=h2('json').div(self::jsonfiles(),'menu').div('','','jmnu');
 return build::tabs($rt);}
 }

@@ -37,7 +37,8 @@
 
     "home":"maison",
     "articles":"trucs à lire",
-    "contact":"con&tacte",
+    "contact":"allô ?",
+    "contacts":"prises de contact",
     "search":"cherche donc",
     "login":"rentre dedans",
     "create":"nouveau truc",
@@ -52,6 +53,8 @@
     "posts_title":"articles en pagaille",
     "posts_nb_title":"rédaction(s)",
     "moderated":"bah il est pas là, c'est tout",
+    "posts_moderation":"relecture consciencieuse",
+    "tracks_moderation":"filtre anti-troll activé",
     "article":"rédaction",
 
     "save":"sauve",

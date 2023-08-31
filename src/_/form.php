@@ -1,5 +1,7 @@
 <?php
 class form{
+	
+static function tabler($r){}
 
 static function build($r){$rt=[];
 foreach($r as $k=>$v){

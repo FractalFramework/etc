@@ -4,7 +4,7 @@ a{cursor:pointer; color:#222}
 a.active,a .active,a:hover{cursor:pointer; color:#666}
 img{max-width:100%}
 h1,h2,h3,h4,h5{margin:16px 0}
-input,textarea,select{transition:background 0.3s ease; font-size:small; padding:3px 5px; background-color:#ddd; border:1px solid #bbb}
+input,textarea,select{transition:background 0.3s ease; font-size:small; padding:3px 5px; background-color:#eee; border:1px solid #bbb}
 input:hover,input:focus,textarea:hover,textarea:focus,select:hover,select:focus{border:1px solid #777}
 input:focus-visible,textarea:focus-visible,select:focus-visible{outline:none}
 div:focus-visible{outline:2px dashed darkorange}

@@ -14,8 +14,8 @@ $no=secur::call($app,$mth);
 if(!$no && method_exists($app,$mth))$ret=$app::$mth($p);
 if(isset($ret)){
     if(is_array($ret)){
-        //header('Content-Type: application/json');
-        $ret=json_encode($ret);}
-    //else header('Content-Type: text/html; charset=utf-8');
+        header('Content-Type: application/json');
+        $ret=json_encode($ret,JSON_HEX_TAG);}
+    else header('Content-Type: text/html; charset=utf-8');
 echo $ret;}
 ?>

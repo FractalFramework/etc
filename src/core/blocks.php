@@ -27,9 +27,10 @@ $ret=view::call('blocks/home',$r);
 return $ret;}
 
 static function user(){
-$ret=edit::call(['a'=>'profile2','b'=>'play','c'=>ses('uid')]);
-$ret.=edit::call(['a'=>'socials','b'=>'play','c'=>'']);
-return $ret;}
+$rt['profile']=edit::call(['a'=>'profile2','b'=>'play','c'=>ses('uid')]);
+$rt['socials']=edit::call(['a'=>'socials','b'=>'play','c'=>'']);
+if(auth(6))$rt['all']=edit::call(['a'=>'','b'=>'','c'=>'']);
+return build::tabs($rt);}
 
 static function forbidden(){
 return div(voc('forbiden_access'),'frame-red');}
@@ -43,6 +44,7 @@ if(method_exists($a,'call'))return $a::call($p);
 return match($a){
 	'post'=>posts::read($p),
 	'create'=>auth(4)?posts::create($p):self::forbidden(),
+	'addnav'=>auth(4)?nav::create($p):self::forbidden(),
 	//'edit'=>auth(4)?posts::read($p):self::forbidden(),
 	//'home'=>posts::call(['a'=>'home']),
 	default=>posts::call($p)};}

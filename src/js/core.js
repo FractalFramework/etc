@@ -28,3 +28,7 @@ else if(!act){
 	//bjcall('editbt|conns,bt|bt=1,id='+id);
 	editarea(el,1); void 0; el.focus();
 	getbyid("editbt").style.display="inline-block";}}
+
+function editcell(el){
+	var j=getbyid('edtcom').value;
+	bjcall(j+'|'+el.id);}
