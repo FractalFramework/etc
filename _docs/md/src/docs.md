@@ -33,7 +33,7 @@ And it can produce the software's automatic documentation (*botdoc*).
 - `capture($r,$dr='')` -- used in : `docs::find_func`, `docs::count_cases`, `docs::')!==false)$rf[]=between`, `docs::capture`, `docs::build`
 - `rapport($r,$p)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::build`
 - `build($p)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::read`
-- `state($d)` -- used in : `docs::mktree`, `docs::find_func`, `docs::count_cases`, `docs::build`, `docs::call`
+- `state($d)` -- used in : `docs::call`, `docs::mktree`, `docs::find_func`, `docs::count_cases`, `docs::build`
 - `read($p)`
-- `menu($p,$o)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::call`
+- `menu($p,$o)` -- used in : `docs::call`, `docs::find_func`, `docs::count_cases`
 - `call($p)`

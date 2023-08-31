@@ -16,7 +16,6 @@ Actions on other containers of the main template can be given by ajax actions.
 - `banner($p)`
 - `footer($p)`
 - `shutter($p)`
-- `nav($p)`
 - `home($p)`
 - `user()`
 - `forbidden()`

@@ -8,7 +8,7 @@ Collection of filters for the strings.
 - `eradic_acc($d)` -- used in : `str::normalize`
 - `normalize_alpha($d,$o='')` -- used in : `str::normalize`
 - `normalize_ext($d)` -- used in : `str::normalize`
-- `normalize($d,$o='')` -- used in : `form::build`
+- `normalize($d,$o='')`
 - `numentities($d)`
 - `clean_acc($d)` -- used in : `str::clean_punctuation`, `str::nicequotes`
 - `clean_punctuation($d,$o='')`

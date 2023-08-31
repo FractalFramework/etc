@@ -99,17 +99,17 @@ The last parameter `0` is the verbose of the action, used in dev.
 - `fetch($stmt,$p)` -- used in : `sql::read`, `sql::read2`, `sql::inner`, `sql::call`, `sql::call2`
 - `bind($stmt,$r)` -- used in : `sql::prep`
 - `prep($sql,$r,$z='')` -- used in : `sql::read`, `sql::sav`, `sql::sav2`, `sql::upd`, `sql::inner`
-- `read($d,$b,$p,$q,$z='')` -- used in : `edit::eligibles`, `login::alex`, `login::firstuser`, `login::response`, `login::auth`, `sql::alex`, `docs::doc`, `docs::see2`, `docs::see`, `docs::vue`, `docs::mktree`, `docs::find_func`, `docs::count_cases`, `docs::state`, `edit::create`, `edit::form`, `edit::play`, `admin::pub`, `contact::read`, `posts::catid`, `posts::content`, `posts::create`, `posts::read`, `posts::stream`, `tracks::edit`, `tracks::call`, `blocks::banner`, `blocks::nav`, `conns::art`, `conns::read`, `conns::usrart`, `conns::uid`, `conns::socials`
+- `read($d,$b,$p,$q,$z='')` -- used in : `edit::create`, `edit::edit`, `edit::play`, `edit::entries`, `login::alex`, `login::firstuser`, `login::response`, `login::auth`, `sql::alex`, `docs::doc`, `docs::see2`, `docs::see`, `docs::vue`, `docs::mktree`, `docs::find_func`, `docs::count_cases`, `docs::state`, `admin::pub`, `contact::read`, `posts::catid`, `posts::content`, `posts::create`, `posts::read`, `posts::stream`, `tracks::edit`, `tracks::call`, `blocks::banner`, `conns::art`, `conns::read`, `conns::usrart`, `conns::uid`, `conns::socials`
 - `read2($d,$b,$p,$q,$z='')`
 - `alex($b,$r)` -- used in : `sql::sav`
 - `combine($b,$r)` -- used in : `sql::sav`
 - `integrity($b,$r)` -- used in : `sql::sav`
 - `complete($r)` -- used in : `sql::sav`
-- `sav($b,$q,$z='')` -- used in : `login::fastsave`, `login::register`, `docs::save2`, `docs::save`, `edit::save`, `contact::save`, `posts::catid`, `posts::save`, `tracks::save`
+- `sav($b,$q,$z='')` -- used in : `edit::save`, `login::fastsave`, `login::register`, `docs::save2`, `docs::save`, `contact::save`, `posts::catid`, `posts::save`, `tracks::save`
 - `sav2($b,$q,$z='')`
 - `upd($b,$r,$q,$z='')` -- used in : `edit::update`, `admin::pub`, `posts::del`, `posts::update`, `tracks::del`
-- `inner($d,$b1,$b2,$k2,$p,$q,$z='')` -- used in : `login::auth`, `admin::waiting`, `posts::datas`, `tracks::read`, `tracks::stream`, `blocks::nav`, `conns::profile`
-- `call($sql,$p,$z='')` -- used in : `sql::cols`, `db::cols`, `edit::list`
+- `inner($d,$b1,$b2,$k2,$p,$q,$z='')` -- used in : `login::auth`, `nav::defaults`, `admin::pending_tracks`, `admin::pending_posts`, `posts::datas`, `tracks::read`, `tracks::stream`, `conns::profile`
+- `call($sql,$p,$z='')` -- used in : `edit::list`, `sql::cols`, `db::cols`
 - `call2($sql,$p)`
 - `com($sql)`
 - `com2($sql,$z='')`

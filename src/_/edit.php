@@ -4,15 +4,15 @@ class edit{
 static function save($p){
 $a=$p['a']??'';
 //if($a!='tracks')return $no;//derogation
-$ra=db::cols_k($b);
+$ra=db::cols_k($a);
 $rd=walk($ra,'unid');
 $rb=vals($p,$rd);
 $rt=array_combine($ra,$rb);
-$nid=sql::sav($b,$rt);
+$nid=sql::sav($a,$rt);
 if($nid)$ret=div(voc('saved'),'frame-green');
 else $ret=div(voc('error'),'frame-red');
 $tg=$a.'c1,'.$a.'c2,'.$a.'c3';
-$ret.=bj($tg.'|edit,read|a='.$b.',b=play,c='.$nid,voc('return'),'btn');
+$ret.=bj($tg.'|edit,read|a='.$a.',b=play,c='.$nid,voc('return'),'btn');
 return $ret;}
 
 static function update($p){

@@ -4,8 +4,8 @@ It's a sum of useful builders
 
 ## Functions
 
-- `tabler($r,$head='',$keys='',$frame='')` -- used in : `docs::vue`, `docs::find_func`, `docs::count_cases`, `docs::rapport`, `edit::play`, `admin::waiting`, `contact::read`
-- `tabs($r,$id='tab1',$c='')` -- used in : `admin::call`
+- `tabler($r,$h='',$keys='',$frame='')` -- used in : `edit::play`, `docs::vue`, `docs::find_func`, `docs::count_cases`, `docs::rapport`, `admin::pending_tracks`, `admin::pending_posts`, `contact::read`
+- `tabs($r,$id='tab1',$c='')` -- used in : `admin::call`, `blocks::user`
 - `playr($r,$c='',$o='')` -- used in : `build::playr`, `build::tree`
 - `tree($r,$c='',$o='')` -- used in : `docs::see2`, `docs::see`
 - `mkli($r,$ul='ul')` -- used in : `conns::list`
@@ -13,3 +13,7 @@ It's a sum of useful builders
 - `writecsv($f,$r)` -- used in : `build::csvfile`
 - `readcsv($f)`
 - `csvfile($f,$r,$t='')` -- used in : `docs::vue`
+- `etc($d,$n=200)`
+- `btpages_nb($nbp,$pg)` -- used in : `build::btpages`
+- `btpages($nbyp,$pg,$nbarts,$j)`
+- `editable($r,$j,$h=[])` -- used in : `nav::edit`

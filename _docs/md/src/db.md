@@ -45,8 +45,8 @@ The Sql motor will verify if the requests are conform to the known types ot the 
 - `trigger($b,$ra)` -- used in : `db::create`
 - `create($b,$r,$up='')`
 - `table($b)`
-- `cols_r($b)` -- used in : `sql::integrity`, `db::cols_k`, `edit::create`, `edit::form`
-- `cols_k($b)` -- used in : `sql::alex`, `sql::combine`, `db::cols_s`, `edit::save`, `edit::update`, `edit::play`
+- `cols_r($b)` -- used in : `edit::create`, `edit::edit`, `edit::entries`, `sql::integrity`, `db::cols_k`
+- `cols_k($b)` -- used in : `edit::save`, `edit::update`, `edit::play`, `sql::alex`, `sql::combine`, `db::cols_s`
 - `cols_s($b)` -- used in : `sql::sqcl`
 - `install($b,$z=0)`
 - `install_all()` -- used in : `boot::call`

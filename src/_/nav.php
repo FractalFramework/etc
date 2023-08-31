@@ -16,8 +16,16 @@ static function create(){
 	return $ret.div('','','navedt');
 }
 
+static function modif($p){pr($p);
+	return;
+}
+
 static function edit(){
-	
+    $r=json::call('cnfg/nav');
+    $h=['com','bt','ico','auth'];
+    $j='navedt|nav,modif|';
+	$ret=build::editable($r,$j,$h);
+	return $ret.div('','','navedt');
 }
     
 //$rt[$com]=[$bt,$ico,$auth];

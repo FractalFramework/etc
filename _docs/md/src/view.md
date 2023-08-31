@@ -57,4 +57,4 @@ So, to imbricate tags in tags, we have to replicate this structure instead of `$
 - `save_html($a)` -- used in : `view::vars`, `view::call`, `main::read`
 - `build($r,$ra,$rc)` -- used in : `view::vars`, `view::save_html`, `view::build`, `view::com`
 - `com($r,$ra)` -- used in : `view::vars`, `view::call`, `main::read`
-- `call($a,$ra)` -- used in : `posts::read`, `posts::stream`, `tracks::edit`, `tracks::read`, `tracks::stream`, `tracks::call`, `blocks::banner`, `blocks::nav`, `blocks::home`
+- `call($a,$ra)` -- used in : `nav::call`, `posts::read`, `posts::stream`, `tracks::edit`, `tracks::read`, `tracks::stream`, `tracks::call`, `blocks::banner`, `blocks::home`
