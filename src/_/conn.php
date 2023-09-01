@@ -80,3 +80,4 @@ if(!$nop)$d=self::embed_p($d);
 if(!$nop)$d=nl2br($d);
 return $d;}
 }
+?>

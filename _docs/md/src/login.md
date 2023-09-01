@@ -9,13 +9,13 @@ We were the first to purpose, by laziness, to allow an unrecognized user to regi
 
 - `hash($d)` -- used in : `login::register`
 - `vrfpsw($d,$hash)` -- used in : `login::response`
-- `alex($a)` -- used in : `login::fastsave`, `login::register`
-- `fastsave($p)` -- used in : `tracks::save`
+- `uid($a)` -- used in : `login::register`, `tracks::register`
 - `register($p)`
+- `regcall($p)`
 - `firstuser()` -- used in : `login::register`
 - `form($p)` -- used in : `login::call`
 - `response($p)` -- used in : `login::call`
-- `auth($id='')` -- used in : `login::fastsave`, `login::register`, `login::response`, `login::recognize`
+- `identify($id='')` -- used in : `login::register`, `login::response`, `login::recognize`, `tracks::register`
 - `recognize()` -- used in : `boot::call`
 - `logout()`
 - `loged()` -- used in : `login::call`

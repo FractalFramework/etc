@@ -16,7 +16,7 @@ return $rv;}
 static function trigger($a){
 $f=self::file($a); $fb=json::file(self::$json_views.$a);
 $d1=ftime($f); $d2=ftime($fb);
-if($d2>$d1){return $f; ses::er('saved: '.$f);}}
+if($d2>$d1){return $f; err('saved: '.$f);}}
 
 static function save($a,$d){
 if($f=self::trigger($a)){//mkdir_r($f);

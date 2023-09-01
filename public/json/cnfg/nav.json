@@ -1,5 +1,5 @@
 {
-    "art:1": [
+    "post/1": [
         "home",
         "home",
         0
@@ -9,12 +9,12 @@
         "folder",
         0
     ],
-    "cat:public": [
+    "posts/public": [
         "public",
         "folder",
         0
     ],
-    "art:2": [
+    "post/2": [
         "deux",
         "smile",
         "0"

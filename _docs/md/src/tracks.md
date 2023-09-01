@@ -6,6 +6,7 @@ Standalone application for the commentaries.
 
 - `del($p)`
 - `edit($p)`
+- `register($p)` -- used in : `tracks::save`
 - `save($p)`
 - `form($a)` -- used in : `tracks::call`
 - `read($p)` -- used in : `tracks::save`

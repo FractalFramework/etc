@@ -86,3 +86,5 @@ return s2;}
 function liul(el){var a=active('',el);
 var ul=el.nextSibling;
 ul.className=a?'on':'off';}
+
+function val2html(id,to){getbyid(id).innerHTML=getbyid(id).value;}

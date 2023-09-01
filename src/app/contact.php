@@ -16,9 +16,9 @@ static function call($p){
 [$a,$b]=vals($p,['a','b']);
 $bt=h3(voc('contact_bt'));
 $ret=bj('main|contact,save||name,mail,msg',icovoc('send'),'btsav');
-$ret.=div(input('name','',44).label('name',voc('name'),'btn'));
-$ret.=div(input('mail','',44).label('mail',voc('mail'),'btn'));
-$ret.=div(label('msg',voc('message'),'btn'));
+$ret.=div(input('name','',44).label('name',voc('name_bt')));
+$ret.=div(input('mail','',44).label('mail',voc('mail_bt')));
+$ret.=div(label('msg',voc('message')));
 $ret.=div(textarea('msg','','',12),'area');
 return $bt.div($ret,'','tgmail');}
 }

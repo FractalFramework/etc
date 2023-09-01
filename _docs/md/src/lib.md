@@ -35,6 +35,7 @@ Contains the most used of basic functions for every site.
 - `input($d,$v,$s='',$p=[])`
 - `hidden($d,$v)`
 - `label($id,$t,$c='',$idb='')`
+- `inputj($id,$v='',$ida='',$p=[])`
 - `inpsw($d,$v,$s='',$p=[])`
 - `inpnb($id,$v,$min='',$max='',$st=1)`
 - `inpmail($id,$v='',$p=[])`
@@ -42,7 +43,7 @@ Contains the most used of basic functions for every site.
 - `inpclr($id,$v='')`
 - `inptel($id,$v,$pl='06-01-02-03')`
 - `inprange($id,$v,$st=1,$min='',$max='')`
-- `bar($id,$v=50,$st=10,$min=0,$max=100,$js='jumphtml',$s='240px')`
+- `bar($id,$v=50,$st=10,$min=0,$max=100,$js='',$s='240px')`
 - `progress($v='',$max=100,$w=240,$t='')`
 - `checkbox($id,$v,$t,$ck='')`
 - `radio($id,$r,$h)`
@@ -68,7 +69,8 @@ Contains the most used of basic functions for every site.
 - `post($k)`
 - `get2($k)`
 - `post2($k)`
-- `cookie($d,$v='')`
+- `cookie($d,$v=null)`
+- `cookiz($d)`
 - `ses($d,$v=null)`
 - `sesz($d)`
 - `sesmk($v,$p='',$b='')`
@@ -84,7 +86,7 @@ Contains the most used of basic functions for every site.
 - `ftime($f,$d='')`
 - `fsize($f,$o='')`
 - `opcache($d)`
-- `day($d='',$p='')`
+- `day($p='',$d='')`
 - `sqldate()`
 - `time_ago($dt)`
 - `strto($v,$s)`
@@ -123,7 +125,7 @@ Contains the most used of basic functions for every site.
 - `k($k,$v)`
 - `r($k)`
 - `z($k)`
-- `er($v)`
+- `err($v,$k=null)`
 - `usr($k)`
 - `cnfg($k)`
 - `auth($n)`
@@ -133,3 +135,4 @@ Contains the most used of basic functions for every site.
 - `pr($r)`
 - `eco($d)`
 - `trace()`
+- `out($r)`

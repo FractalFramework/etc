@@ -10,7 +10,7 @@ if($p['bt'])$rt[]=btj('editbt',['content',$id],ico('save'),'btsav',['id'=>'bt'.$
 return div(join('',$rt),'menu');}
 
 //builders
-static function socialk($u,$d=''){
+static function socialk($u,$d=''){//destined to assume all embeds
 $r=['','twitter','youtube','facebook','linkedin','instagram'];
 $k=in_array_k($u,$r);
 if($k)$d=img('/img/socials/'.$r[$k].'.png','20px').' '.($d?$d:domain($u));
@@ -33,14 +33,8 @@ $ret.=div($d,'','cnt'.$id);
 return $ret;}
 
 //apps
-static function usrart($id){
-return sql::read('uid','posts','v',$id);}
-
-static function uid($a){
-return sql::read('id','users','v',['name'=>$a]);}
-
 static function profile($id,$o=''){
-$uid=self::usrart($id); if(!$uid)$uid=cnfg('usrhome'); //if(!$uid)$uid=ses('uid');
+$uid=posts::usrart($id); if(!$uid)$uid=cnfg('usrhome'); //if(!$uid)$uid=ses('uid');
 $r=sql::inner('name,surname,mail,slogan,logo','users','profile2','uid','a',['b1.id'=>$uid]);
 if(!$r)return;
 $ret=h2($r['surname']);
@@ -50,7 +44,7 @@ if(isimg($r['logo']))$ret.=img($f,'180px');
 return $ret;}
 
 static function socials($id,$o=''){$rt=[];
-$uid=self::usrart($id); if(!$uid)$uid=cnfg('usrhome');
+$uid=posts::usrart($id); if(!$uid)$uid=cnfg('usrhome');
 $r=sql::read('url','socials','rv',['uid'=>$uid]); if(!$r)return;
 foreach($r as $k=>$v)$rt[]=self::socialk($v);
 return rdiv($rt);}

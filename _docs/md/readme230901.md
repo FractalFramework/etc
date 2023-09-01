@@ -146,25 +146,6 @@ See more in `_docs/md/src/lib.md`.
 
 The full details of all classes is in `_docs/md/readme.md`
 
-# admin
-
-## Overview
-
-- article moderation
-- comment moderation
-- profile editing
-- reading contact message
-
-## Functions
-
-- `pub($p)`
-- `btswitch($id,$pub,$b)` -- used in : `admin::pub`, `admin::bt`
-- `bt($id,$pub,$b='posts')` -- used in : `admin::pending_tracks`, `admin::pending_posts`
-- `pending_tracks()` -- used in : `admin::call`
-- `pending_posts()` -- used in : `admin::call`
-- `jsonfiles()` -- used in : `admin::call`
-- `call($p)`
-
 # contact
 
 ## Overview
@@ -188,6 +169,7 @@ The upload is as fast as 'paste'.
 
 ## Functions
 
+- `usrart($id)` -- used in : `tracks::save`, `conns::profile`, `conns::socials`
 - `catid($a)` -- used in : `posts::save`
 - `content($p)` -- used in : `conns::read`
 - `del($p)`
@@ -195,7 +177,7 @@ The upload is as fast as 'paste'.
 - `update($p)`
 - `create($p)`
 - `datas($p)` -- used in : `posts::read`, `posts::stream`
-- `read($p)` -- used in : `posts::save`, `posts::create`
+- `read($p)` -- used in : `posts::save`, `posts::create`, `posts::call`
 - `stream($p)` -- used in : `posts::call`
 - `call($p)`
 
@@ -220,11 +202,31 @@ Standalone application for the commentaries.
 
 - `del($p)`
 - `edit($p)`
+- `register($p)` -- used in : `tracks::save`
 - `save($p)`
 - `form($a)` -- used in : `tracks::call`
 - `read($p)` -- used in : `tracks::save`
 - `stream($p)` -- used in : `tracks::call`
 - `call($p)` -- used in : `posts::read`
+
+# admin
+
+## Overview
+
+- article moderation
+- comment moderation
+- profile editing
+- reading contact message
+
+## Functions
+
+- `pub($p)`
+- `btswitch($id,$pub,$b)` -- used in : `admin::pub`, `admin::bt`
+- `bt($id,$pub,$b='posts')` -- used in : `admin::pending_tracks`, `admin::pending_posts`
+- `pending_tracks()` -- used in : `admin::call`
+- `pending_posts()` -- used in : `admin::call`
+- `jsonfiles()` -- used in : `admin::call`
+- `call($p)`
 
 # blocks
 
@@ -284,8 +286,6 @@ Collection of sub-actions for Connectors.
 - `list($p,$o='')`
 - `art($id,$t='')`
 - `read($id,$o='')`
-- `usrart($id)` -- used in : `tracks::save`, `conns::profile`, `conns::socials`
-- `uid($a)`
 - `profile($id,$o='')` -- used in : `blocks::home`
 - `socials($id,$o='')` -- used in : `blocks::home`
 
@@ -302,6 +302,25 @@ The reader currently knows only one client, `index`, whose expected variables it
 
 - `read($a,$g)` -- used in : `main::call`
 - `call($g)`
+
+# nav
+
+## Overview
+
+It's a simple class who resolve the moment of the authentification.
+Login, logout, register, recognize, auth, etc.
+The main `recognize` is used in the boot, and use a cookie named `uid`.
+We were the first to purpose, by laziness, to allow an unrecognized user to register, and to make him logged in as soon as the registration is completed. It's funny.
+
+## Functions
+
+- `save($p)`
+- `create()`
+- `modif($p)`
+- `edit()` -- used in : `admin::call`
+- `defaults()` -- used in : `nav::datas`
+- `datas()` -- used in : `nav::call`
+- `call($p)`
 
 # lib
 
@@ -342,6 +361,7 @@ Contains the most used of basic functions for every site.
 - `input($d,$v,$s='',$p=[])`
 - `hidden($d,$v)`
 - `label($id,$t,$c='',$idb='')`
+- `inputj($id,$v='',$ida='',$p=[])`
 - `inpsw($d,$v,$s='',$p=[])`
 - `inpnb($id,$v,$min='',$max='',$st=1)`
 - `inpmail($id,$v='',$p=[])`
@@ -349,7 +369,7 @@ Contains the most used of basic functions for every site.
 - `inpclr($id,$v='')`
 - `inptel($id,$v,$pl='06-01-02-03')`
 - `inprange($id,$v,$st=1,$min='',$max='')`
-- `bar($id,$v=50,$st=10,$min=0,$max=100,$js='jumphtml',$s='240px')`
+- `bar($id,$v=50,$st=10,$min=0,$max=100,$js='',$s='240px')`
 - `progress($v='',$max=100,$w=240,$t='')`
 - `checkbox($id,$v,$t,$ck='')`
 - `radio($id,$r,$h)`
@@ -375,7 +395,8 @@ Contains the most used of basic functions for every site.
 - `post($k)`
 - `get2($k)`
 - `post2($k)`
-- `cookie($d,$v='')`
+- `cookie($d,$v=null)`
+- `cookiz($d)`
 - `ses($d,$v=null)`
 - `sesz($d)`
 - `sesmk($v,$p='',$b='')`
@@ -391,7 +412,7 @@ Contains the most used of basic functions for every site.
 - `ftime($f,$d='')`
 - `fsize($f,$o='')`
 - `opcache($d)`
-- `day($d='',$p='')`
+- `day($p='',$d='')`
 - `sqldate()`
 - `time_ago($dt)`
 - `strto($v,$s)`
@@ -430,7 +451,7 @@ Contains the most used of basic functions for every site.
 - `k($k,$v)`
 - `r($k)`
 - `z($k)`
-- `er($v)`
+- `err($v,$k=null)`
 - `usr($k)`
 - `cnfg($k)`
 - `auth($n)`
@@ -440,6 +461,7 @@ Contains the most used of basic functions for every site.
 - `pr($r)`
 - `eco($d)`
 - `trace()`
+- `out($r)`
 
 # build
 
@@ -449,7 +471,7 @@ It's a sum of useful builders
 
 ## Functions
 
-- `tabler($r,$h='',$keys='',$frame='')` -- used in : `edit::play`, `docs::vue`, `docs::find_func`, `docs::count_cases`, `docs::rapport`, `admin::pending_tracks`, `admin::pending_posts`, `contact::read`
+- `tabler($r,$h='',$keys='',$frame='')` -- used in : `docs::count_cases`, `docs::rapport`, `edit::play`, `docs::vue`, `docs::find_func`, `contact::read`, `admin::pending_tracks`, `admin::pending_posts`
 - `tabs($r,$id='tab1',$c='')` -- used in : `admin::call`, `blocks::user`
 - `playr($r,$c='',$o='')` -- used in : `build::playr`, `build::tree`
 - `tree($r,$c='',$o='')` -- used in : `docs::see2`, `docs::see`
@@ -625,35 +647,35 @@ And it can produce the software's automatic documentation (*botdoc*).
 
 ## Functions
 
-- `doc()` -- used in : `docs::find_func`, `docs::count_cases`, `docs::read`
+- `doc()` -- used in : `docs::count_cases`, `docs::read`, `docs::find_func`
 - `iter2($ka)` -- used in : `docs::see2`
-- `see2($p)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::read`
+- `see2($p)` -- used in : `docs::count_cases`, `docs::read`, `docs::find_func`
 - `iter($ka)` -- used in : `docs::iter2`, `docs::iter`, `docs::see`, `docs::mktree`, `docs::funcsee`
-- `see($p)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::read`
-- `vue()` -- used in : `docs::find_func`, `docs::count_cases`, `docs::read`
+- `see($p)` -- used in : `docs::count_cases`, `docs::read`, `docs::find_func`
+- `vue()` -- used in : `docs::count_cases`, `docs::read`, `docs::find_func`
 - `save2($r)` -- used in : `docs::mktree`
 - `unused($r,$rb)` -- used in : `docs::mktree`
 - `find($d,$fc)` -- used in : `docs::arbo`
 - `arbo($r)` -- used in : `docs::mktree`, `docs::functree`
-- `mktree($a,$b)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::read`
-- `funcsee($r)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::build`
-- `functree($r)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::build`
+- `mktree($a,$b)` -- used in : `docs::count_cases`, `docs::read`, `docs::find_func`
+- `funcsee($r)` -- used in : `docs::count_cases`, `docs::build`, `docs::find_func`
+- `functree($r)` -- used in : `docs::count_cases`, `docs::build`, `docs::find_func`
 - `save($p,$r)` -- used in : `docs::find_func`, `docs::funcnt`
 - `find_func($d,$fc)` -- used in : `docs::find_func`, `docs::funcnt`
 - `'.$fc.'(')`
 - `funcnt($p,$r)` -- used in : `docs::find_func`, `docs::funclist`
-- `funclist($r)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::build`
-- `count_cases($a,$va)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::occurrences`
-- `occurrences($dr,$r)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::funcount`
-- `funcount($r)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::build`
-- `analys($d)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::')!==false)$rf[]=between`, `docs::capture`
+- `funclist($r)` -- used in : `docs::count_cases`, `docs::build`, `docs::find_func`
+- `count_cases($a,$va)` -- used in : `docs::count_cases`, `docs::occurrences`, `docs::find_func`
+- `occurrences($dr,$r)` -- used in : `docs::count_cases`, `docs::funcount`, `docs::find_func`
+- `funcount($r)` -- used in : `docs::count_cases`, `docs::build`, `docs::find_func`
+- `analys($d)` -- used in : `docs::count_cases`, `docs::')!==false)$rf[]=between`, `docs::capture`, `docs::find_func`
 - `')!==false)$rf[]=between($v,'function ','(')`
-- `capture($r,$dr='')` -- used in : `docs::find_func`, `docs::count_cases`, `docs::')!==false)$rf[]=between`, `docs::capture`, `docs::build`
-- `rapport($r,$p)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::build`
-- `build($p)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::read`
-- `state($d)` -- used in : `docs::call`, `docs::mktree`, `docs::find_func`, `docs::count_cases`, `docs::build`
+- `capture($r,$dr='')` -- used in : `docs::count_cases`, `docs::')!==false)$rf[]=between`, `docs::capture`, `docs::build`, `docs::find_func`
+- `rapport($r,$p)` -- used in : `docs::count_cases`, `docs::build`, `docs::find_func`
+- `build($p)` -- used in : `docs::count_cases`, `docs::read`, `docs::find_func`
+- `state($d)` -- used in : `docs::count_cases`, `docs::build`, `docs::call`, `docs::mktree`, `docs::find_func`
 - `read($p)`
-- `menu($p,$o)` -- used in : `docs::call`, `docs::find_func`, `docs::count_cases`
+- `menu($p,$o)` -- used in : `docs::count_cases`, `docs::call`, `docs::find_func`
 - `call($p)`
 
 # edit
@@ -790,11 +812,11 @@ Let edit these files.
 - `add($a,$k,$v)` -- used in : `nav::save`
 - `save($p)`
 - `edit($p)`
-- `file($a)` -- used in : `json::er`, `json::call`, `view::vars`, `view::trigger`, `css::trigger`
-- `error()` -- used in : `json::er`
-- `er($r,$a='')` -- used in : `json::build`, `json::call`
+- `file($a)` -- used in : `json::err`, `json::call`, `view::vars`, `view::trigger`, `css::trigger`
+- `error()` -- used in : `json::err`
+- `err($r,$a='')` -- used in : `json::build`, `json::call`
 - `build($r)`
-- `call($a)` -- used in : `head::json`, `nav::edit`, `nav::datas`, `secur::call`, `view::vars`, `view::save_html`, `view::call`, `css::build`, `db::table`, `db::install_all`, `boot::cnfg`, `conns::bt`, `main::read`
+- `call($a)` -- used in : `head::json`, `secur::call`, `view::vars`, `view::save_html`, `view::call`, `css::build`, `db::table`, `db::install_all`, `boot::cnfg`, `conns::bt`, `main::read`, `nav::edit`, `nav::datas`
 
 # login
 
@@ -809,35 +831,16 @@ We were the first to purpose, by laziness, to allow an unrecognized user to regi
 
 - `hash($d)` -- used in : `login::register`
 - `vrfpsw($d,$hash)` -- used in : `login::response`
-- `alex($a)` -- used in : `login::fastsave`, `login::register`
-- `fastsave($p)` -- used in : `tracks::save`
+- `uid($a)` -- used in : `login::register`, `tracks::register`
 - `register($p)`
+- `regcall($p)`
 - `firstuser()` -- used in : `login::register`
 - `form($p)` -- used in : `login::call`
 - `response($p)` -- used in : `login::call`
-- `auth($id='')` -- used in : `login::fastsave`, `login::register`, `login::response`, `login::recognize`
+- `identify($id='')` -- used in : `login::register`, `login::response`, `login::recognize`, `tracks::register`
 - `recognize()` -- used in : `boot::call`
 - `logout()`
 - `loged()` -- used in : `login::call`
-- `call($p)`
-
-# nav
-
-## Overview
-
-It's a simple class who resolve the moment of the authentification.
-Login, logout, register, recognize, auth, etc.
-The main `recognize` is used in the boot, and use a cookie named `uid`.
-We were the first to purpose, by laziness, to allow an unrecognized user to register, and to make him logged in as soon as the registration is completed. It's funny.
-
-## Functions
-
-- `save($p)`
-- `create()`
-- `modif($p)`
-- `edit()` -- used in : `admin::call`
-- `defaults()` -- used in : `nav::datas`
-- `datas()` -- used in : `nav::call`
 - `call($p)`
 
 # secur
@@ -963,16 +966,16 @@ The last parameter `0` is the verbose of the action, used in dev.
 - `fetch($stmt,$p)` -- used in : `sql::read`, `sql::read2`, `sql::inner`, `sql::call`, `sql::call2`
 - `bind($stmt,$r)` -- used in : `sql::prep`
 - `prep($sql,$r,$z='')` -- used in : `sql::read`, `sql::sav`, `sql::sav2`, `sql::upd`, `sql::inner`
-- `read($d,$b,$p,$q,$z='')` -- used in : `edit::create`, `edit::edit`, `edit::play`, `edit::entries`, `login::alex`, `login::firstuser`, `login::response`, `login::auth`, `sql::alex`, `docs::doc`, `docs::see2`, `docs::see`, `docs::vue`, `docs::mktree`, `docs::find_func`, `docs::count_cases`, `docs::state`, `admin::pub`, `contact::read`, `posts::catid`, `posts::content`, `posts::create`, `posts::read`, `posts::stream`, `tracks::edit`, `tracks::call`, `blocks::banner`, `conns::art`, `conns::read`, `conns::usrart`, `conns::uid`, `conns::socials`
+- `read($d,$b,$p,$q,$z='')` -- used in : `docs::count_cases`, `docs::state`, `edit::create`, `edit::edit`, `edit::play`, `edit::entries`, `login::uid`, `login::firstuser`, `login::response`, `sql::alex`, `docs::doc`, `docs::see2`, `docs::see`, `docs::vue`, `docs::mktree`, `docs::find_func`, `contact::read`, `posts::usrart`, `posts::catid`, `posts::content`, `posts::create`, `posts::read`, `posts::stream`, `tracks::edit`, `tracks::call`, `admin::pub`, `blocks::banner`, `conns::art`, `conns::read`, `conns::socials`
 - `read2($d,$b,$p,$q,$z='')`
 - `alex($b,$r)` -- used in : `sql::sav`
 - `combine($b,$r)` -- used in : `sql::sav`
 - `integrity($b,$r)` -- used in : `sql::sav`
 - `complete($r)` -- used in : `sql::sav`
-- `sav($b,$q,$z='')` -- used in : `edit::save`, `login::fastsave`, `login::register`, `docs::save2`, `docs::save`, `contact::save`, `posts::catid`, `posts::save`, `tracks::save`
+- `sav($b,$q,$z='')` -- used in : `edit::save`, `login::register`, `docs::save2`, `docs::save`, `contact::save`, `posts::catid`, `posts::save`, `tracks::register`, `tracks::save`
 - `sav2($b,$q,$z='')`
-- `upd($b,$r,$q,$z='')` -- used in : `edit::update`, `admin::pub`, `posts::del`, `posts::update`, `tracks::del`
-- `inner($d,$b1,$b2,$k2,$p,$q,$z='')` -- used in : `login::auth`, `nav::defaults`, `admin::pending_tracks`, `admin::pending_posts`, `posts::datas`, `tracks::read`, `tracks::stream`, `conns::profile`
+- `upd($b,$r,$q,$z='')` -- used in : `edit::update`, `posts::del`, `posts::update`, `tracks::del`, `admin::pub`
+- `inner($d,$b1,$b2,$k2,$p,$q,$z='')` -- used in : `login::identify`, `posts::datas`, `tracks::read`, `tracks::stream`, `admin::pending_tracks`, `admin::pending_posts`, `conns::profile`, `nav::defaults`
 - `call($sql,$p,$z='')` -- used in : `edit::list`, `sql::cols`, `db::cols`
 - `call2($sql,$p)`
 - `com($sql)`
@@ -1078,6 +1081,6 @@ So, to imbricate tags in tags, we have to replicate this structure instead of `$
 - `save_html($a)` -- used in : `view::vars`, `view::call`, `main::read`
 - `build($r,$ra,$rc)` -- used in : `view::vars`, `view::save_html`, `view::build`, `view::com`
 - `com($r,$ra)` -- used in : `view::vars`, `view::call`, `main::read`
-- `call($a,$ra)` -- used in : `nav::call`, `posts::read`, `posts::stream`, `tracks::edit`, `tracks::read`, `tracks::stream`, `tracks::call`, `blocks::banner`, `blocks::home`
+- `call($a,$ra)` -- used in : `posts::read`, `posts::stream`, `tracks::edit`, `tracks::read`, `tracks::stream`, `tracks::call`, `blocks::banner`, `blocks::home`, `nav::call`
 
-generated by botdoc, 230831
+generated by botdoc, 230901.2117

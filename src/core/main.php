@@ -15,3 +15,4 @@ static function call($g){
 $ret=self::read('index',$g);
 return $ret;}
 }
+?>

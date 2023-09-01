@@ -12,7 +12,7 @@ $d1=ftime($f); $d2=ftime($fb); //pr([$d1,$d2]);
 if($d2>$d1)return $f;}
 
 static function save($a,$d){
-if($f=self::trigger($a)){file_put_contents($f,$d); ses::er('saved: '.$f);}}
+if($f=self::trigger($a)){file_put_contents($f,$d); err('saved: '.$f);}}
 
 static function read($r){$rt=[];
 foreach($r as $k=>$v)
@@ -28,3 +28,4 @@ if(!is_file($f) or $o){
 	if($r)$d=self::read($r);
 	if($d)self::save($a,$d);}}
 }
+?>

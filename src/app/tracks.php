@@ -1,5 +1,6 @@
 <?php
 class tracks{
+static $er='';
 
 static function del($p){
 [$a,$b,$ok]=vals($p,['a','b','ok']);
@@ -16,30 +17,41 @@ $r['date']=date('ymd',strtotime($r['date']));
 $r['name']=sql::read('name','users','v',['id'=>$a]);
 $ret=view::call('blocks/post',$r);return $ret;}
 
+static function register($p){$uid='';
+[$a,$b,$c]=vals($p,['name','mail','pswd']);
+$ex=login::uid($a); $uid='';
+if($ex)self::$er='name_exists';
+elseif(!filter_var($b,FILTER_VALIDATE_EMAIL))self::$er='bad_mail';
+else $uid=sql::sav('users',[$a,1,$b,login::hash($c)]);
+if($uid)login::identify($uid);
+return $uid;}
+
 static function save($p){
 $uid=ses('uid'); $ret=''; $psw=''; $er=''; $ok=''; $psw=''; $ex='';
 [$a,$b,$c,$d]=vals($p,['bid','msg','name','mail']);
-$own=$uid==conns::usrart($a)?1:0;
+$own=$uid==posts::usrart($a)?1:0;
 if(!$uid && !$c)$er='required_name';
 elseif(!$uid && !$d)$er='required_mail';
 elseif($c && $d){$psw=unid(time());
-    $uid=login::fastsave(['name'=>$c,'mail'=>$d,'pswd'=>$psw]);}
+    $uid=self::register(['name'=>$c,'mail'=>$d,'pswd'=>$psw]);
+	if(!$uid)$psw=''; $er=self::$er;}
 if($a && $b && $uid){$pub=$own?1:0;
     $ex=sql::sav('tracks',[$uid,$a,$b,$pub],0);
     if($ex)$ok='pending_track'; else $er='already_said';}
 elseif(!$b)$er='empty';
 elseif(!$a)$er='error';
 if($er)$ret=div(voc($er),'frame-red');
-elseif($ok && $own)$ret=self::read(['a'=>$ex]);
-elseif($ok)$ret=div(voc($ok),'frame-green');
-if($psw && $uid)$ret=div(voc('new_password').' '.tagb('pre',$psw),'frame-blue');
-$ret.=bh('post/'.$a,icovoc('back'),'block-inline');
+elseif($ok && $own)$ret=self::read(['a'=>$a]);
+elseif($ok)$ret.=div(voc($ok),'frame-green');
+if($psw && $uid)$ret.=div(voc('new_password').' '.tagb('pre',$psw),'frame-blue');
+$ret.=bh('post/'.$a,icovoc('redoit'),'bigbt');
 return $ret;}
 
 static function form($a){
 $ret=bj('track_form|tracks,save||bid,msg,name,mail',voc('send'),'btsav');
-//$ret.=div(textarea('msg','',64,12));
-if(!auth(1))$ret.=input('name','','',['placeholder'=>'name']).inpmail('mail','');
+if(!auth(1)){
+	$ret.=input('name','','',['placeholder'=>voc('name')]);
+	$ret.=inpmail('mail','',['placeholder'=>voc('mail')]);}
 else $ret.=hidden('name','').hidden('mail','');
 $ret.=divarea('msg','','track-content');
 $ret.=hidden('bid',$a);
@@ -72,8 +84,8 @@ static function call($p){
 $r['tracks_title']=voc('tracks_title');
 $r['tracks_nb']=sql::read('count(id)','tracks','v',['bid'=>$a,'pub'=>1]);
 $r['tracks_nb_title']=voc('tracks_nb_title');
-if(ses('uid'))$r['track_form']=self::form($a);
-else $r['track_form']=bh('login',voc('need_auth'),'frame-red');
+$r['track_form']=self::form($a);//if(ses('uid'))
+//else $r['track_form']=bh('login',voc('need_auth'),'btdel');
 $r['tracks']=self::stream($p);
 $ret=view::call('blocks/tracks',$r);
 return $ret;}

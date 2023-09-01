@@ -37,14 +37,14 @@ JSON_ERROR_SYNTAX=>4,//'Erreur de syntaxe ; JSON malformé'
 JSON_ERROR_UTF8=>5,//'Caractères UTF-8 malformés, erreur encodage'
 default=>6};}//'Erreur inconnue'
 
-static function er($r,$a=''){
+static function err($r,$a=''){
 $e=self::error(); if(!$e)return;
 if($r)return json_encode(array_combine(array_keys($r),array_fill(0,count($r),$e)));
 else return 'error in: '.self::file($a);}
 
 static function build($r){
 $rt=json_encode($r,JSON_HEX_TAG);
-if($e=self::er($r))echo $e;
+if($e=self::err($r))echo $e;
 return $rt;}
 
 static function call($a){$r=[];
@@ -52,8 +52,8 @@ $f=self::file($a);
 if(is_file($f)){
 	$d=file_get_contents($f);
 	$r=json_decode($d,true);
-	if($e=self::er($r,$a))echo $e;}
-else er('not loaded: '.$f);
+	if($e=self::err($r,$a))echo $e;}
+else err('not loaded: '.$f);
 return $r;}
 }
 ?>

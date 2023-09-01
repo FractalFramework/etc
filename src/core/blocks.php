@@ -1,6 +1,5 @@
 <?php
-class blocks{
-
+class blocks{//called funcs for $main content
 static $defaults=['surname'=>'etc','slogan'=>'...','banner'=>'','logo'=>''];
 
 static function banner($p){
@@ -8,6 +7,7 @@ static function banner($p){
 $id=ses('uid'); if(!$id)$id=cnfg('usrhome');
 $r=sql::read('surname,slogan,banner,logo','profile2','a',$id);
 if(!$r)$r=self::$defaults;
+//$r['surname']=bh('home',$r['surname']);
 if(isimg($r['banner']??''))$r['banner']='url(/img/'.$r['banner'].')';
 $ret=view::call('blocks/banner',$r);
 return $ret;}
@@ -37,15 +37,15 @@ return div(voc('forbiden_access'),'frame-red');}
 
 static function call($p){
 [$a,$b,$c,$d]=vals($p,['a','b','c','d']);
-if($a=='main')$a=get('a');//root for main//discard loop
-$p=['a'=>$b,'b'=>$c,'c'=>$d];//join ajax cmd
+if($a=='main')$a=get('a');//root for $main is decided by url
+if($a=='main')$a='';//discard loop
+$p=['a'=>$b,'b'=>$c,'c'=>$d];//like ajax cmd
 if(method_exists('blocks',$a))return self::$a($p);
 if(method_exists($a,'call'))return $a::call($p);
-return match($a){
-	'post'=>posts::read($p),
+return match($a){//specific urls to avoid {url}::call
 	'create'=>auth(4)?posts::create($p):self::forbidden(),
 	'addnav'=>auth(4)?nav::create($p):self::forbidden(),
 	//'edit'=>auth(4)?posts::read($p):self::forbidden(),
-	//'home'=>posts::call(['a'=>'home']),
 	default=>posts::call($p)};}
 }
+?>

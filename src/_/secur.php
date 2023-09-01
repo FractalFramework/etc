@@ -5,3 +5,4 @@ static function call($a,$b){
     $m=$r[$a][$b]??ses('auth');
     if(!auth($m))return div(voc('error'),'frame-red');}
 }
+?>

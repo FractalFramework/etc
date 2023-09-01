@@ -15,8 +15,8 @@ static function rq(){if(!self::$qr)self::dbq(); return self::$qr;}
 static function qrr($r){return $r->fetchAll(PDO::FETCH_BOTH);}
 static function qra($r){return $r->fetchAll(PDO::FETCH_ASSOC);}
 static function qrw($r){return $r->fetchAll(PDO::FETCH_NUM);}
-static function qr($sql,$z=''){$qr=self::rq(); if($z)er($sql);
-try{return $qr->query($sql);}catch(Exception $e){er($e->getMessage());}}
+static function qr($sql,$z=''){$qr=self::rq(); if($z)err($sql);
+try{return $qr->query($sql);}catch(Exception $e){err($e->getMessage());}}
 
 static function format($r,$p){
 $rt=[];  if($p=='v')$rt='';
@@ -92,7 +92,7 @@ foreach($r as $k=>$v)$stmt->bindValue(':'.$k,$v,is_numeric($v)?PDO::PARAM_INT:PD
 
 static function prep($sql,$r,$z=''){
 if($z)echo self::see($sql,$r); $qr=self::rq(); $stmt=$qr->prepare($sql); self::bind($stmt,$r);
-try{$ok=$stmt->execute();}catch(Exception $e){er($e->getMessage());}
+try{$ok=$stmt->execute();}catch(Exception $e){err($e->getMessage());}
 return $stmt;}
 
 #

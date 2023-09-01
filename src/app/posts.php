@@ -1,6 +1,9 @@
 <?php
 class posts{
 
+static function usrart($id){
+return sql::read('uid','posts','v',$id);}
+
 static function catid($a){
 $catid=sql::read('id','cats','v',['category'=>$a]);
 if(!$catid)$catid=sql::sav('cats',[$a]);
@@ -17,7 +20,7 @@ if(!$ok){
     $ret.=bj('main|posts,read|a='.$a,icovoc('laugh','no!'),'btn');
     return $ret;}
 else sql::upd('posts',['pub'=>-1],['id'=>$a]);
-return bh('main|posts,call',icovoc('back','done'),'block-inline');}
+return bh('main|posts,call',icovoc('back','done'),'bigbt');}
 
 static function save($p){
 [$a,$b,$c,$d]=vals($p,['cat','tit','exc','msg']);
@@ -74,17 +77,17 @@ $r['editbt']='';
 $r['editbt']=conns::bt(['id'=>$a,'bt'=>1]);
 //$r['editbt']=auth(4)?btj('editbt',['content',$a],voc('edit'),'btn',['id'=>'bt'.$a]):'';
 $r['tracks']=tracks::call($p);
-$bt=bh('posts',icovoc('back','back'),'block-inline');
+$bt=bh('posts',icovoc('back','back'),'bigbt');
 $ret=view::call('blocks/post',$r);
 return $bt.$ret;}
 
 static function stream($p){
-[$a,$b,$inp]=vals($p,['a','b','inp']); $uid=ses('uid');
+[$a,$b,$inp]=vals($p,['a','b','inp']);
 $ret=div(bj('main|post,call||inp',icovoc('gosearch','search_bt','react'),'btsav').' '.input('inp',$inp,14),'right');
 $ret.=h3($a?ucfirst($a):voc('posts_title'));
 $r=self::datas($p);
-$ret.=div(count($r).' '.voc('posts_nb_title'),'block-inline');
-if(auth(4))$ret.=bh('create',icovoc('plus','create_bt','react'),'block-inline');
+$ret.=div(count($r).' '.voc('posts_nb_title'),'bigbt');
+if(auth(4))$ret.=bh('create',icovoc('plus','create_bt','react'),'bigbt');
 foreach($r as $k=>$v){
     $r[$k]['date']=$v['up'];
     //$r[$k]['pub']=auth(4)?admin::bt($v['id'],$v['pub'],'posts'):'';
@@ -95,7 +98,9 @@ foreach($r as $k=>$v)$ret.=view::call('blocks/posts',$v);
 return $ret;}
 
 static function call($p){
-$ret=self::stream($p);
+if(is_numeric($p['a']??''))$ret=self::read($p);//avoid post/public
+else $ret=self::stream($p);
 return $ret;}
 
 }
+?>

@@ -4,7 +4,7 @@ It's a sum of useful builders
 
 ## Functions
 
-- `tabler($r,$h='',$keys='',$frame='')` -- used in : `edit::play`, `docs::vue`, `docs::find_func`, `docs::count_cases`, `docs::rapport`, `admin::pending_tracks`, `admin::pending_posts`, `contact::read`
+- `tabler($r,$h='',$keys='',$frame='')` -- used in : `docs::count_cases`, `docs::rapport`, `edit::play`, `docs::vue`, `docs::find_func`, `contact::read`, `admin::pending_tracks`, `admin::pending_posts`
 - `tabs($r,$id='tab1',$c='')` -- used in : `admin::call`, `blocks::user`
 - `playr($r,$c='',$o='')` -- used in : `build::playr`, `build::tree`
 - `tree($r,$c='',$o='')` -- used in : `docs::see2`, `docs::see`

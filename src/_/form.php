@@ -12,7 +12,7 @@ foreach($r as $k=>$v){
 	elseif($ty=='int')$d=inpnb($rid,$va);
 	elseif($ty=='date' or $ty=='time')$d=inpdate($rid,$va?$va:sqldate(),1);
 	else $d=input($rid,$va,'32',$rp);
-	$rt[]=div($d.' '.label($rid,$id,'btn'));}
+	$rt[]=div($d.' '.label($rid,$id));}
 return join('',$rt);}
 
 //$ra=['id','type','value','opt'];
@@ -21,3 +21,4 @@ static function call($ra,$r=[]){$rt=[];
 foreach($ra as $k=>$v)$rt[]=[$k,$v,$r[$k]??''];
 return self::build($rt);}
 }
+?>

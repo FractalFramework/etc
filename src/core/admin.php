@@ -4,7 +4,7 @@ class admin{
 static function pub($p){
 [$id,$b]=vals($p,['id','b']);
 $pub=sql::read('pub',$b,'v',['id'=>$id]);
-$pub2=$pub==1?0:1; if($pub==-1)$pub2=0;
+$pub2=$pub==1?0:1; if($pub==-1)$pub2=0; if($pub==-2)$pub2=-1;
 sql::upd($b,['pub'=>$pub2],['id'=>$id]);
 return self::btswitch($id,$pub2,$b);}
 
@@ -12,6 +12,7 @@ static function btswitch($id,$pub,$b){
 $r=[-1=>'trash',0=>'off',1=>'on']; $bt=voc($r[$pub]);
 $r=[-1=>'btno',0=>'btoff',1=>'bton']; $c=$r[$pub];
 $ret=bj($b.'pub'.$id.'|admin,pub|id='.$id.',b='.$b,$bt,$c);
+if($pub==0)$ret=bj($b.'pub'.$id.'|admin,pub|id='.$id.',b='.$b,$bt,$c);
 return $ret;}
 
 static function bt($id,$pub,$b='posts'){
