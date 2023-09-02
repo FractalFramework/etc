@@ -42,10 +42,10 @@ return join('',$rt);}
 
 static function call($p){
 if(!auth(6))return div(voc('forbiden'),'frame-red');
+$rt['nav']=h2('nav').div(nav::edit(),'','navedt');
 $rt[voc('tracks')]=h2(voc('tracks_moderation')).div(self::pending_tracks());
 $rt[voc('posts')]=h2(voc('posts_moderation')).div(self::pending_posts());
 $rt[voc('contacts')]=h2(voc('contacts')).div(contact::read($p));
-$rt['nav']=h2('nav').div(nav::edit(),'','navedt');
 $rt['json']=h2('json').div(self::jsonfiles(),'menu').div('','','jmnu');
 return build::tabs($rt);}
 }

@@ -211,8 +211,8 @@ function imgroot($d){return ishttp($d)?$d:'/img/'.$d;}
 function nohttp($f){if($f)return str_replace(['http://','https://','www.'],'',$f);}
 function domain($f){$f=nohttp($f); $p=strpos($f??'','/'); return $p?substr($f,0,$p):$f;}//preplink
 function host(){return 'http://'.$_SERVER['HTTP_HOST'];}
-function hostname(){$ip=$_SERVER['REMOTE_ADDR']??'';
-if(strstr($ip,' ')){$r=explode(' ',$ip); return $r[0];} else return gethostbyaddr($ip);}
+function uip(){$ip=$_SERVER['REMOTE_ADDR']??'';
+if(strstr($ip,' '))return explode(' ',$ip)[0]; else return gethostbyaddr($ip);}
 
 //ses
 function voc($d){$r=sesmk('json::call','lang/voc',0); return ucfirst($r[$d]??$d);}
@@ -228,7 +228,7 @@ class ses{static $r=[]; static $er=[]; static $n=0;
 static function k($k,$v){return self::$r[$k]=$v;}
 static function r($k){return self::$r[$k]??'';}
 static function z($k){unset(self::$r[$k]);}
-static function err($v,$k=null){return self::$er[$k]=$v;}
+static function err($v){return self::$er[]=$v;}
 static function usr($k){return self::$r['usr'][$k]??'';}
 static function cnfg($k){return self::$r['cnfg'][$k]??'';}
 static function gets(){return self::$r['get']??'';}}
@@ -248,7 +248,7 @@ function eco($d){
 if(is_array($d))$d='<pre>'.print_r($d,true).'</pre>';
 elseif(is_object($d))$d=var_dump($d,true);
 echo textarea('',htmlspecialchars_decode($d),44,12);}
-function err($v,$k=''){return ses::err($v,$k);}
+function err($v){return ses::err($v);}
 function trace(){pr(debug_backtrace());}
 function out($r){pr($r); exit();}
 ?>

@@ -12,6 +12,14 @@ $d=json_encode($r);
 file_put_contents($f,$d);
 return div(voc('saved'),'frame-green');}
 
+static function update($a,$k,$col,$val){
+$f=self::$json_location.$a.'.json'; //chmodf($f,octdec(777));
+$d=file_get_contents($f);
+$r=json_decode($d,true);
+if($col=='0')$r[$k]=$val; else $r[$k][$col]=$val;
+$d=json_encode($r);
+file_put_contents($f,$d);}
+
 static function save($p){
 $f=self::$json_location.$p['a'].'.json';
 file_put_contents($f,$p['inp']);

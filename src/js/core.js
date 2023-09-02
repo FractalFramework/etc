@@ -31,7 +31,7 @@ else if(!act){
 
 function editcell(el){
 	var j=getbyid('edtcom').value;
-	bjcall(j+'|'+el.id);}
+	bjcall(el.id+'|'+j+'|'+el.id);}
 
 function checkenter(){var e=event;
 if(e && e.which)var char=e.which; else var char=e.keyCode;

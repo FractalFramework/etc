@@ -8,8 +8,9 @@ ses::$r['cnfg']=$r;}//cnfg('db');
 
 static function call(){
 self::cnfg();
+//chmodf('/',0755);
 login::recognize();
-//chmodf('/');
+if(cnfg('install'))
 if(cnfg('install'))db::install_all();
 }
 }

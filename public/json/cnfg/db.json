@@ -3,7 +3,8 @@
         "name":"var",
         "auth":"int",
         "mail":"var",
-        "pswd":"var"
+        "pswd":"var",
+        "ip":"var"
     },
     "profile2":{
         "uid":"int",
@@ -48,7 +49,8 @@
         "at":"int",
         "name":"var",
         "mail":"var",
-        "msg":"text"
+        "msg":"text",
+        "pub":"int"
     },
     "_prog":{
         "dir":"var",

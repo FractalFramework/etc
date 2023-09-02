@@ -14,13 +14,16 @@ $ret=bj('navedt|nav,save||'.$keys,icovoc('save'),'btsav');
 $ret.=form::call($ra,$rb);
 return $ret.div('','','navedt');}
 
-static function modif($p){pr($p);
-return;}
+static function modif($p){
+$r=json::call('cnfg/nav'); [$ka,$col]=explode('-',key($p)); $val=current($p); $i=0;
+foreach($r as $k=>$v){$i++; if($i==$ka)$ka=$k;}
+//json::update('cnfg/nav',$ka,$col,$val);
+return $val;}
 
 static function edit(){
 $r=json::call('cnfg/nav');
 $h=['com','bt','ico','auth'];
-$j='navedt|nav,modif|';
+$j='nav,modif|';
 $ret=build::editable($r,$j,$h);
 return $ret.div('','','navedt');}
 
@@ -44,7 +47,7 @@ static function datas(){$rt=[]; $g=get('a');
 $r=json::call('cnfg/nav'); $ath=ses('auth');
 $r+=self::defaults();
 foreach($r as $com=>$v){[$bt,$ico,$auth]=$v;
-	$bt=str_replace('#user',ses('usr'),$bt);
+	if($bt)$bt=str_replace('#user',ses('usr'),$bt);
 	if(!$bt)$rt[]=div('','line');
 	elseif($auth<=$ath)$rt[]=bh($com,span(ico($ico).thin().$bt,'react'),active($com,$g));}
 return $rt;}

@@ -7,10 +7,13 @@ if($a && $b && $c)$ex=sql::sav('contact2',[ses('uid'),'1',$a,$b,$c],0);
 if($ex)return div(voc('received'),'frame-green');
 else return div(voc('error'),'frame-red');}
 
-static function read($p){
+static function read($p){$ret='';
 [$a,$b,$c]=vals($p,['a','b','c']);
-$r=sql::read('name,msg,mail,date_format(up,"%d/%m/%Y") as up','contact2','ra',['_order'=>'up desc']);
-return build::tabler($r,['from','txt','mail','date']);}
+$r=sql::read('name,msg as txt,mail,date_format(up,"%d/%m/%Y") as date','contact2','ra',['_order'=>'up desc']);
+//return build::tabler($r,['from','txt','mail','date']);
+foreach($r as $k=>$v){$v['pub']='';
+$ret.=view::call('blocks/track',$v);}
+return $ret;}
 
 static function call($p){
 [$a,$b]=vals($p,['a','b']);

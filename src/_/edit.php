@@ -1,5 +1,6 @@
 <?php
 class edit{
+static $ath=6;
 
 static function save($p){
 $a=$p['a']??'';
@@ -79,7 +80,8 @@ $ret=join('',$rt);
 return $ret;}
 
 static function menu($a,$b,$c){
-$r=['play','edit','create']; $rt=[];
+$r=['play','edit']; $rt=[];
+if(auth(self::$ath))$r+=['create'];
 $tg=$a.'c1,'.$a.'c2,'.$a.'c3';
 //foreach($r as $k=>$v)$rt[]=bj($tg.'|edit,read|a='.$a.',b='.$v.',c='.$c,$v,active($b,$v));
 foreach($r as $k=>$v)$rt[]=bjr($tg,'edit,read',['a'=>$a,'b'=>$v,'c'=>$c],$v,active($b,$v));

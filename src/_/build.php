@@ -80,9 +80,9 @@ static function editable($r,$j,$h=[]){
     $i=0; $td=[]; $tr=[]; 
     if($h){foreach($h as $k=>$v)$td[]=tagb('th',$v); $tr[]=tagb('tr',join('',$td));}
     if($r)foreach($r as $k=>$v){$td=[]; $i++;
-        $td[]=tagb('td',$k);
+        $td[]=tag('th',$pr+['id'=>$i.'-k'],$k);
         if(is_array($v))foreach($v as $ka=>$va)$td[]=tag('td',$pr+['id'=>$i.'-'.$ka],$va);
-        else $td[]=tag('td',$pr+['id'=>$i.'-'],$v);
+        else $td[]=tag('td',$pr+['id'=>$i.'-v'],$v);
         $tr[]=tagb('tr',join('',$td));}
     $ret=tagb('table',tagb('tbody',join('',$tr)));
     $ret.=hidden('edtcom',$j);

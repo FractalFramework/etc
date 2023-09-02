@@ -15,7 +15,7 @@ static function register($p){$ok='';
 $ex=self::firstuser(); $auth=$ex?1:6; $psw=self::hash($c);
 $ex=self::uid($a); if($ex)return div(voc('already_exists'),'frame-red');
 if(!filter_var($b,FILTER_VALIDATE_EMAIL))return div(voc('bad_mail'),'frame-red');
-if($a && $b && $c && !$ex)$ok=sql::sav('users',[$a,$auth,$b,$psw]);
+if($a && $b && $c && !$ex)$ok=sql::sav('users',[$a,$auth,$b,$psw,uip()]);
 if($ok)$ak=sql::sav('profile2',[$ok,$a,'here',self::$default_ban,'']);
 if($ok)self::identify($ok);
 if($ok)$ret=div(voc('registered'),'frame-blue');
@@ -23,7 +23,7 @@ else $ret=div(voc('notregistered'),'frame-red');
 return $ret;}
 
 static function regcall($p){
-$ret=register($p);
+$ret=self::register($p);
 return [$ret,nav::call(['a'=>'login'])];}
 
 static function firstuser(){
@@ -60,7 +60,7 @@ else{
 return $ret;}
 
 static function identify($id=''){
-$r=sql::inner('b1.id,uid,b1.name,auth,slogan,logo','users','profile2','uid','a',['b1.id'=>$id]);
+$r=sql::inner('b1.id,uid,b1.name,auth,slogan,logo,ip','users','profile2','uid','a',['b1.id'=>$id]);
 if(!$r)return;// pr($r); trace();
 cookie('uid',$r['id']);
 ses('uid',$r['id']);

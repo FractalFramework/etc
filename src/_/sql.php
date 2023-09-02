@@ -8,7 +8,7 @@ function __construct($r){if(!self::$qr){self::$r=$r; self::dbq();}}
 
 static function dbq(){[$h,$n,$p,$b]=self::$r; 
 $dsn='mysql:host='.$h.';dbname='.$b.';charset=utf8';
-$ro=[PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,PDO::ATTR_PERSISTENT=>true,PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,PDO::MYSQL_ATTR_INIT_COMMAND=>'set character set utf8mb4'];
+$ro=[PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,PDO::ATTR_PERSISTENT=>true,PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC,PDO::MYSQL_ATTR_INIT_COMMAND=>'set character set utf8mb4'];
 self::$qr=new PDO($dsn,$n,$p,$ro);}
 
 static function rq(){if(!self::$qr)self::dbq(); return self::$qr;}
@@ -16,7 +16,7 @@ static function qrr($r){return $r->fetchAll(PDO::FETCH_BOTH);}
 static function qra($r){return $r->fetchAll(PDO::FETCH_ASSOC);}
 static function qrw($r){return $r->fetchAll(PDO::FETCH_NUM);}
 static function qr($sql,$z=''){$qr=self::rq(); if($z)err($sql);
-try{return $qr->query($sql);}catch(Exception $e){err($e->getMessage());}}
+try{return $qr->query($sql); echo $sql;}catch(Exception $e){err($e->getMessage());}}
 
 static function format($r,$p){
 $rt=[];  if($p=='v')$rt='';
@@ -175,9 +175,6 @@ return self::fetch($stmt,$p);}
 static function com($sql){
 return self::rq()->query($sql);}
 
-static function com2($sql,$z=''){
-return self::qr($sql,$z);}
-
 static function cols($b,$n=''){if($n)$b=cnfg('db').'.'.$b;
 $sql='select column_name,data_type from information_schema.columns where table_name="'.$b.'"';
 return self::call($sql,'kv');}
@@ -185,8 +182,8 @@ static function drop($b){self::qr('drop table '.$b);}
 static function trunc($b){self::qr('truncate table '.$b);}
 static function setinc($b,$n){self::qr('alter table '.$b.' auto_increment='.$n);}
 static function unikey($b,$d){self::qr('alter table '.$b.' add unique key '.$d.' ('.$d.')');}
-static function show($b){self::qr('show tables like "'.$b.'"');}
-static function ex($b){$rq=self::show($b); return $rq?1:0;}
+static function show($b){self::call('show tables like "'.$b.'"','rv',1);}
+static function ex($b){$rq=self::read('id',$b,'v',[]); return $rq?1:0;}
 static function backup($b,$d=''){$bb='z_'.$b.'_'.$d;
 if(self::ex($bb))self::drop($bb);
 self::qr('create table '.$bb.' like '.$b);
