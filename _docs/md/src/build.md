@@ -4,7 +4,7 @@ It's a sum of useful builders
 
 ## Functions
 
-- `tabler($r,$h='',$keys='',$frame='')` -- used in : `docs::find_func`, `docs::count_cases`, `docs::rapport`, `edit::play`, `docs::vue`, `contact::read`, `admin::pending_tracks`, `admin::pending_posts`
+- `tabler($r,$h='',$keys='',$frame='')` -- used in : `docs::find_func`, `docs::count_cases`, `docs::rapport`, `edit::play`, `dbedt::play`, `docs::vue`, `contact::read`, `admin::pending_tracks`, `admin::pending_posts`
 - `tabs($r,$id='tab1',$c='')` -- used in : `admin::call`, `blocks::user`
 - `playr($r,$c='',$o='')` -- used in : `build::playr`, `build::tree`
 - `tree($r,$c='',$o='')` -- used in : `docs::see2`, `docs::see`
@@ -16,7 +16,7 @@ It's a sum of useful builders
 - `etc($d,$n=200)`
 - `btpages_nb($nbp,$pg)` -- used in : `build::btpages`
 - `btpages($nbyp,$pg,$nbarts,$j)`
-- `editable($r,$j,$h=[])` -- used in : `nav::edit`
+- `editable($r,$j,$h=[])` -- used in : `jedt::edit`, `dbedt::play`, `dbedt::read`
 - `code($d)`
 - `ftp($d)` -- used in : `build::ftpchmod`
 - `ftpchmod($path,$n)` -- used in : `test::call`

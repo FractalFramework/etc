@@ -1,10 +1,10 @@
 <?php
 class view{
 static $json_views='views/';
-static $html_location='public/html/';
+static $path='public/html/';
 
 static function file($a){
-return self::$html_location.$a.'.html';}
+return self::$path.$a.'.html';}
 
 static function vars($r){static $rv=[];
 foreach($r as $k=>$v)

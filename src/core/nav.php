@@ -1,32 +1,6 @@
 <?php
 class nav{
 
-static function save($p){
-$com=array_shift($p);
-return json::add('cnfg/nav',$com,$p);}
-
-static function create(){
-$r=['com','bt','ico','auth'];
-$ra=array_combine($r,['var','var','var','int']);
-$rb=array_combine($r,['com','bt','ico','0']);
-$keys=implode(',',walk($r,'unid'));
-$ret=bj('navedt|nav,save||'.$keys,icovoc('save'),'btsav');
-$ret.=form::call($ra,$rb);
-return $ret.div('','','navedt');}
-
-static function modif($p){
-$r=json::call('cnfg/nav'); [$ka,$col]=explode('-',key($p)); $val=current($p); $i=0;
-foreach($r as $k=>$v){$i++; if($i==$ka)$ka=$k;}
-//json::update('cnfg/nav',$ka,$col,$val);
-return $val;}
-
-static function edit(){
-$r=json::call('cnfg/nav');
-$h=['com','bt','ico','auth'];
-$j='nav,modif|';
-$ret=build::editable($r,$j,$h);
-return $ret.div('','','navedt');}
-
 //$rt[$com]=[$bt,$ico,$auth];
 static function defaults(){
 //$rt['home']=['home','home',0];

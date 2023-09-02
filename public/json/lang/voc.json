@@ -89,6 +89,7 @@
     "required_mail":"ton mail stp, ça fait deux fois qu'on te le demande, t'es lourd là !",
     "already_exists":"la place est prise",
     "done":"ça, c'est fait",
-    "trash":"poubelle"
+    "trash":"poubelle",
+    "forbidden":"c'est interdit de faire ça"
 
 }

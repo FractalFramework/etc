@@ -32,23 +32,23 @@ foreach($r as $k=>$v){
 	$r[$k]['pub']=self::bt($v['id'],$v['pub'],'posts');}
 return build::tabler($r,['id','author','catid','excerpt','pub']);}
 
-static function jsonfiles(){
-$dr='public/json';
-$r=scanfiles($dr);
-foreach($r as $k=>$v){
-	$vb=str_replace([$dr.'/','.json'],'',$v);
-	$rt[]=bj('jmnu|json,edit|a='.$vb,$vb);}
-return join('',$rt);}
+static function apps(){
+$r=['conn','conv','test','docs'];
+return $r;}
+
+static function appsmenu(){
+$rb=[]; $r=self::apps();
+foreach($r as $v)$rb[]=bj('japp|'.$v.',call',span($v));
+return $rb;}
 
 static function call($p){
 if(!auth(6))return alert('forbiden','red');
-$rt['nav']=h2('nav').div(nav::edit(),'','navedt');
 $rt[voc('tracks')]=h2(voc('tracks_moderation')).div(self::pending_tracks());
 $rt[voc('posts')]=h2(voc('posts_moderation')).div(self::pending_posts());
 $rt[voc('contacts')]=h2(voc('contacts')).div(contact::read($p));
-$rt['json']=h2('json').div(self::jsonfiles(),'menu').div('','','jmnu');
-$rb=[]; $r=['conn','conv','test','docs']; foreach($r as $v)$rb[]=bj('japp|'.$v.',call',span($v));
-$rt['apps']=h2('apps').div(join('',$rb),'vlist').div('','','japp');
+$rt['json']=h2('json').div(jedt::menu(),'menu').div('','','jmnu');
+$rt['db']=h2('db').div(dbedt::call(['a'=>'']),'','edt');
+$rt['apps']=h2('apps').div(join('',self::appsmenu()),'vlist').div('','','japp');
 return build::tabs($rt);}
 }
 ?>

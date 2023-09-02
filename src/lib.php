@@ -1,7 +1,7 @@
 <?php
 
 spl_autoload_register(function($a){
-    $r=sesmk('scandir_b','src',1);
+    $r=sesmk('scandir_b','src',1);//cnfg('dev');
     if($r)foreach($r as $v)if(is_file($f='src/'.$v.'/'.$a.'.php')){require($f); return;}
 });
 
@@ -184,7 +184,7 @@ function vals($r,$ra){foreach($ra as $k=>$v)$rb[]=$r[$v]??''; return $rb;}
 function valk($r,$ra){foreach($ra as $k=>$v)$rb[$v]=$r[$v]??''; return $rb;}
 function arr($r,$n=''){$rb=[]; $n=$n?$n:count($r); for($i=0;$i<$n;$i++)$rb[]=$r[$i]??''; return $rb;}
 function prm($p){$rt=[]; foreach($p as $k=>$v)$rt[]=$k.'='.$v; return implode(',',$rt);}
-function expl($d,$s,$n=2){$r=explode($s,$d); for($i=0;$i<$n;$i++)$rb[]=$r[$i]??''; return $rb;}
+function expl($s,$d,$n=2){$r=explode($s,$d); for($i=0;$i<$n;$i++)$rb[]=$r[$i]??''; return $rb;}
 function explode_k($d,$a,$b){$r=explode($b,$d); $rb=[];
 foreach($r as $k=>$v){if($v){$ra=split_right($a,$v);
 if(!empty($ra[0]))$rb[$ra[0]]=$ra[1]; else $rb[]=$ra[1];}} return $rb;}

@@ -12,5 +12,6 @@
 - `bt($id,$pub,$b='posts')` -- used in : `admin::pending_tracks`, `admin::pending_posts`
 - `pending_tracks()` -- used in : `admin::call`
 - `pending_posts()` -- used in : `admin::call`
-- `jsonfiles()` -- used in : `admin::call`
+- `apps()` -- used in : `admin::appsmenu`
+- `appsmenu()`
 - `call($p)`

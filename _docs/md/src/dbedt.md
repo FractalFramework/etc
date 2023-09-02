@@ -36,18 +36,9 @@ The Sql motor will verify if the requests are conform to the known types ot the 
 
 ## Functions
 
-- `jsoncolfromattr($b,$c,$k)`
-- `modifjsonvar($b,$c,$k,$v,$q='')`
-- `create_cols($r)` -- used in : `db::create`
-- `cleanup($r)` -- used in : `db::type_cols`
-- `cols($b,$n='')` -- used in : `db::type_cols`
-- `type_cols($b)` -- used in : `db::trigger`
-- `trigger($b,$ra)` -- used in : `db::create`
-- `create($b,$r,$up='')`
-- `table($b)`
-- `cols_r($b)` -- used in : `edit::create`, `edit::edit`, `edit::entries`, `sql::integrity`, `db::cols_k`, `dbedt::read`
-- `cols_k($b)` -- used in : `edit::save`, `edit::update`, `edit::play`, `sql::alex`, `sql::combine`, `db::cols_s`, `dbedt::upd`, `dbedt::play`
-- `cols_s($b)` -- used in : `sql::sqcl`
-- `install($b,$z=0)`
-- `install_all()` -- used in : `boot::call`
-- `call()`
+- `upd2($p)`
+- `upd($p)`
+- `play($p)` -- used in : `dbedt::read`
+- `read($p)` -- used in : `dbedt::call`
+- `menu()` -- used in : `dbedt::call`
+- `call($p)` -- used in : `admin::call`

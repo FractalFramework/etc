@@ -225,7 +225,8 @@ Standalone application for the commentaries.
 - `bt($id,$pub,$b='posts')` -- used in : `admin::pending_tracks`, `admin::pending_posts`
 - `pending_tracks()` -- used in : `admin::call`
 - `pending_posts()` -- used in : `admin::call`
-- `jsonfiles()` -- used in : `admin::call`
+- `apps()` -- used in : `admin::appsmenu`
+- `appsmenu()`
 - `call($p)`
 
 # blocks
@@ -314,10 +315,6 @@ We were the first to purpose, by laziness, to allow an unrecognized user to regi
 
 ## Functions
 
-- `save($p)`
-- `create()`
-- `modif($p)`
-- `edit()` -- used in : `admin::call`
 - `defaults()` -- used in : `nav::datas`
 - `datas()` -- used in : `nav::call`
 - `call($p)`
@@ -427,7 +424,7 @@ Contains the most used of basic functions for every site.
 - `valk($r,$ra)`
 - `arr($r,$n='')`
 - `prm($p)`
-- `expl($d,$s,$n=2)`
+- `expl($s,$d,$n=2)`
 - `explode_k($d,$a,$b)`
 - `implode_k($r,$a,$b)`
 - `implode_j($d)`
@@ -472,7 +469,7 @@ It's a sum of useful builders
 
 ## Functions
 
-- `tabler($r,$h='',$keys='',$frame='')` -- used in : `docs::find_func`, `docs::count_cases`, `docs::rapport`, `edit::play`, `docs::vue`, `contact::read`, `admin::pending_tracks`, `admin::pending_posts`
+- `tabler($r,$h='',$keys='',$frame='')` -- used in : `docs::find_func`, `docs::count_cases`, `docs::rapport`, `edit::play`, `dbedt::play`, `docs::vue`, `contact::read`, `admin::pending_tracks`, `admin::pending_posts`
 - `tabs($r,$id='tab1',$c='')` -- used in : `admin::call`, `blocks::user`
 - `playr($r,$c='',$o='')` -- used in : `build::playr`, `build::tree`
 - `tree($r,$c='',$o='')` -- used in : `docs::see2`, `docs::see`
@@ -484,7 +481,7 @@ It's a sum of useful builders
 - `etc($d,$n=200)`
 - `btpages_nb($nbp,$pg)` -- used in : `build::btpages`
 - `btpages($nbyp,$pg,$nbarts,$j)`
-- `editable($r,$j,$h=[])` -- used in : `nav::edit`
+- `editable($r,$j,$h=[])` -- used in : `jedt::edit`, `dbedt::play`, `dbedt::read`
 - `code($d)`
 - `ftp($d)` -- used in : `build::ftpchmod`
 - `ftpchmod($path,$n)` -- used in : `test::call`
@@ -635,12 +632,59 @@ The Sql motor will verify if the requests are conform to the known types ot the 
 - `trigger($b,$ra)` -- used in : `db::create`
 - `create($b,$r,$up='')`
 - `table($b)`
-- `cols_r($b)` -- used in : `edit::create`, `edit::edit`, `edit::entries`, `sql::integrity`, `db::cols_k`
-- `cols_k($b)` -- used in : `edit::save`, `edit::update`, `edit::play`, `sql::alex`, `sql::combine`, `db::cols_s`
+- `cols_r($b)` -- used in : `edit::create`, `edit::edit`, `edit::entries`, `sql::integrity`, `db::cols_k`, `dbedt::read`
+- `cols_k($b)` -- used in : `edit::save`, `edit::update`, `edit::play`, `sql::alex`, `sql::combine`, `db::cols_s`, `dbedt::upd`, `dbedt::play`
 - `cols_s($b)` -- used in : `sql::sqcl`
 - `install($b,$z=0)`
 - `install_all()` -- used in : `boot::call`
 - `call()`
+
+# dbedt
+
+## Overview
+
+We can create and modify a database on-the-fly: 
+
+    $db=['name'=>'var','role'=>'int','mail'=>'var','pswd'=>'password','slogan'=>'var','logo'=>'var'];
+    sql::create('admin',self::$db,1);
+
+For each table, the `id` and the `lastdate` are implicit.
+
+We can change the names of the columns, it will understant whot to do.
+
+The conventions for the columns are :
+
+- `int` int(11)
+- `bint` bigint(36)
+- `dec` decimal(20,20)
+- `float` float(20,2)
+- `double` double
+- `var` varchar(255)
+- `bvar` varchar(1020)
+- `svar` varchar(60)
+- `tiny` tinytext
+- `text` mediumtext
+- `long` longtext
+- `date`date
+- `time` datetime
+- `json` json
+
+## Connection with Sql
+
+The Sql motor will verify if the requests are conform to the known types ot the columns.
+
+## Location of the definitions
+
+`public/json/cnfg/db.json`
+
+## Functions
+
+- `upd2($p)`
+- `upd($p)`
+- `play($p)` -- used in : `dbedt::read`
+- `read($p)` -- used in : `dbedt::call`
+- `menu()` -- used in : `dbedt::call`
+- `call($p)` -- used in : `admin::call`
 
 # docs
 
@@ -656,13 +700,13 @@ And it can produce the software's automatic documentation (*botdoc*).
 - `doc()` -- used in : `docs::find_func`, `docs::count_cases`, `docs::read`
 - `iter2($ka)` -- used in : `docs::see2`
 - `see2($p)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::read`
-- `iter($ka)` -- used in : `docs::iter2`, `docs::iter`, `docs::see`, `docs::mktree`, `docs::funcsee`
+- `iter($ka)` -- used in : `docs::mktree`, `docs::funcsee`, `docs::iter2`, `docs::iter`, `docs::see`
 - `see($p)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::read`
 - `vue()` -- used in : `docs::find_func`, `docs::count_cases`, `docs::read`
 - `save2($r)` -- used in : `docs::mktree`
 - `unused($r,$rb)` -- used in : `docs::mktree`
 - `find($d,$fc)` -- used in : `docs::arbo`
-- `arbo($r)` -- used in : `docs::functree`, `docs::mktree`
+- `arbo($r)` -- used in : `docs::mktree`, `docs::functree`
 - `mktree($a,$b)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::read`
 - `funcsee($r)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::build`
 - `functree($r)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::build`
@@ -679,7 +723,7 @@ And it can produce the software's automatic documentation (*botdoc*).
 - `capture($r,$dr='')` -- used in : `docs::find_func`, `docs::count_cases`, `docs::')!==false)$rf[]=between`, `docs::capture`, `docs::build`
 - `rapport($r,$p)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::build`
 - `build($p)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::read`
-- `state($d)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::build`, `docs::call`, `docs::mktree`
+- `state($d)` -- used in : `docs::mktree`, `docs::find_func`, `docs::count_cases`, `docs::build`, `docs::call`
 - `read($p)`
 - `menu($p,$o)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::call`
 - `call($p)`
@@ -721,7 +765,7 @@ Produce a formated form from definitions and array of values.
 
 - `tabler($r)`
 - `build($r)` -- used in : `form::call`
-- `call($ra,$r=[])` -- used in : `edit::create`, `edit::edit`, `nav::create`
+- `call($ra,$r=[])` -- used in : `edit::create`, `edit::edit`, `jedt::create`
 
 # head
 
@@ -801,6 +845,32 @@ The images are located in `/img`.
 - `thumb($in,$out,$w,$h,$s)` -- used in : `img::imgthumb`, `img::getim`
 - `alpha($img)` -- used in : `img::thumb`
 
+# jedt
+
+## Overview
+
+Download images from web, [forms], and base64.
+The image are renamed locally.
+No backup of the original source id actually operated.
+Build thumbnails of beggest files.
+The images are located in `/img`.
+
+## Functions
+
+- `add($a,$k,$v)`
+- `update($a,$k,$col,$val)`
+- `save($p)`
+- `create()`
+- `modif($p)`
+- `artype($r)` -- used in : `jedt::edit`
+- `edit($p)`
+- `savext($p)`
+- `editxt($p)` -- used in : `jedt::edit`
+- `bt($v)`
+- `itermenu($ka,$r,$rt=[])` -- used in : `jedt::itermenu`, `jedt::menu`
+- `menu()` -- used in : `jedt::call`, `admin::call`
+- `call($p)`
+
 # json
 
 ## Overview
@@ -815,15 +885,11 @@ Let edit these files.
 
 ## Functions
 
-- `add($a,$k,$v)` -- used in : `nav::save`
-- `update($a,$k,$col,$val)`
-- `save($p)`
-- `edit($p)`
 - `file($a)` -- used in : `json::err`, `json::call`, `view::vars`, `view::trigger`, `css::trigger`
 - `error()` -- used in : `json::err`
 - `err($r,$a='')` -- used in : `json::build`, `json::call`
 - `build($r)`
-- `call($a)` -- used in : `head::json`, `secur::call`, `view::vars`, `view::save_html`, `view::call`, `css::build`, `db::table`, `db::install_all`, `boot::cnfg`, `conns::bt`, `main::read`, `nav::modif`, `nav::edit`, `nav::datas`
+- `call($a)` -- used in : `head::json`, `jedt::modif`, `jedt::edit`, `secur::call`, `view::vars`, `view::save_html`, `view::call`, `css::build`, `db::table`, `db::install_all`, `boot::cnfg`, `conns::bt`, `main::read`, `nav::datas`
 
 # login
 
@@ -976,7 +1042,7 @@ The last parameter `0` is the verbose of the action, used in dev.
 - `fetch($stmt,$p)` -- used in : `sql::read`, `sql::read2`, `sql::inner`, `sql::call`, `sql::call2`
 - `bind($stmt,$r)` -- used in : `sql::prep`
 - `prep($sql,$r,$z='')` -- used in : `sql::read`, `sql::sav`, `sql::sav2`, `sql::upd`, `sql::inner`
-- `read($d,$b,$p,$q,$z='')` -- used in : `docs::find_func`, `docs::count_cases`, `docs::state`, `edit::create`, `edit::edit`, `edit::play`, `edit::entries`, `login::uid`, `login::firstuser`, `login::response`, `login::resetip`, `login::recognize0`, `sql::alex`, `sql::ex`, `docs::doc`, `docs::see2`, `docs::see`, `docs::vue`, `docs::mktree`, `contact::read`, `posts::usrart`, `posts::catid`, `posts::content`, `posts::create`, `posts::read`, `posts::stream`, `tracks::edit`, `tracks::call`, `admin::pub`, `blocks::banner`, `conns::art`, `conns::read`, `conns::socials`
+- `read($d,$b,$p,$q,$z='')` -- used in : `docs::mktree`, `docs::find_func`, `docs::count_cases`, `docs::state`, `edit::create`, `edit::edit`, `edit::play`, `edit::entries`, `login::uid`, `login::firstuser`, `login::response`, `login::resetip`, `login::recognize0`, `sql::alex`, `sql::ex`, `dbedt::upd2`, `dbedt::play`, `dbedt::read`, `docs::doc`, `docs::see2`, `docs::see`, `docs::vue`, `contact::read`, `posts::usrart`, `posts::catid`, `posts::content`, `posts::create`, `posts::read`, `posts::stream`, `tracks::edit`, `tracks::call`, `admin::pub`, `blocks::banner`, `conns::art`, `conns::read`, `conns::socials`
 - `read2($d,$b,$p,$q,$z='')`
 - `alex($b,$r)` -- used in : `sql::sav`
 - `combine($b,$r)` -- used in : `sql::sav`
@@ -984,9 +1050,9 @@ The last parameter `0` is the verbose of the action, used in dev.
 - `complete($r)` -- used in : `sql::sav`
 - `sav($b,$q,$z='')` -- used in : `docs::save`, `edit::save`, `login::register`, `docs::save2`, `contact::save`, `posts::catid`, `posts::save`, `tracks::register`, `tracks::save`
 - `sav2($b,$q,$z='')`
-- `upd($b,$r,$q,$z='')` -- used in : `edit::update`, `login::resetip`, `posts::del`, `posts::update`, `tracks::del`, `admin::pub`
+- `upd($b,$r,$q,$z='')` -- used in : `edit::update`, `login::resetip`, `dbedt::upd2`, `dbedt::upd`, `posts::del`, `posts::update`, `tracks::del`, `admin::pub`
 - `inner($d,$b1,$b2,$k2,$p,$q,$z='')` -- used in : `login::identify`, `posts::datas`, `tracks::read`, `tracks::stream`, `admin::pending_tracks`, `admin::pending_posts`, `conns::profile`, `nav::defaults`
-- `call($sql,$p,$z='')` -- used in : `edit::list`, `sql::cols`, `db::cols`
+- `call($sql,$p,$z='')` -- used in : `edit::list`, `sql::cols`, `db::cols`, `dbedt::menu`
 - `call2($sql,$p)`
 - `com($sql)`
 - `cols($b,$n='')` -- used in : `sql::combine`
@@ -1092,4 +1158,4 @@ So, to imbricate tags in tags, we have to replicate this structure instead of `$
 - `com($r,$ra)` -- used in : `view::vars`, `view::call`, `main::read`
 - `call($a,$ra)` -- used in : `contact::read`, `posts::read`, `posts::stream`, `tracks::edit`, `tracks::read`, `tracks::stream`, `tracks::call`, `blocks::banner`, `blocks::home`, `nav::call`
 
-generated by botdoc, 230902.1133
+generated by botdoc, 230902.1635

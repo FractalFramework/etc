@@ -1,5 +1,7 @@
 {
     "sql":{"del":6,"trunc":6,"drop":6},
     "edit":{"save":6,"update":6,"call":4,"form":5},
-    "json":{"save":6,"edit":6}
+    "json":{"save":6,"edit":6},
+    "jedt":{"save":6,"update":6,"edit":6,"modif":6,"add":6},
+    "dbedt":{"upd":6,"upd2":6,"read":6,"play":6}
 }

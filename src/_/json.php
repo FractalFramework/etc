@@ -1,39 +1,9 @@
 <?php
 class json{
-static $json_location='public/json/';
-
-static function add($a,$k,$v){
-$f=self::$json_location.$a.'.json';
-$d=file_get_contents($f);
-$r=json_decode($d,true);
-//if($r[$k]??'')return alert('really?','red');
-$r[$k]=array_values($v);
-$d=json_encode($r);
-file_put_contents($f,$d);
-return alert('saved','green');}
-
-static function update($a,$k,$col,$val){
-$f=self::$json_location.$a.'.json'; //chmodf($f,octdec(777));
-$d=file_get_contents($f);
-$r=json_decode($d,true);
-if($col=='0')$r[$k]=$val; else $r[$k][$col]=$val;
-$d=json_encode($r);
-file_put_contents($f,$d);}
-
-static function save($p){
-$f=self::$json_location.$p['a'].'.json';
-file_put_contents($f,$p['inp']);
-return alert('saved','green');}
-
-static function edit($p){
-$f=self::$json_location.$p['a'].'.json';
-$d=file_get_contents($f);
-$ret=bj('jedt|json,save|a='.$p['a'].'|inp',icovoc('save'),'btsav');
-$ret.=div(textarea('inp',$d,'',24,['class'=>'console']),'area');
-return div($ret,'','jedt');}
+static $path='public/json/';
 
 static function file($a){
-return self::$json_location.$a.'.json';}
+return self::$path.$a.'.json';}
 
 static function error(){
 return match(json_last_error()){

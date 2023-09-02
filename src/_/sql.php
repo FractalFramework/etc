@@ -69,6 +69,8 @@ return [$rt,$q];}
 
 static function sqcl($d,$b){
 if($d=='all' or !$d)$d=db::cols_s($b);
+if($d=='allid' or !$d)$d='id,'.db::cols_s($b);
+if($d=='full' or !$d)$d='id,'.db::cols_s($b).',up';
 if(!$d)$d='*';
 return $d;}
 

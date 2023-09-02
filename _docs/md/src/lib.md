@@ -101,7 +101,7 @@ Contains the most used of basic functions for every site.
 - `valk($r,$ra)`
 - `arr($r,$n='')`
 - `prm($p)`
-- `expl($d,$s,$n=2)`
+- `expl($s,$d,$n=2)`
 - `explode_k($d,$a,$b)`
 - `implode_k($r,$a,$b)`
 - `implode_j($d)`

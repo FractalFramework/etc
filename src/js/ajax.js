@@ -29,6 +29,17 @@ httpRequest.onreadystatechange=function(){ajax_callback(target,tp);}
 httpRequest.open('POST',url+action+pp,true);
 httpRequest.send(fd);}
 
+//json
+function jsonput(keys,json){var cb,k,typ;
+var rk=keys.split(',');
+var obj=JSON.parse(json);
+for(var i in obj){
+	if(i>-1)k=rk[i]; else k=i;
+	cb=getbyid(k);
+	if(cb!=null)typ=cb.type;
+	if(typ=='text'||typ=='textarea'||typ=='hidden')cb.value=obj[i];
+	else if(cb!=null)cb.innerHTML=obj[i];}}
+
 //frct
 //target,tg2|app,mth|var1,var2|inp1,inp2 //tg;a;tp;g;p
 function bj(ob){var val=ob.dataset.bj; bjcall(val);}
@@ -64,17 +75,6 @@ else if(type=='radio'){var el=document.getElementsByName(tg);
 else if(ty==undefined && ob!=null){vl=ob.innerHTML;}// localStorage['revert']=vl;
 else if(ob!=null)vl=ob.value;
 return vl;}
-
-//json
-function jsonput(keys,json){var cb,k,typ;
-var rk=keys.split(',');
-var obj=JSON.parse(json);
-for(var i in obj){
-	if(i>-1)k=rk[i]; else k=i;
-	cb=getbyid(k);
-	if(cb!=null)typ=cb.type;
-	if(typ=='text'||typ=='textarea'||typ=='hidden')cb.value=obj[i];
-	else if(cb!=null)cb.innerHTML=obj[i];}}
 
 //forms
 function capture_element(ob){

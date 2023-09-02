@@ -7,10 +7,6 @@ We were the first to purpose, by laziness, to allow an unrecognized user to regi
 
 ## Functions
 
-- `save($p)`
-- `create()`
-- `modif($p)`
-- `edit()` -- used in : `admin::call`
 - `defaults()` -- used in : `nav::datas`
 - `datas()` -- used in : `nav::call`
 - `call($p)`
