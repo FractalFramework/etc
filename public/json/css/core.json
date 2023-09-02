@@ -11,6 +11,9 @@
         "background-position":"contain",
         "background-image":"linear-gradient(#797979,#4a4a4a)"
     },
+    ".banner a":{
+        "color":"#ddd"
+    },
     ".main":{
         "padding":"8px 16px",
         "color":"#444",

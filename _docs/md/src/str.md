@@ -19,10 +19,10 @@ Collection of filters for the strings.
 - `lowcase($d)`
 - `letcase($d)` -- used in : `str::lowercase`
 - `lowercase($d)`
-- `clean_lines($d,$o='')` -- used in : `str::clean_mail`, `str::clean_br`, `conv::call`
+- `clean_lines($d,$o='')` -- used in : `str::clean_mail`, `str::clean_br`, `conv::build`
 - `delspc($d)`
 - `clean_whitespaces($d)` -- used in : `str::clean_lines`, `str::trim`
 - `trim($d,$o='')` -- used in : `str::clean_lines`
 - `clean_mail($d)`
-- `clean_n($d)` -- used in : `conv::call`
+- `clean_n($d)` -- used in : `conv::build`
 - `clean_br($d)`

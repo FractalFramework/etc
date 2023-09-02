@@ -41,12 +41,14 @@ foreach($r as $k=>$v){
 return join('',$rt);}
 
 static function call($p){
-if(!auth(6))return div(voc('forbiden'),'frame-red');
+if(!auth(6))return alert('forbiden','red');
 $rt['nav']=h2('nav').div(nav::edit(),'','navedt');
 $rt[voc('tracks')]=h2(voc('tracks_moderation')).div(self::pending_tracks());
 $rt[voc('posts')]=h2(voc('posts_moderation')).div(self::pending_posts());
 $rt[voc('contacts')]=h2(voc('contacts')).div(contact::read($p));
 $rt['json']=h2('json').div(self::jsonfiles(),'menu').div('','','jmnu');
+$rb=[]; $r=['conn','conv','test','docs']; foreach($r as $v)$rb[]=bj('japp|'.$v.',call',span($v));
+$rt['apps']=h2('apps').div(join('',$rb),'vlist').div('','','japp');
 return build::tabs($rt);}
 }
 ?>

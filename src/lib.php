@@ -46,7 +46,7 @@ function hidden($d,$v){return taga('input',['type'=>'hidden','id'=>$d,'value'=>$
 function label($id,$t,$c='',$idb=''){return tag('label',['for'=>$id,'class'=>$c,'id'=>$idb],$t);}
 function inputj($id,$v='',$ida='',$p=[]){return input($id,$v,16,['onkeypress'=>atj('checkj',$ida)]+$p);}
 function inpsw($d,$v,$s='',$p=[]){
-return input($d,$v,$s,['type'=>'password','maxlength'=>'100','placeholder'=>'password']);}
+return input($d,$v,$s,['type'=>'password','maxlength'=>'100','placeholder'=>'password']+$p);}
 function inpnb($id,$v,$min='',$max='',$st=1){
 return input($id,$v,'',['type'=>'number','name'=>$id,'min'=>$min,'max'=>$max,'step'=>$st]);}
 function inpmail($id,$v='',$p=[]){return input($id,$v,16,['type'=>'mail','maxlength'=>'100']+$p);}
@@ -198,6 +198,7 @@ function in_array_k($d,$r){foreach($r as $k=>$v)if($v && strpos($d,$v)!==false)r
 #core
 function rdiv($r){return implode('',array_map('div',$r));}
 function walk($r,$fc){$rt=[]; foreach($r as $k=>$v)$rt[]=$fc($v); return $rt;}
+function alert($d,$c='blue',$o=''){return div(voc($d).($o?' '.$o:''),'frame-'.$c);}
 
 //detection
 function xt($d,$o=0){return substr(strtolower(strrchr($d??'','.')),$o);}

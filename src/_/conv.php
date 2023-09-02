@@ -118,7 +118,7 @@ if(strpos($after,'<')!==false)$after=self::parse($after,$x);
 $ret=$before.$txt.$after;
 return $ret;}
 
-static function call($p){
+static function build($p){
 $d=$p['txt']??'';
 $d=delt($d);
 $d=delsp($d);
@@ -133,6 +133,11 @@ $d=str::clean_n($d);
 $d=delsp($d);
 $d=nbsp($d);
 return $d;}
+
+static function call($p){
+$ret=textarea('txt','');
+$ret.=bj('cnn|conv,build||txt',ico('ok'));
+return $ret.div('','area','cnn');}
 
 }
 ?>

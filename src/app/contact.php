@@ -4,8 +4,8 @@ class contact{
 static function save($p){
 [$a,$b,$c]=vals($p,['name','mail','msg']); $ex='';
 if($a && $b && $c)$ex=sql::sav('contact2',[ses('uid'),'1',$a,$b,$c],0);
-if($ex)return div(voc('received'),'frame-green');
-else return div(voc('error'),'frame-red');}
+if($ex)return alert('received','green');
+else return alert('error','red');}
 
 static function read($p){$ret='';
 [$a,$b,$c]=vals($p,['a','b','c']);

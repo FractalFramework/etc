@@ -12,10 +12,17 @@
     "numlist":["numlist","",0],
     "clr":["color","red",1],
     "bkg":["background","yellow",1],
+    "code":["code","",0],
+    "dev":["code","",0],
+    "tn":["topnote","",0],
+    "fn":["footnote","",0],
+    "console":["console","",0],
     "table":["table","1|2\n3|4",1],
     "art":["id","title",1],
     "read":["id","title",0],
     "profile":["profile","",0],
     "socials":["social links","",0],
-    "slogan":["slogan","",0]
+    "slogan":["slogan","",0],
+    "ko":["display connector","",0],
+    "no":["hide connector","",0]
 }

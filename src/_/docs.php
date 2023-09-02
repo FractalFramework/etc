@@ -278,7 +278,7 @@ $ret.=bj($j.'a=doc|inp','doc','btn').' ';
 return $ret;}
 
 static function call($p){
-[$a,$b]=arr($p);
+[$a,$b]=arr($p,2);
 if(!auth(6))self::$save=0;
 $bt=self::menu($a,$b);
 $ret=self::state($b);

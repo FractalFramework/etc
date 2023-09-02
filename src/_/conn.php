@@ -62,22 +62,29 @@ if(method_exists('conns',$c))return conns::$c($p,$o);
 if(in_array($c,self::$cn))return tag($c,'',$d);//html
 if(self::$cb[$c]??'')return tag(self::$cb[$c],'',$d);
 if($c)$ret=match($c){
-    'cod'=>tag('code',['class'=>'console'],$d),
+    'dev'=>build::code($d),
+    'console'=>tag('code',['class'=>'console'],$d),
     'clr'=>tag('span',['style'=>'color:'.($o?$o:'red')],$p),
     'bkg'=>tag('span',['style'=>'background-color:'.($o?$o:'yellow')],$p),
-    'nh'=>tag('a',['href'=>'#nb'.$o,'id'=>'nh'.$o],'['.$o.']'),
-    'nb'=>tag('a',['href'=>'#nh'.$o,'id'=>'nb'.$o],'['.$o.']'),
+    'tn'=>tag('a',['href'=>'#fn'.$o,'id'=>'tn'.$o],'['.$o.']'),
+    'fn'=>tag('a',['href'=>'#tn'.$o,'id'=>'fn'.$o],'['.$o.']'),
     'ko'=>tagb('pre',$da),
     'no'=>'',
     default=>''};
 if(!$ret)$ret=$da;
 return $ret;}
 
-static function call($p){
+static function build($p){
 [$d,$m,$id,$prs,$nop]=vals($p,['txt','m','id','parser','nop']);
 $d=self::parser($d,[$m,$id],$prs?$prs:'conn::connectors');
 if(!$nop)$d=self::embed_p($d);
 if(!$nop)$d=nl2br($d);
 return $d;}
+
+static function call($p){
+$ret=textarea('txt','');
+$ret.=bj('cnn|conn,build||txt',ico('ok'));
+return $ret.div('','area','cnn');}
+
 }
 ?>

@@ -10,8 +10,8 @@ $rd=walk($ra,'unid');
 $rb=vals($p,$rd);
 $rt=array_combine($ra,$rb);
 $nid=sql::sav($a,$rt);
-if($nid)$ret=div(voc('saved'),'frame-green');
-else $ret=div(voc('error'),'frame-red');
+if($nid)$ret=alert('saved','green');
+else $ret=alert('error','red');
 $tg=$a.'c1,'.$a.'c2,'.$a.'c3';
 $ret.=bj($tg.'|edit,read|a='.$a.',b=play,c='.$nid,voc('return'),'btn');
 return $ret;}
@@ -23,8 +23,8 @@ $rd=walk($ra,'unid');
 $rb=vals($p,$rd);
 $rt=array_combine($ra,$rb);
 $nid=sql::upd($a,$rt,$id);
-if($nid)$ret=div(voc('saved'),'frame-green');
-else $ret=div(voc('error'),'frame-red');
+if($nid)$ret=alert('saved','green');
+else $ret=alert('error','red');
 $tg=$a.'c1,'.$a.'c2,'.$a.'c3';
 $ret.=bj($tg.'|edit,read|a='.$a.',b=edit,c='.$id,voc('return'),'btn');
 return $ret;}

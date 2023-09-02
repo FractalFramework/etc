@@ -8,9 +8,8 @@ ses::$r['cnfg']=$r;}//cnfg('db');
 
 static function call(){
 self::cnfg();
-//chmodf('/',0755);
+//build::ftpchmod('src',777);
 login::recognize();
-if(cnfg('install'))
 if(cnfg('install'))db::install_all();
 }
 }

@@ -40,10 +40,10 @@ if($a && $b && $uid){$pub=$own?1:0;
     if($ex)$ok='pending_track'; else $er='already_said';}
 elseif(!$b)$er='empty';
 elseif(!$a)$er='error';
-if($er)$ret=div(voc($er),'frame-red');
+if($er)$ret=alert($er,'red');
 elseif($ok && $own)$ret=self::read(['a'=>$a]);
-elseif($ok)$ret.=div(voc($ok),'frame-green');
-if($psw && $uid)$ret.=div(voc('new_password').' '.tagb('pre',$psw),'frame-blue');
+elseif($ok)$ret.=alert($ok,'green');
+if($psw && $uid)$ret.=alert('new_password','blue',tagb('pre',$psw));
 $ret.=bh('post/'.$a,icovoc('redoit'),'bigbt');
 return $ret;}
 

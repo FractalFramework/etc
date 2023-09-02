@@ -27,14 +27,14 @@ static function save($p){
 $catid=self::catid($a);
 $ex=sql::sav('posts',[ses('uid'),$catid,$b,$c,$d,0,sqldate()],0);
 if($ex)return self::read(['a'=>$ex,'b'=>'']);
-else return div(voc('error'),'frame-red');}
+else return alert('error','red');}
 
 static function update($p){
 [$id,$c,$d]=vals($p,['id','col','val']);
-$d=$d=conv::call(['txt'=>$d]);
+$d=$d=conv::build(['txt'=>$d]);
 $r=[$c=>$c=='catid'?self::catid($d):$d];
 if($d)sql::upd('posts',$r,$id);
-if($c=='content')$d=conn::call(['txt'=>$d,'m'=>0,'id'=>$id]);
+if($c=='content')$d=conn::build(['txt'=>$d,'m'=>0,'id'=>$id]);
 return $d;}
 
 static function create($p){
@@ -56,9 +56,9 @@ return $r;}
 static function read($p){
 [$a,$b]=vals($p,['a','b']); $pr=[]; $pr1=[]; $pr2=[];
 $r=self::datas($p); if($r)$r=$r[0];
-if(!$r)return div(icovoc('nothing'),'frame-red');
+if(!$r)return alert('nothing','red');
 $own=ses('uid')==$r['uid']?1:0;
-if(!auth(4) && $own && $r['pub']<1)return div(icovoc('moderated'),'frame-red');
+if(!auth(4) && $own && $r['pub']<1)return alert('moderated','red');
 if(auth(6) or ($own && $r['pub']>0)){
     $pr=['contenteditable'=>'false','class'=>'editable'];
     $pr1=['onclick'=>'editxt(this,'.$a.')','onblur'=>'savtxt(this,'.$a.')'];
@@ -70,7 +70,7 @@ $r['pub'].=auth(4)?bj('post'.$a.'|posts,del|a='.$a,ico('trash'),''):'';
 $r['title']=tag('div',['id'=>'title']+$pr+$pr1,$r['title']);
 $r['excerpt']=tag('div',['id'=>'excerpt']+$pr+$pr1,$r['excerpt']);
 $r['category']=tag('span',['id'=>'catid']+$pr+$pr1,$r['category']);
-$txt=conn::call(['txt'=>$r['content'],'m'=>0,'id'=>$a]);
+$txt=conn::build(['txt'=>$r['content'],'m'=>0,'id'=>$a]);
 //$txt=$r['content'];
 $r['content']=tag('div',['id'=>'content']+$pr+$pr2,$txt);
 $r['editbt']='';

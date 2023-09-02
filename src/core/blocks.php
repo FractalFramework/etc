@@ -7,15 +7,16 @@ static function banner($p){
 $id=ses('uid'); if(!$id)$id=cnfg('usrhome');
 $r=sql::read('surname,slogan,banner,logo','profile2','a',$id);
 if(!$r)$r=self::$defaults;
-//$r['surname']=bh('home',$r['surname']);
+$r['surname']=bh('home',$r['surname']);
 if(isimg($r['banner']??''))$r['banner']='url(/img/'.$r['banner'].')';
 $ret=view::call('blocks/banner',$r);
 return $ret;}
 
 static function footer($p){
-$ret=div('etc@2023');
-//$ret.=div(lk('https://github.com/FractalFramework/etc','i want the same'),'small');
-$ret.=div('Tous droits réservés','small');
+$bt=lk('/','𝓮𝓽𝓬•').' | ';
+$bt.=lk('https://github.com/FractalFramework/etc','src','small');
+$ret=div($bt);
+$ret.=div('@2023 All rights reserved','small');
 return $ret;}
 
 static function shutter($p){}
@@ -33,7 +34,7 @@ if(auth(6))$rt['all']=edit::call(['a'=>'','b'=>'','c'=>'']);
 return build::tabs($rt);}
 
 static function forbidden(){
-return div(voc('forbiden_access'),'frame-red');}
+return alert('forbiden_access','red');}
 
 static function call($p){
 [$a,$b,$c,$d]=vals($p,['a','b','c','d']);

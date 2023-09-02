@@ -88,5 +88,30 @@ static function editable($r,$j,$h=[]){
     $ret.=hidden('edtcom',$j);
 return tag('div',['width'=>'100%','class'=>'scroll'],$ret);}
 
+static function code($d){
+$d=str_replace(['<?php','?>'],'',$d); $d=trim($d);
+ini_set('highlight.comment','gray');
+ini_set('highlight.default','white');
+ini_set('highlight.html','red');
+ini_set('highlight.keyword','orange');
+ini_set('highlight.string','lightblue');
+$d=highlight_string('<'.'?php'."\n".$d,true);
+$d=str_replace(['&lt;?php','?>','<span style="color: white"><br /></span>'],'',$d); $d=trim($d);
+return div(trim($d),'','','overflow:auto; wrap:true; background:#222244; padding:0 20px;');}
+
+//ftp
+static function ftp($d){
+$r=ses::r('ftp');
+$ci=ftp_connect($r[3]);
+$login_result=ftp_login($ci,$r[0],$r[1]);
+if(ftp_site($ci,$d)!==false)$ret=true; else $ret=false;
+ftp_close($ci);
+return $ret;}
+
+static function ftpchmod($path,$n){
+//if(cnfg('local'))chmodf($path,0755);
+$d='CHMOD '.intval($n,8).' '.$path;
+return self::ftp($d);}
+
 }
 ?>

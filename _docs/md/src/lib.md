@@ -108,6 +108,7 @@ Contains the most used of basic functions for every site.
 - `in_array_k($d,$r)`
 - `rdiv($r)`
 - `walk($r,$fc)`
+- `alert($d,$c='blue',$o='')`
 - `xt($d,$o=0)`
 - `isimg($d)`
 - `ishttp($d)`
@@ -116,7 +117,7 @@ Contains the most used of basic functions for every site.
 - `nohttp($f)`
 - `domain($f)`
 - `host()`
-- `hostname()`
+- `uip()`
 - `voc($d)`
 - `ico($d)`
 - `icovoc($d,$b='',$c='')`
@@ -125,7 +126,7 @@ Contains the most used of basic functions for every site.
 - `k($k,$v)`
 - `r($k)`
 - `z($k)`
-- `err($v,$k=null)`
+- `err($v)`
 - `usr($k)`
 - `cnfg($k)`
 - `auth($n)`

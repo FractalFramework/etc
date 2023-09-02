@@ -6,11 +6,11 @@ static function add($a,$k,$v){
 $f=self::$json_location.$a.'.json';
 $d=file_get_contents($f);
 $r=json_decode($d,true);
-//if($r[$k]??'')return div(voc('really?'),'frame-red');
+//if($r[$k]??'')return alert('really?','red');
 $r[$k]=array_values($v);
 $d=json_encode($r);
 file_put_contents($f,$d);
-return div(voc('saved'),'frame-green');}
+return alert('saved','green');}
 
 static function update($a,$k,$col,$val){
 $f=self::$json_location.$a.'.json'; //chmodf($f,octdec(777));
@@ -23,7 +23,7 @@ file_put_contents($f,$d);}
 static function save($p){
 $f=self::$json_location.$p['a'].'.json';
 file_put_contents($f,$p['inp']);
-return div(voc('saved'),'frame-green');}
+return alert('saved','green');}
 
 static function edit($p){
 $f=self::$json_location.$p['a'].'.json';
