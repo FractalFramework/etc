@@ -74,7 +74,7 @@ static function resetip(){
 $ip=sql::read('ip','users','v',['id'=>ses('uid')]);
 if($ip!=uip())sql::upd('users',['ip'=>uip()],['id'=>ses('uid')]);}
 
-static function recognize0(){
+static function recognize2(){
 if(ses('uid'))return;
 $uid=sql::read('id','users','v',['ip'=>uip()]);
 if($uid && !ses('uid'))self::identify($uid);
@@ -83,8 +83,8 @@ if(!ses('uid'))ses('auth',0);}//visitor===0
 static function recognize(){//called from boot
 if(ses('uid'))return;
 //cookiz('uid');//not works
-$uid=cookie('uid'); //pr($_COOKIE);
-if($uid && !ses('uid'))self::identify($uid);
+$uid=cookie('uid'); //pr($_COOKIE); //cookie is rebuilt the second time we come there
+if($uid && !ses('uid') && !sesx('auth'))self::identify($uid);
 if(!ses('uid'))ses('auth',0);}//visitor===0
 
 static function logout(){

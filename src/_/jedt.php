@@ -14,12 +14,15 @@ return alert('saved','green');}
 
 //editable
 static function update($a,$k,$col,$val){
-$f=json::$path.$a.'.json'; //chmodf($f,octdec(777));
+$f=json::$path.$a.'.json';
 $d=file_get_contents($f);
 $r=json_decode($d,true);
-if($col=='0')$r[$k]=$val; else $r[$k][$col]=$val;
+if($col=='k')$r[$k]=$val;
+else $r[$k][$col]=$val;
 $d=json_encode($r);
-file_put_contents($f,$d);}
+//pr($col);
+//file_put_contents($f,$d);
+}
 
 static function save($p){
 $com=array_shift($p);
@@ -37,7 +40,7 @@ return $ret.div('','','navedt');}
 static function modif($p){
 $r=json::call('cnfg/nav'); [$ka,$col]=explode('-',key($p)); $val=current($p); $i=0;
 foreach($r as $k=>$v){$i++; if($i==$ka)$ka=$k;}
-//json::update('cnfg/nav',$ka,$col,$val);
+self::update('cnfg/nav',$ka,$col,$val);
 return $val;}
 
 static function artype($r){$ty=''; $isrb=''; $isrc=''; $isrd='';
@@ -55,7 +58,7 @@ return $ty;}
 static function edit($p){$ret='';
 $a=$p['a']; $r=json::call($a);
 $ty=self::artype($r); $h=[];
-if($ty=='a' or $ty=='rv')$ret=build::editable($r,'jedt,modif|',$h);
+if($ty=='a' or $ty=='rv')$ret=build::editable($r,'jedt,modif|',$h,1);
 else $ret=self::editxt($p);
 $bt=bj('jmnu|jedt,editxt|a='.$a,ico('edit').strend($a,'/').'('.$ty.')');
 return $bt.$ret.div('','','navedt');}

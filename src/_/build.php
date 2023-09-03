@@ -75,17 +75,17 @@ if($rp)foreach($rp as $k=>$v)$ret.=bj($j.',pg='.$k,$k,active($k,$pg));
 if($ret)return div($ret,'nbp sticky');}
 
 //editable
-static function editable($r,$j,$h=[]){
-    $pr=['contenteditable'=>'true','class'=>'editable','onblur'=>'editcell(this)'];
-    $i=0; $td=[]; $tr=[]; 
-    if($h){foreach($h as $k=>$v)$td[]=tagb('th',$v); $tr[]=tagb('tr',join('',$td));}
-    if($r)foreach($r as $k=>$v){$td=[]; $i++;
-        $td[]=tag('th',$pr+['id'=>$i.'-k'],$k);
-        if(is_array($v))foreach($v as $ka=>$va)$td[]=tag('td',$pr+['id'=>$i.'-'.$ka],$va);
-        else $td[]=tag('td',$pr+['id'=>$i.'-v'],$v);
-        $tr[]=tagb('tr',join('',$td));}
-    $ret=tagb('table',tagb('tbody',join('',$tr)));
-    $ret.=hidden('edtcom',$j);
+static function editable($r,$j,$h=[],$edk=''){
+$pr=['contenteditable'=>'true','class'=>'editable','onblur'=>'editcell(this)'];
+$i=0; $td=[]; $tr=[]; 
+if($h){foreach($h as $k=>$v)$td[]=tagb('th',$v); $tr[]=tagb('tr',join('',$td));}
+if($r)foreach($r as $k=>$v){$td=[]; $i++;
+	if($edk)$td[]=tag('th',$pr+['id'=>$i.'-k'],$k); else $td[]=tag('th',[],$k);
+	if(is_array($v))foreach($v as $ka=>$va)$td[]=tag('td',$pr+['id'=>$i.'-'.$ka],$va);
+	else $td[]=tag('td',$pr+['id'=>$i.'-v'],$v);
+	$tr[]=tagb('tr',join('',$td));}
+$ret=tagb('table',tagb('tbody',join('',$tr)));
+$ret.=hidden('edtcom',$j);
 return tag('div',['width'=>'100%','class'=>'scroll'],$ret);}
 
 static function code($d){

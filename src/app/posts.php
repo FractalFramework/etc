@@ -1,6 +1,7 @@
 <?php
 class posts{
 
+#edit
 static function usrart($id){
 return sql::read('uid','posts','v',$id);}
 
@@ -42,6 +43,7 @@ $ex=sql::read('id','posts','v',['uid'=>ses('uid'),'title'=>voc('title')]);
 if(!$ex)$ex=self::save(['cat'=>'public','tit'=>voc('title'),'exc'=>voc('excerpt'),'msg'=>voc('text')]);
 return self::read(['a'=>$ex]);}
 
+#play
 static function datas($p){$q=[];
 [$a,$b,$inp]=vals($p,['a','b','inp']);
 if(is_numeric($a))$q['b2.id']=$a;
@@ -92,7 +94,7 @@ foreach($r as $k=>$v){
     $r[$k]['date']=$v['up'];
     //$r[$k]['pub']=auth(4)?admin::bt($v['id'],$v['pub'],'posts'):'';
     $r[$k]['author']=sql::read('surname','profile2','v',['uid'=>$v['uid']]);
-    $r[$k]['tracks_nb']=sql::read('count(id)','tracks','v',['bid'=>$v['uid']]);
+    $r[$k]['tracks_nb']=sql::read('count(id)','tracks','v',['bid'=>$v['id']]);
     $r[$k]['tracks_nb_title']=voc('tracks_nb_title');}
 foreach($r as $k=>$v)$ret.=view::call('blocks/posts',$v);
 return $ret;}

@@ -13,10 +13,6 @@
         "banner":"var",
         "logo":"var"
     },
-    "roles":{
-        "pos":"int",
-        "role":"svar"
-    },
     "cats":{
         "category":"var"
     },
@@ -38,11 +34,6 @@
     "socials":{
         "uid":"int",
         "url":"var"
-    },
-    "admin":{
-        "uid":"int",
-        "name":"var",
-        "json":"text"
     },
     "contact2":{
         "uid":"int",

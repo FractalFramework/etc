@@ -41,13 +41,18 @@ $rb=[]; $r=self::apps();
 foreach($r as $v)$rb[]=bj('japp|'.$v.',call',span($v));
 return $rb;}
 
+static function user(){//if(!ses('uid'))return;
+$rt['profile']=dbedt::call(['a'=>'profile2','id'=>'']);
+$rt['socials']=dbedt::call(['a'=>'socials','id'=>'']);
+return build::tabs($rt);}
+
 static function call($p){
 if(!auth(6))return alert('forbiden','red');
 $rt[voc('tracks')]=h2(voc('tracks_moderation')).div(self::pending_tracks());
 $rt[voc('posts')]=h2(voc('posts_moderation')).div(self::pending_posts());
 $rt[voc('contacts')]=h2(voc('contacts')).div(contact::read($p));
 $rt['json']=h2('json').div(jedt::menu(),'menu').div('','','jmnu');
-$rt['db']=h2('db').div(dbedt::call(['a'=>'']),'','edt');
+if(auth(6))$rt['db']=h2('db').div(dbedt::call(['a'=>'']),'','edt');
 $rt['apps']=h2('apps').div(join('',self::appsmenu()),'vlist').div('','','japp');
 return build::tabs($rt);}
 }

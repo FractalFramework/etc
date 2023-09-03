@@ -10,8 +10,8 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:none}
 div:focus-visible{outline:2px dashed darkorange}
 form{padding:0px; margin:0px}
 button{background-color:#fffa; border:1px solid black}
-footer{}
-section{padding:16px; margin:16px 0; background-color:#fffa; border:1px solid #7777}
+footer{background-image:linear-gradient(#000,#0000)}
+section{transition:all 0.3s ease; padding:16px; margin:16px 0; background-color:#fffa; border:1px solid #7777; border-radius:16px;}
 section:hover{border-color:#777}
 article{padding:0px; margin:0 0 16px 0}
 figure{padding:0px; margin:0px}
@@ -34,7 +34,7 @@ th{color:#fff; text-align:left; background-color:#0000009c}
 .grid-ban{grid-column:1; grid-row:1}
 .grid-left{grid-column:1; grid-row:2}
 .grid-body{grid-column:2; grid-row:1 / 2}
-.grid-right{grid-column:3; grid-row:2}
+.grid-right{grid-column:3; grid-row:1 / 2}
 .grid-footer{grid-column:1; grid-row:3}
 .btn,.btsav,.btdel,.btno,.btoff,.bton{transition:all 0.3s ease; font-size:small; padding:1px 3px; background-color:#ffffff7d; border-width:1px; border-color:gray; border-style:solid; line-height:24px; color:#444}
 .btn:hover{background-color:white; border-color:black}
@@ -82,8 +82,7 @@ scroll{max-height:400px; min-width:140px; overflow-y:auto; overflow-x:hidden; wo
 .topology li ul.off{display:none}
 .cols{columns:auto 250px; margin-top:16px}
 .infos{font-size:small}
-.infos span{padding:2px}
-.info{padding:2px 0; color:#c700ff}
+.info{padding:2px; color:#c700ff}
 .small{font-size:small}
 .right{float:right}
 .ico{font-size:normal}

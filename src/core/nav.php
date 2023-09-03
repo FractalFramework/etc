@@ -23,12 +23,12 @@ $r+=self::defaults();
 foreach($r as $com=>$v){[$bt,$ico,$auth]=$v;
 	if($bt)$bt=str_replace('#user',ses('usr'),$bt);
 	if(!$bt)$rt[]=div('','line');
-	elseif($auth<=$ath)$rt[]=bh($com,span(ico($ico).thin().$bt,'react'),active($com,$g));}
+	elseif($auth<=$ath)$rt[]=bh($com,ico($ico).span(thin().$bt,'react'));}//,active($com,$g)
 return $rt;}
 
 static function call($p){
 $ra=self::datas();
-$rb['nav']=div(join('',$ra));
+$rb['nav']=join('',$ra);
 return view::call('blocks/nav',$rb);}
 
 }

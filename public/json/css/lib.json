@@ -47,12 +47,15 @@
         "border":"1px solid black"
     },
     "footer":{
+        "background-image":"linear-gradient(#000,#0000)"
     },
     "section":{
+        "transition":"all 0.3s ease",
         "padding":"16px",
         "margin":"16px 0",
         "background-color":"#fffa",
-        "border":"1px solid #7777"
+        "border":"1px solid #7777",
+        "border-radius":"16px;"
     },
     "section:hover":{
         "border-color":"#777"
@@ -142,7 +145,7 @@
     },
     ".grid-right":{
         "grid-column":"3",
-        "grid-row":"2"
+        "grid-row":"1 / 2"
     },
     ".grid-footer":{
         "grid-column":"1",
@@ -298,11 +301,8 @@
     ".infos":{
         "font-size":"small"
     },
-    ".infos span":{
-        "padding":"2px"
-    },
     ".info":{
-        "padding":"2px 0",
+        "padding":"2px",
         "color":"#c700ff"
     },
     ".small":{

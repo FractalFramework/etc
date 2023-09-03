@@ -111,6 +111,7 @@ function cookie($d,$v=null){if(isset($v))setcookie($d,$v,time()+(86400*30)); ret
 function cookiz($d){unset($_COOKIE[$d]); setcookie($d,'',time()-3600);}
 function ses($d,$v=null){if(isset($v))$_SESSION[$d]=$v; return $_SESSION[$d]??'';}//assign
 function sesz($d){if(isset($_SESSION[$d]))unset($_SESSION[$d]);}
+function sesx($d){return isset($_SESSION[$d])?1:0;}
 
 function sesmk($v,$p='',$b=''){$rid=rid($v.$p);
 if(!isset($_SESSION[$rid]) or $b or ses('dev'))$_SESSION[$rid]=$v($p);
@@ -193,7 +194,8 @@ if($rb)return implode($b,$rb);}
 function implode_j($d){$rb=[]; if(!is_array($d))$r[]=$d; else $r=$d;
 foreach($r as $k=>$v)if($v=='this' or $v=='event')$rb[]=$v; else $rb[]='\''.$v.'\'';
 if($rb)return implode(',',$rb);}
-function in_array_k($d,$r){foreach($r as $k=>$v)if($v && strpos($d,$v)!==false)return $k;}
+//function in_array_k($d,$r){foreach($r as $k=>$v)if($v && $d==$v)return $k;}
+function in_array_k($d,$r){return array_flip($r)[$d]??'';}
 
 #core
 function rdiv($r){return implode('',array_map('div',$r));}

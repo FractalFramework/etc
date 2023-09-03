@@ -3,7 +3,8 @@ class contact{
 
 static function save($p){
 [$a,$b,$c]=vals($p,['name','mail','msg']); $ex='';
-if($a && $b && $c)$ex=sql::sav('contact2',[ses('uid'),'1',$a,$b,$c],0);
+if(!filter_var($b,FILTER_VALIDATE_EMAIL))return alert('bad_mail2','red');
+if($a && $b && $c)$ex=sql::sav('contact2',[ses('uid'),cnfg('usrhome'),$a,$b,$c,1],0);
 if($ex)return alert('received','green');
 else return alert('error','red');}
 

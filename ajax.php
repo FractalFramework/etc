@@ -10,7 +10,7 @@ $p=posts();
 boot::call();
 $com=get('com');
 [$app,$mth]=expl(',',$com);
-$no=secur::call($app,$mth);
+$no=blocks::secure($app,$mth);
 if(!$no && method_exists($app,$mth))$ret=$app::$mth($p);
 if(isset($ret)){
     if(is_array($ret)){

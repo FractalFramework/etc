@@ -1,7 +1,6 @@
 <?php
 class dbedt{
-static $ath=6;
-static $no=['pswd','ip'];
+static $no=['id','uid','pswd','ip','up'];
 
 static function upd2($p){
 $a=array_shift($p); $ka=key($p);
@@ -15,7 +14,9 @@ static function upd($p){
 $a=array_shift($p); $id=array_shift($p); $ka=key($p);
 [$row,$col]=explode('-',$ka); $va=current($p);
 if($col='v')$col=$row;//2d array
-$ra=db::cols_k($a); $col=$ra[$col-1];
+$ra=db::cols_k($a);
+if(in_array('uid',$ra)){$ko=in_array_k('uid',$ra); unset($ra[$ko]); $ra=array_values($ra);}//not edit uid
+$col=$ra[$col-1];
 $rt=[$col=>$va];
 if(in_array($col,self::$no))$va=alert('forbidden','red');
 else $nid=sql::upd($a,$rt,['id'=>$id]);
@@ -23,20 +24,21 @@ return $va;}
 
 static function play($p){
 [$a,$n]=vals($p,['a','n']);
-$r=sql::read('allid',$a,'ra','');//['_limit'=>$n.', 20']
+$r=sql::read('allid',$a,'ra',''); $rb=$r;//['_limit'=>$n.', 20']
 foreach($r as $k=>$v)
-	$r[$k]['id']=bj('dbdt|dbedt,read|a='.$a.',id='.$v['id'],$v['id'],'btn');
-$h=db::cols_k($a); array_unshift($h,'id');
-if(count($r)<20)$ret=build::editable($r,'dbedt,upd2|a='.$a);
-else$ret=build::tabler($r,$h);
+	$rb[$k]['id']=bj('dbdt|dbedt,read|a='.$a.',id='.$v['id'],$v['id'],'btn');
+$h=db::cols_k($a); $hb=$h; array_unshift($h,'id'); array_unshift($h,'_');
+if(count($r)<20)$ret=build::editable($rb,'dbedt,upd2|a='.$a,$h);
+else$ret=build::tabler($r,$hb);
 return div($ret,'','plyt');}
 
 static function read($p){$r=[];
 [$a,$id]=vals($p,['a','id']); $bt='';
 $ra=db::cols_r($a); if(!$ra)return 'nodb';
-if($a && $id)$r=sql::read('all',$a,'a',$id);
+if($a && $id)$r=sql::read('all',$a,'a',['id'=>$id]);
+if($r['uid']??'')unset($r['uid']);//not edit uid
 if($id)$ret=build::editable($r,'dbedt,upd|a='.$a.',id='.$id);
-else $ret=self::play($p+['n'=>'0']);
+elseif(auth(6))$ret=self::play($p+['n'=>'0']);
 if($id)$bt=bj('dbdt|dbedt,read|a='.$a.',id='.$id,ico('edit').$a.':'.$id,'btn');
 return $bt.$ret;}
 
@@ -47,9 +49,10 @@ $ret=join('',$rt);
 return $ret;}
 
 static function call($p){
-[$a,$b]=vals($p,['a','b']);
+[$a,$id]=vals($p,['a','id']);
 $ret=self::read($p);
-return div(self::menu(),'menu').div($ret,'','dbdt');}
+if(auth(6))$bt=self::menu(); else $bt='';
+return div($bt,'menu').div($ret,'','dbdt');}
 
 }
 ?>

@@ -20,6 +20,7 @@
     "loged":"Bienvenue et bon séjour parmi nous",
     "bad_password":"très bien. recommence.",
     "bad_mail":"ton vrai mail, stp",
+    "bad_mail2":"ce serait bien aimable d'avoir un email pour vous répondre. Merci.",
     "inexistant_user":"euh comment dire, désolé mais tu rentres pas",
     "register?":"si tu veux je te crée un compte",
     "registered":"ayé on te connaîtra maintenant",
