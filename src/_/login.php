@@ -22,10 +22,6 @@ if($ok)$ret=alert('registered','blue');
 else $ret=alert('notregistered','red');
 return $ret;}
 
-static function regcall($p){
-$ret=self::register($p);
-return [$ret,nav::call(['a'=>'login'])];}
-
 static function firstuser(){
 return sql::read('id','users','v',1);}
 
@@ -33,7 +29,7 @@ static function form($p){
 [$a,$b]=vals($p,['a','b']);
 $ret=h3(voc('login_bt'));
 if(!self::firstuser())$ret.=alert('first_user','white');
-$ret.=bj(self::$maintg.',nav|login,call||name,pswd',voc('go'),'btsav',['id'=>'logbt']);
+$ret.=bj(',|login,port||name,pswd',voc('go'),'btsav',['id'=>'logbt']);
 $ret.=div(inputj('name','','logbt').label('name',voc('knowname')));
 $ret.=div(inputj('pswd','','logbt',['type'=>'password']).label('pswd',voc('password')));
 return $ret;}
@@ -49,13 +45,13 @@ elseif($uid){
 	$ret.=div(bh('login',voc('redo'),'btn'));
 	$ret.=hidden('name',$a);
 	$ret.=div(inpsw('pswd',$b).label('pswd',voc('password')));
-	$ret.=bj(self::$maintg.',nav|login,call||name,pswd',voc('go'),'btsav');}
+	$ret.=bj(',|login,port||name,pswd',voc('go'),'btsav');}
 else{
 	$ret=alert('inexistant_user','red');
 	$ret.=div(bh('login',voc('go'),'btn'));
 	$ret.=hidden('name',$a).hidden('pswd',$b);
 	$ret.=div(inpmail('mail','').label('mail',voc('knownmail')));
-	$ret.=bj(self::$maintg.',nav|login,regcall||name,mail,pswd',voc('register?'),'btsav');
+	$ret.=bj(',|login,port_register||name,mail,pswd',voc('register?'),'btsav');
 	$ret.=div('','','tgreg');}
 return $ret;}
 
@@ -93,21 +89,36 @@ sesz('uid');
 ses('auth',0);
 cookiz('uid');
 cookiz('PHPSESSID');
-$d=alert('loged_out','blue');
-$d.=bh('home',icovoc('back'),'bigbt');
-return [$d,nav::call([])];}
+$ret=alert('loged_out','blue');
+$ret.=bh('home',icovoc('back'),'bigbt');
+return $ret;}
 
 static function loged(){
 $ret=alert('hello','blue',ses('usr'));
-$ret.=div(bj(self::$maintg.',nav|login,logout',voc('logout'),'bigbt'));
+$ret.=div(bj(',|login,port_logout',voc('logout'),'bigbt'));
 return $ret;}
 
 static function call($p){
 [$a,$b]=vals($p,['name','pswd']);
 if(ses('uid'))$ret=self::loged();
-elseif($a && $b){$ok=self::response($p);
-	if($ok)$ret=[$ok,nav::call(['a'=>'login'])];}
+elseif($a && $b)$ret=self::response($p);
 else $ret=self::form($p);
 return $ret;}
+
+static function port_register($p){
+$r[self::$maintg]=self::register($p);
+$r['nav']=nav::call(['a'=>'login']);
+return $r;}
+
+static function port_logout($p){
+$r[self::$maintg]=self::logout();
+$r['nav']=nav::call(['a'=>'login']);
+return $r;}
+
+static function port($p){
+$r[self::$maintg]=self::call($p);
+$r['nav']=nav::call(['a'=>'login']);
+return $r;}
+
 }
 ?>

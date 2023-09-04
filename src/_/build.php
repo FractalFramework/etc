@@ -75,7 +75,7 @@ if($rp)foreach($rp as $k=>$v)$ret.=bj($j.',pg='.$k,$k,active($k,$pg));
 if($ret)return div($ret,'nbp sticky');}
 
 //editable
-static function editable($r,$j,$h=[],$edk=''){
+static function editable($r,$j,$h=[],$edk='',$no=[]){
 $pr=['contenteditable'=>'true','class'=>'editable','onblur'=>'editcell(this)'];
 $i=0; $td=[]; $tr=[]; 
 if($h){foreach($h as $k=>$v)$td[]=tagb('th',$v); $tr[]=tagb('tr',join('',$td));}

@@ -68,9 +68,10 @@ $q=implode(' and ',$rb); if($q)$q='where '.$q; if($w)$q.=$w;
 return [$rt,$q];}
 
 static function sqcl($d,$b){
-if($d=='all' or !$d)$d=db::cols_s($b);
-if($d=='allid' or !$d)$d='id,'.db::cols_s($b);
-if($d=='full' or !$d)$d='id,'.db::cols_s($b).',up';
+if($d){$cols=db::cols_s($b);
+	if($d=='all' && $cols)$d=$cols;
+	if($d=='allid' && $cols)$d='id,'.$cols;
+	if($d=='full' && $cols)$d='id,'.$cols.',up';}
 if(!$d)$d='*';
 return $d;}
 

@@ -30,8 +30,8 @@ else if(!act){
 	getbyid("editbt").style.display="inline-block";}}
 
 function editcell(el){
-	var j=getbyid('edtcom').value;
-	bjcall(el.id+'|'+j+'|'+el.id);}
+var j=getbyid('edtcom').value;
+bjcall(el.id+'|'+j+'|'+el.id);}
 
 function checkenter(){var e=event;
 if(e && e.which)var char=e.which; else var char=e.keyCode;

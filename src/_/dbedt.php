@@ -28,25 +28,32 @@ $r=sql::read('allid',$a,'ra',''); $rb=$r;//['_limit'=>$n.', 20']
 foreach($r as $k=>$v)
 	$rb[$k]['id']=bj('dbdt|dbedt,read|a='.$a.',id='.$v['id'],$v['id'],'btn');
 $h=db::cols_k($a); $hb=$h; array_unshift($h,'id'); array_unshift($h,'_');
-if(count($r)<20)$ret=build::editable($rb,'dbedt,upd2|a='.$a,$h);
+if(count($r)<20)$ret=build::editable($rb,'dbedt,upd2|a='.$a,$h,0,self::$no);
 else$ret=build::tabler($r,$hb);
 return div($ret,'','plyt');}
 
 static function read($p){$r=[];
-[$a,$id]=vals($p,['a','id']); $bt='';
+[$a,$id]=vals($p,['a','id']); $bt=''; $ret='';
 $ra=db::cols_r($a); if(!$ra)return 'nodb';
 if($a && $id)$r=sql::read('all',$a,'a',['id'=>$id]);
+//elseif($a)return self::entries($a);
+$own=($r['uid']??'')==ses('uid')?1:0;
 if($r['uid']??'')unset($r['uid']);//not edit uid
 if($id)$ret=build::editable($r,'dbedt,upd|a='.$a.',id='.$id);
-elseif(auth(6))$ret=self::play($p+['n'=>'0']);
+elseif(auth(6) or $own)$ret=self::play($p+['n'=>'0']);
 if($id)$bt=bj('dbdt|dbedt,read|a='.$a.',id='.$id,ico('edit').$a.':'.$id,'btn');
 return $bt.$ret;}
+
+static function entries($a){$rt=[]; $pr=[];
+if(!auth(6))$pr=['uid'=>ses('uid')];
+$r=sql::read('id',$a,'rv',$pr);
+foreach($r as $k=>$v)$rt[]=bj('dbdt|dbedt,read|a='.$a.',id='.$v,$v);
+return div(join('',$rt),'menu');}
 
 static function menu(){$rt=[];
 $r=sql::call('show tables','rv');
 foreach($r as $k=>$v)$rt[]=bj('dbdt|dbedt,read|a='.$v,$v);
-$ret=join('',$rt);
-return $ret;}
+return join('',$rt);}
 
 static function call($p){
 [$a,$id]=vals($p,['a','id']);

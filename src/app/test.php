@@ -20,9 +20,23 @@ hey hey [hey:code] hey [hey:i]';
     eco($d4);
 }
 
+static function jaja(){
+	return ['one'=>1,'two'=>2,'three'=>3];
+}
+
+static function jajax(){
+	$ret=div('one','','one');
+	$ret.=div('two','','two');
+	$ret.=div('three','','three');
+	$ret.=div('','','cb');
+	$ret.=bj(',|test,jaja|one,two,three',ico('ok'));
+	return $ret;
+}
+
 static function call($p){
 //return self::md($p);
-$ok=build::ftpchmod('src',777); return $ok?1:0;
+//$ok=build::ftpchmod('src',777); return $ok?1:0;
+return self::jajax();
 }
 
 }
