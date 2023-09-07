@@ -29,7 +29,7 @@ return $rt;}
 static function call($p){
 $ra=self::datas();
 $rb['nav']=join('',$ra);
-return view::call('blocks/nav',$rb);}
+return view::call('nav',$rb);}
 
 }
 ?>

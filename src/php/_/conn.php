@@ -8,7 +8,7 @@ if($n===false)return [$d,'']; else return [mb_substr($d,0,$n),mb_substr($d,$n+1)
 
 static function poc($da){$c=''; $p=''; $o=''; $ht=str_contains($da,'://')?1:0; 
 $cp=strrpos($da,':',$ht?7:0); if($cp!==false){$c=substr($da,$cp+1); $d=substr($da,0,$cp);} else $d=$da;
-$cp=strrpos($da,'|'); if($cp!==false){$o=substr($d,$cp+1); $p=substr($d,0,$cp);} else $p=$d;
+[$p,$o]=self::cprm($d);
 return [$p,$o,$c,$d];}
 
 static function parser($d,$p=[],$e='conn::connectors'){
@@ -57,17 +57,18 @@ static function connectors($da,$rp=[]){
 $ret=''; $no=str_contains($da,'<')?1:0;
 [$p,$o,$c,$d]=self::poc($da);
 if(isimg($p) && !$no)return tagb('figure',img(imgroot($p)).($o?tagb('figcaption',$o):''));
-if(strpos($d,'://') && !$no){$o=conns::socialk($p,$o); return lk($p,$o);}
+if(strpos($d,'://') && !$no){$ret=conns::socialk($p,$o); if($ret)return $ret;}
 if(method_exists('conns',$c))return conns::$c($p,$o);
 if(in_array($c,self::$cn))return tag($c,'',$d);//html
 if(self::$cb[$c]??'')return tag(self::$cb[$c],'',$d);
 if($c)$ret=match($c){
-    'dev'=>build::code($d),
-    'console'=>tag('code',['class'=>'console'],$d),
     'clr'=>tag('span',['style'=>'color:'.($o?$o:'red')],$p),
     'bkg'=>tag('span',['style'=>'background-color:'.($o?$o:'yellow')],$p),
     'tn'=>tag('a',['href'=>'#fn'.$o,'id'=>'tn'.$o],'['.$o.']'),
     'fn'=>tag('a',['href'=>'#tn'.$o,'id'=>'fn'.$o],'['.$o.']'),
+    'console'=>div($d,'console'),
+    'md'=>conns::md($da),
+    'pre'=>tagb('pre',$d),
     'ko'=>tagb('pre',$da),
     'no'=>'',
     default=>''};
@@ -82,8 +83,11 @@ if(!$nop)$d=nl2br($d);
 return $d;}
 
 static function call($p){
-$ret=textarea('txt','');
-$ret.=bj('cnn|conn,build||txt',ico('ok'));
+$j='cnn|conn,build||txt';
+$bt=bj($j,ico('ok'));
+$ret=conns::btedt(['id'=>'txt','bt'=>$bt]);
+$js=atj('bjcall',$j);
+$ret.=textarea('txt','',64,12,['class'=>'console','onchange'=>$js,'onclick'=>$js,'onkeyup'=>$js]);
 return $ret.div('','area','cnn');}
 
 }

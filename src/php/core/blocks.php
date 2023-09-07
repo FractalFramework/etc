@@ -14,7 +14,7 @@ $id=ses('uid'); if(!$id)$id=cnfg('usrhome');
 $r=sql::read('surname,slogan,banner,logo','profile2','a',$id);
 if(!$r)$r=self::$defaults;
 $r['surname']=bh('home',$r['surname']);
-$ret=view::call('blocks/banner',$r);
+$ret=view::call('banner',$r);
 return $ret;}
 
 static function footer($p){
@@ -31,7 +31,7 @@ return div(tracks::call($p),'main');}
 static function home($p){
 $r['presentation']=conns::profile('');
 $r['socials']=conns::socials('');
-$ret=view::call('blocks/home',$r);
+$ret=view::call('home',$r);
 return $ret;}
 
 static function forbidden(){

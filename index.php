@@ -9,8 +9,8 @@ error_reporting(E_ALL);
 session_start();
 //header('Content-Type: text/html; charset=utf-8');
 //define('root',__DIR__);
-require('src/lib.php');
+require('src/php/lib.php');
 require('cnfg/'.nohttp(host()).'.php');
-require('public/index.php');
+require('src/index.php');
 sql::$qr=null;
 ?>

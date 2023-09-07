@@ -135,8 +135,10 @@ $d=nbsp($d);
 return $d;}
 
 static function call($p){
-$ret=textarea('txt','');
-$ret.=bj('cnn|conv,build||txt',ico('ok'));
+$j='cnn|conv,build||txt';
+$ret=div(bj($j,ico('ok')));
+$js=atj('bjcall',$j);
+$ret.=textarea('txt','',64,12,['class'=>'console','onchange'=>$js,'onclick'=>$js,'onkeyup'=>$js]);
 return $ret.div('','area','cnn');}
 
 }

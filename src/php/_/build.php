@@ -1,7 +1,7 @@
 <?php
 class build{
 
-//tables
+#tables
 static function tabler($r,$h='',$keys='',$frame=''){$i=0; $td=''; $tr='';
 if(is_array($h)){array_unshift($r,$h); $h=1;}
 if(is_array($r))foreach($r as $k=>$v){$td=''; $i++; $tag=$i==1&&$h?'th':'td';
@@ -13,7 +13,7 @@ $ret=tagb('table',tagb('tbody',$tr));
 if($frame)$ret=tag('div',['width'=>'100%','height'=>'400px','overflow'=>'auto','scrollbar-width'=>'thin'],$ret);
 return $ret;}
 
-//tabs
+#tabs
 static function tabs($r,$id='tab1',$c=''){
 $b=0; $mnu=''; $ret=''; $sp=span(' ','space');
 if($r)foreach($r as $k=>$v){$b++;
@@ -22,7 +22,7 @@ if($r)foreach($r as $k=>$v){$b++;
     $ret.=div($v,$c,'div'.$id.$b,'display:'.$dsp);}
 return div($mnu,'tabs','mn'.$id).$ret;}
 
-//lists
+#core
 static function playr($r,$c='',$o=''){$ret='';
 if(is_array($r))foreach($r as $k=>$v){
     if(is_array($v))$ret.=li(btj('liul','this',$k,$c?'active':'').self::playr($v,$c,$o));
@@ -36,14 +36,13 @@ static function mkli($r,$ul='ul'){$ret='';
 foreach($r as $v){if(substr($v,0,1)=='-')$v=substr($v,1); if($v=trim($v))$ret.=li($v);}
 return tag($ul,[],$ret);}
 
-//scroll
+#scroll
 static function scroll($d,$max=10,$w='',$h='',$id=''){$h=is_numeric($h)?$h.'px':$h;
 $s=$w?'width:'.$w.'px; ':''; $s.='max-height:'.($h?$h:'420px').';';
 $c=strlen($d)>$max?'scroll':''; return div($d,$c,$id,$s);}
 
-//csv
-static function writecsv($f,$r){
-file_put_contents($f,'');
+#csv
+static function writecsv($f,$r){putfile($f,'');
 if(($h=fopen($f,'r+'))!==false){
 foreach($r as $k=>$v)fputcsv($h,$v); fclose($h);}}
 
@@ -54,10 +53,10 @@ for($i=0;$i<$nb;$i++)$rb[$k][]=$r[$i]; $k++;} fclose($h);}
 return $rb;}
 
 static function csvfile($f,$r,$t=''){$t=ico('datas').($t?$t:$f);
-$f='_datas/csv/'.$f.'.csv'; mkdir_r($f); self::writecsv($f,$r);
+$f='_datas/csv/'.$f.'.csv'; self::writecsv($f,$r);
 return lk('/'.$f,$t,'btn');}
 
-//contents
+#pages
 static function etc($d,$n=200){$d=deln($d,' '); $d=strip_tags($d);
 if(strlen($d)>$n){$e=strpos($d,' ',$n); $d=substr($d,0,$e?$e:$n).'...';} return $d;}
 
@@ -74,7 +73,22 @@ if($nbp)$rp=self::btpages_nb($nbp,$pg);
 if($rp)foreach($rp as $k=>$v)$ret.=bj($j.',pg='.$k,$k,active($k,$pg));
 if($ret)return div($ret,'nbp sticky');}
 
-//editable
+#medias
+static function download($f,$t=''){
+if(!is_file($f))$i='img/'.$f; if(!is_file($f))$f='usr/'.$f;
+if(is_file($f))return lk('/download/'.base64_encode($f),ico('download').$t).' '.span(fsize($f,1),'small');
+else return span(strend($f,'/').' (file not exists)','small');}
+
+static function audio($d,$t=''){$d=usrroot($d); $bt=self::download($d);
+return tag('audio',['controls'=>'true'],taga('source',['src'=>$d,'type'=>'audio/mpeg']),'').$bt;}
+
+static function video($d,$w='',$h='',$o=''){$d=usrroot($d); $w=$w?$w:'100%'; $h=$h?$h:'440px';
+return tag('video',['src'=>$d,'width'=>$w,'height'=>$h,'type'=>'video/'.xt($d,1),'controls'=>'true','autobuffer'=>'true','poster'=>$o],'');}
+
+static function iframe($d,$w='',$h='',$o=''){$d=usrroot($d); $w=$w?$w:'100%'; $h=$h?$h:'440px';
+return tag('iframe',['src'=>$d,'frameborder'=>'0','width'=>$w,'height'=>$h,'seamless'=>$o,'srcdoc'=>$o,'allowfullscreen'=>'true'],'');}
+
+#editable
 static function editable($r,$j,$h=[],$edk='',$no=[]){
 $pr=['contenteditable'=>'true','class'=>'editable','onblur'=>'editcell(this)'];
 $i=0; $td=[]; $tr=[]; 
@@ -88,18 +102,7 @@ $ret=tagb('table',tagb('tbody',join('',$tr)));
 $ret.=hidden('edtcom',$j);
 return tag('div',['width'=>'100%','class'=>'scroll'],$ret);}
 
-static function code($d){
-$d=str_replace(['<?php','?>'],'',$d); $d=trim($d);
-ini_set('highlight.comment','gray');
-ini_set('highlight.default','white');
-ini_set('highlight.html','red');
-ini_set('highlight.keyword','orange');
-ini_set('highlight.string','lightblue');
-$d=highlight_string('<'.'?php'."\n".$d,true);
-$d=str_replace(['&lt;?php','?>','<span style="color: white"><br /></span>'],'',$d); $d=trim($d);
-return div(trim($d),'','','overflow:auto; wrap:true; background:#222244; padding:0 20px;');}
-
-//ftp
+#ftp
 static function ftp($d){
 $r=ses::r('ftp');
 $ci=ftp_connect($r[3]);
@@ -108,9 +111,9 @@ if(ftp_site($ci,$d)!==false)$ret=true; else $ret=false;
 ftp_close($ci);
 return $ret;}
 
-static function ftpchmod($path,$n){
-//if(cnfg('local'))chmodf($path,0755);
-$d='CHMOD '.intval($n,8).' '.$path;
+static function ftpchmod($f,$n){
+//if(cnfg('local'))chmodf($f,0755);
+$d='CHMOD '.intval($n,8).' '.$f;
 return self::ftp($d);}
 
 }

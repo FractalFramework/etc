@@ -7,10 +7,10 @@ function und(d){return typeof d=='undefined'?'':d;}
 function getbyid(id){return document.getElementById(id);}
 function falseClose(id){getbyid(id).innerHTML='';}
 
-function active(id,ob,a){if(id)ob=getbyid(id); var op=ob.className;
+function active(ob,id,a){if(id)ob=getbyid(id); var op=ob.className;
 if(op.indexOf('active')==-1){ob.classList.add("active"); return 1;}
 else if(!a){ob.classList.remove("active"); return 0;}}
-function isactive(id,ob){if(id)ob=getbyid(id); var op=ob.className;
+function isactive(ob,id){if(id)ob=getbyid(id); var op=ob.className;
 return op.indexOf('active')==-1?0:1;}
 
 //urls
@@ -41,6 +41,9 @@ var mnu=getbyid('mn'+id).getElementsByTagName("a");
 for(i=0;i<mnu.length;i++){var b=i+1;
     if(b==n){mnu[i].parentNode.className='active'; getbyid('div'+id+b).style.display='block';}
     else{mnu[i].parentNode.className=''; getbyid('div'+id+b).style.display='none';}}}
+
+function togjs(id){var ob=getbyid(id);
+if(active(ob))ob.className="hidden"; else ob.className="block";}
 
 //edit
 function execom(d){var u=null; if(d=='createLink')u=prompt('Url'); document.execCommand(d,false,u);}
@@ -83,7 +86,7 @@ tg.focus();
 return s2;}
 
 //toggle bt
-function liul(el){var a=active('',el);
+function liul(el){var a=active(el);
 var ul=el.nextSibling;
 ul.className=a?'on':'off';}
 

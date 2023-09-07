@@ -1,6 +1,6 @@
 <?php
 class json{
-static $path='public/json/';
+static $path='src/json/';
 
 static function file($a){
 return self::$path.$a.'.json';}
@@ -28,7 +28,7 @@ return $rt;}
 static function call($a){$r=[];
 $f=self::file($a);
 if(is_file($f)){
-	$d=file_get_contents($f);
+	$d=getfile($f);
 	$r=json_decode($d,true);
 	if($e=self::err($r,$a))echo $e;}
 else err('not loaded: '.$f);

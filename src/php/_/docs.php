@@ -17,7 +17,6 @@ static $doc='_docs/md/';
 static function doc(){$rt=[];
 $r=sql::read('page,func,vars','_prog','kkv',[]);
 $rb=sql::read('child,parent','_progr','kk',[]);
-mkdir_r(self::$doc.'res/');
 foreach($r as $k=>$v){$ret='';
 	$fa=self::$doc.'src/'.$k.'.md';
 	//$fb=self::$doc.'res/'.$k.'.md';

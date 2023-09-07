@@ -73,14 +73,13 @@ $r['title']=tag('div',['id'=>'title']+$pr+$pr1,$r['title']);
 $r['excerpt']=tag('div',['id'=>'excerpt']+$pr+$pr1,$r['excerpt']);
 $r['category']=tag('span',['id'=>'catid']+$pr+$pr1,$r['category']);
 $txt=conn::build(['txt'=>$r['content'],'m'=>0,'id'=>$a]);
-//$txt=$r['content'];
 $r['content']=tag('div',['id'=>'content']+$pr+$pr2,$txt);
-$r['editbt']='';
-$r['editbt']=conns::bt(['id'=>$a,'bt'=>1]);
+//$r['editbt']='';
+$r['editbt']=conns::btedt(['id'=>$a,'sav'=>1]);
 //$r['editbt']=auth(4)?btj('editbt',['content',$a],voc('edit'),'btn',['id'=>'bt'.$a]):'';
 $r['tracks']=tracks::call($p);
 $bt=bh('posts',icovoc('back','back'),'bigbt');
-$ret=view::call('blocks/post',$r);
+$ret=view::call('post',$r);
 return $bt.$ret;}
 
 static function stream($p){
@@ -96,7 +95,7 @@ foreach($r as $k=>$v){
     $r[$k]['author']=sql::read('surname','profile2','v',['uid'=>$v['uid']]);
     $r[$k]['tracks_nb']=sql::read('count(id)','tracks','v',['bid'=>$v['id']]);
     $r[$k]['tracks_nb_title']=voc('tracks_nb_title');}
-foreach($r as $k=>$v)$ret.=view::call('blocks/posts',$v);
+foreach($r as $k=>$v)$ret.=view::call('posts',$v);
 return $ret;}
 
 static function call($p){

@@ -13,7 +13,7 @@ static function read($p){$ret='';
 $r=sql::read('name,msg as txt,mail,date_format(up,"%d/%m/%Y") as date','contact2','ra',['_order'=>'up desc']);
 //return build::tabler($r,['from','txt','mail','date']);
 foreach($r as $k=>$v){$v['pub']='';
-$ret.=view::call('blocks/track',$v);}
+$ret.=view::call('track',$v);}
 return $ret;}
 
 static function call($p){

@@ -2,26 +2,26 @@
 class jedt{
 
 //punctual
-static function add($a,$k,$v){
-$f=json::$path.$a.'.json';
-$d=file_get_contents($f);
+static function add($a,$v){
+$f=json::file($a);
+$d=getfile($f);
 $r=json_decode($d,true);
 //if($r[$k]??'')return alert('really?','red');
-$r[$k]=array_values($v);
+$r[]=array_values($v);
 $d=json_encode($r);
-file_put_contents($f,$d);
+putfile($f,$d);
 return alert('saved','green');}
 
 //editable
 static function update($a,$k,$col,$val){
-$f=json::$path.$a.'.json';
-$d=file_get_contents($f);
+$f=json::file($a);
+$d=getfile($f);
 $r=json_decode($d,true);
 if($col=='k')$r[$k]=$val;
 else $r[$k][$col]=$val;
 $d=json_encode($r);
 //pr($col);
-//file_put_contents($f,$d);
+//putfile($f,$d);
 }
 
 static function save($p){
@@ -65,13 +65,13 @@ return $bt.$ret.div('','','navedt');}
 
 //txt format
 static function savext($p){
-$f=json::$path.$p['a'].'.json';
-file_put_contents($f,$p['inp']);
+$f=json::file($p['a']);
+putfile($f,$p['inp']);
 return alert('saved','green');}
 
 static function editxt($p){
-$f=json::$path.$p['a'].'.json';
-$d=file_get_contents($f);
+$f=json::file($p['a']);
+$d=getfile($f);
 $ret=bj('jedt|json,savext|a='.$p['a'].'|inp',icovoc('save'),'btsav');
 $ret.=div(textarea('inp',$d,'',24,['class'=>'console']),'area');
 return div($ret,'','jedt');}
@@ -86,7 +86,7 @@ else $rt[$ka][]=$v;
 return $rt;}
 
 static function menu(){
-$dr='public/json';
+$dr='src/json';
 $r=scanfiles($dr); $ra=[]; $rt=[];
 foreach($r as $k=>$v){
 	$vb=str_replace([$dr.'/','.json'],'',$v);

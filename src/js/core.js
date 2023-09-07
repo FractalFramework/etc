@@ -2,14 +2,14 @@
 //var maintg is defined from call
 
 //save
-function editarea(el,op){var act=active('',el);
+function editarea(el,op){var act=active(el);
 if(act)var pr={'edt':'true','dsg':'on'};
 else var pr={'edt':'false','dsg':'off'};
 el.contentEditable=pr.edt; el.designMode=pr.dsg;
 if(act){void 0; el.focus();}}
 
 function editxt(el,id){
-var act=isactive('',el);
+var act=isactive(el);
 if(!act)editarea(el,1);}
 
 function savtxt(el,id,op=0){var tg=el.id;
@@ -19,7 +19,7 @@ if(!op)editarea(el,0);}
 function editbt(tg,id,op){
 var el=getbyid(tg);
 var bt=getbyid("bt"+id);
-var act=isactive('',el);
+var act=isactive(el);
 if(act && !op){
 	savtxt(el,id);
 	getbyid("editbt").style.display="none";}

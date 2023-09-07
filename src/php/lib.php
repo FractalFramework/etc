@@ -1,8 +1,8 @@
 <?php
 
 spl_autoload_register(function($a){
-    $r=sesmk('scandir_b','src',1);//cnfg('dev');
-    if($r)foreach($r as $v)if(is_file($f='src/'.$v.'/'.$a.'.php')){require($f); return;}
+    $r=sesmk('scandir_b','src/php',1);//cnfg('dev');
+    if($r)foreach($r as $v)if(is_file($f='src/php/'.$v.'/'.$a.'.php')){require($f); return;}
 });
 
 //html
@@ -38,6 +38,8 @@ function bg($j,$v,$c='',$p=[]){if(cnfg('db'))$p+=['title'=>$j];
 return tag('a',['onclick'=>'bg(this)','data-bj'=>$j,'class'=>$c]+$p,$v);}
 function bh($h,$v,$c='',$p=[]){return tag('a',['href'=>'/'.$h,'onclick'=>'return bh(this)','class'=>$c]+$p,$v);}
 function bjr($t,$j,$p,$v,$c){return bj($t.'|'.$j.'|'.prm($p),$v,$c);}
+function togjs($t,$d){$rid=rid(); return span(btj('togjs',$rid,$t,'btn').span($d,'hidden',$rid));}
+function togj($t,$com){$rid=rid(); return btj('bjtog',[$rid,$com],$t,'btn').span('','',$rid);}
 
 function input($d,$v,$s='',$p=[]){
 if($p['type']??''){$vy=$p['type']; unset($p['type']);} else $vy='text';
@@ -152,8 +154,7 @@ curl_close($c); if($er)err($er); else return $ret;}
 
 function getcurl($f){return curl_get_contents($f);}
 function getfile($f){return file_get_contents($f);}
-function putfile($f,$d){$e=file_put_contents($f,$d,LOCK_EX); opcache($f);
-if($e!==false)return 1;}
+function putfile($f,$d){mkdir_r($f); $e=file_put_contents($f,$d,LOCK_EX); opcache($f); if($e!==false)return 1;}
 
 function ftime($f,$d=''){if(is_file($f))return date($d?$d:'ymd.His',filemtime($f));}
 function fsize($f,$o=''){if(is_file($f))return round(filesize($f)/1024,1).($o?' Ko':'');}
@@ -211,6 +212,7 @@ function ishtml($d){return strpos($d,'<')!==false?1:0;}
 
 //roots
 function imgroot($d){return ishttp($d)?$d:'/img/'.$d;}
+function usrroot($d){return ishttp($d)?$d:'/usr/'.$d;}
 function nohttp($f){if($f)return str_replace(['http://','https://','www.'],'',$f);}
 function domain($f){$f=nohttp($f); $p=strpos($f??'','/'); return $p?substr($f,0,$p):$f;}//preplink
 function host(){return 'http://'.$_SERVER['HTTP_HOST'];}
@@ -218,8 +220,8 @@ function uip(){$ip=$_SERVER['REMOTE_ADDR']??'';
 if(strstr($ip,' '))return explode(' ',$ip)[0]; else return gethostbyaddr($ip);}
 
 //ses
-function voc($d){$r=sesmk('json::call','lang/voc',0); return ucfirst($r[$d]??$d);}
-function ico($d){$r=sesmk('json::call','lang/ico',0); return span($r[$d]??'','ico');}
+function voc($d){$r=sesmk('json::call','sys/voc',0); return ucfirst($r[$d]??$d);}
+function ico($d){$r=sesmk('json::call','sys/ico',0); return span($r[$d]??'','ico');}
 function icovoc($d,$b='',$c=''){return ico($d).thin().span(voc($b?$b:$d),$c);}
 
 //ops

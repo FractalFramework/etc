@@ -15,7 +15,7 @@ static function edit($p){
 $r=sql::read('id,title,category,excerpt,content,date','posts','a',['id'=>$a]);
 $r['date']=date('ymd',strtotime($r['date']));
 $r['name']=sql::read('name','users','v',['id'=>$a]);
-$ret=view::call('blocks/post',$r);return $ret;}
+$ret=view::call('post',$r);return $ret;}
 
 static function register($p){$uid='';
 [$a,$b,$c]=vals($p,['name','mail','pswd']);
@@ -62,7 +62,7 @@ static function read($p){
 $r=sql::inner('b2.id,name,txt,pub,date_format(b2.up,"%d/%m/%Y") as up','users','tracks','uid','a',['b2.id'=>$a]);
 $r['date']=$r['up'];
 $r['pub']=auth(4)?admin::bt($r['id'],$r['pub'],'tracks'):'';
-$ret=view::call('blocks/track',$r);
+$ret=view::call('track',$r);
 return $ret;}
 
 static function stream($p){
@@ -75,7 +75,7 @@ if($r)foreach($r as $k=>$v){
     $r[$k]['date']=$v['up'];
     $r[$k]['pub']=auth(4)?admin::bt($v['id'],$v['pub'],'tracks'):'';
     $r[$k]['pub'].=auth(4)?bj('track'.$v['id'].'|tracks,del|a='.$a.',b='.$v['id'],ico('trash'),''):'';
-    $ret.=view::call('blocks/track',$r[$k]);}
+    $ret.=view::call('track',$r[$k]);}
 else $ret=ico('comment');
 return $ret;}
 
@@ -87,7 +87,7 @@ $r['tracks_nb_title']=voc('tracks_nb_title');
 $r['track_form']=self::form($a);//if(ses('uid'))
 //else $r['track_form']=bh('login',voc('need_auth'),'btdel');
 $r['tracks']=self::stream($p);
-$ret=view::call('blocks/tracks',$r);
+$ret=view::call('tracks',$r);
 return $ret;}
 }
 ?>

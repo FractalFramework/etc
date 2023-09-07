@@ -282,6 +282,12 @@
     ".inline-block":{
         "display":"inline-block"
     },
+    ".block":{
+        "display":"block"
+    },
+    ".hidden":{
+        "display":"none"
+    },
 
     ".topology ol":{"list-style-type":"upper-roman"},
     ".topology ol ol":{"list-style-type":"upper-alpha"},

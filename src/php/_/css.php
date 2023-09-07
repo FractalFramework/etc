@@ -1,18 +1,17 @@
 <?php
 class css{
-static $json_files='css/';
-static $css_location='public/css/';
+static $path='css/';
 
 static function file($a){
-return self::$css_location.$a.'.css';}
+return 'src/css/'.$a.'.css';}
 
 static function trigger($a){
-$f=self::file($a); $fb=json::file(self::$json_files.$a);
-$d1=ftime($f); $d2=ftime($fb); //pr([$d1,$d2]);
+$f=self::file($a); $fb=json::file(self::$path.$a);
+$d1=ftime($f); $d2=ftime($fb);
 if($d2>$d1)return $f;}
 
 static function save($a,$d){
-if($f=self::trigger($a)){file_put_contents($f,$d); err('saved: '.$f);}}
+if($f=self::trigger($a)){putfile($f,$d); err('saved: '.$f);}}
 
 static function read($r){$rt=[];
 foreach($r as $k=>$v)
@@ -24,7 +23,7 @@ static function build($a){
 $o=ses::cnfg('savecss');
 $f=self::file($a); $d='';
 if(!is_file($f) or $o){
-	$r=json::call(self::$json_files.$a);
+	$r=json::call(self::$path.$a);
 	if($r)$d=self::read($r);
 	if($d)self::save($a,$d);}}
 }

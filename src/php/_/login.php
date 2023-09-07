@@ -1,6 +1,6 @@
 <?php
 class login{
-static $default_ban='IC1396,Hubble5-cropped-lrg.jpg';
+static $default_ban='IC1396-Hubble.jpg';
 static $maintg='main';
 static $er='';
 

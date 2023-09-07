@@ -1,7 +1,7 @@
 <?php
 class view{
 static $json_views='views/';
-static $path='public/html/';
+static $path='src/html/';
 
 static function file($a){
 return self::$path.$a.'.html';}
@@ -19,8 +19,7 @@ $d1=ftime($f); $d2=ftime($fb);
 if($d2>$d1){return $f; err('saved: '.$f);}}
 
 static function save($a,$d){
-if($f=self::trigger($a)){//mkdir_r($f);
-file_put_contents($f,$d);}}
+if($f=self::trigger($a))putfile($f,$d);}
 
 static function save_html($a){
 $r=json::call(self::$json_views.$a); $d='';

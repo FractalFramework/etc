@@ -18,10 +18,10 @@ if(substr($f,0,4)!='http')return;
 if(strpos($f,'?'))$f=struntil($f,'?');
 $xt=xt($f); if(!$xt)$xt='.jpg';
 $nm=unid($f,10); $h=$h?$h:$w;
-$fa='img/full/'.$nm.$xt; mkdir_r($fa);
-$fb='img/mini/'.$nm.$xt; mkdir_r($fb);
+$fa='img/full/'.$nm.$xt;
+$fb='img/mini/'.$nm.$xt;
 if(is_file($fa))return $nm.$xt;
-$ok=@copy($f,$fa); if(!$ok){$d=@file_get_contents($f); if($d)$er=putfile($fa,$d);}
+$ok=@copy($f,$fa); if(!$ok){$d=getfile($f); if($d)$er=putfile($fa,$d);}
 if($ok or !$er)if(filesize($fa)){
     [$wa,$ha]=getimagesize($fa); if($wa>$w or $ha>$h)self::thumb($fa,$fb,$w,$h,0);
     return $nm.$xt;}}
@@ -57,3 +57,4 @@ imagealphablending($img,false);
 imagesavealpha($img,true);}
 
 }
+?>
