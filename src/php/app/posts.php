@@ -32,9 +32,11 @@ else return alert('error','red');}
 
 static function update($p){
 [$id,$c,$d]=vals($p,['id','col','val']);
-$d=$d=conv::build(['txt'=>$d]);
+if($c=='content')$d=conv::build(['txt'=>$d]);
+else $d=strip_tags($d);
+$d=delnbsp($d);
 $r=[$c=>$c=='catid'?self::catid($d):$d];
-if($d)sql::upd('posts',$r,$id);
+if($d)$ok=sql::upd('posts',$r,$id);
 if($c=='content')$d=conn::build(['txt'=>$d,'m'=>0,'id'=>$id]);
 return $d;}
 

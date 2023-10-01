@@ -121,17 +121,18 @@ return $ret;}
 static function build($p){
 $d=$p['txt']??'';
 $d=delt($d);
-$d=delsp($d);
+$d=delnbsp($d);
 $d=delr($d);
 $d=deln($d,' ');
+$d=delsp($d);
 $d=str::clean_lines($d);
 $d=self::cleanhtml($d);
 $d=self::parse($d);
 $d=self::cleanconn($d);
 $d=delbr($d,"\n");
 $d=str::clean_n($d);
+$d=str::clean_punctuation($d,2);
 $d=delsp($d);
-$d=nbsp($d);
 return $d;}
 
 static function call($p){

@@ -32,6 +32,8 @@ Contains the most used of basic functions for every site.
 - `bg($j,$v,$c='',$p=[])`
 - `bh($h,$v,$c='',$p=[])`
 - `bjr($t,$j,$p,$v,$c)`
+- `togjs($t,$d)`
+- `togj($t,$com)`
 - `input($d,$v,$s='',$p=[])`
 - `hidden($d,$v)`
 - `label($id,$t,$c='',$idb='')`
@@ -73,6 +75,7 @@ Contains the most used of basic functions for every site.
 - `cookiz($d)`
 - `ses($d,$v=null)`
 - `sesz($d)`
+- `sesx($d)`
 - `sesmk($v,$p='',$b='')`
 - `scandir_b($d)`
 - `scandir_r($d,$r=[])`
@@ -114,6 +117,7 @@ Contains the most used of basic functions for every site.
 - `ishttp($d)`
 - `ishtml($d)`
 - `imgroot($d)`
+- `usrroot($d)`
 - `nohttp($f)`
 - `domain($f)`
 - `host()`

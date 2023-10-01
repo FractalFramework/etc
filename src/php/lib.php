@@ -1,9 +1,6 @@
 <?php
-
-spl_autoload_register(function($a){
-    $r=sesmk('scandir_b','src/php',1);//cnfg('dev');
-    if($r)foreach($r as $v)if(is_file($f='src/php/'.$v.'/'.$a.'.php')){require($f); return;}
-});
+spl_autoload_register(function($a){$r=sesmk('scandir_b','src/php',1);//cnfg('dev');
+if($r)foreach($r as $v)if(is_file($f='src/php/'.$v.'/'.$a.'.php')){require($f); return;}});
 
 //html
 function n(){return "\n";}
@@ -83,7 +80,7 @@ if($r)foreach($r as $k=>$v){$rb=[];
 
 function datalist($id,$r,$v,$s=34,$t=''){$ret=''; $opt='';
 $ret=tag('input',['id'=>$id,'name'=>$id,'list'=>'dt'.$id,'size'=>$s,'value'=>$v,'placeholder'=>$t],'',1);
-foreach($r as $v)$opt.=tag('option',['value'=>$v],'',1);
+foreach($r as $v)$opt.=tagb('option',['value'=>$v]);
 $ret.=tag('datalist',['id'=>'dt'.$id],$opt);
 return $ret;}
 
@@ -114,7 +111,6 @@ function cookiz($d){unset($_COOKIE[$d]); setcookie($d,'',time()-3600);}
 function ses($d,$v=null){if(isset($v))$_SESSION[$d]=$v; return $_SESSION[$d]??'';}//assign
 function sesz($d){if(isset($_SESSION[$d]))unset($_SESSION[$d]);}
 function sesx($d){return isset($_SESSION[$d])?1:0;}
-
 function sesmk($v,$p='',$b=''){$rid=rid($v.$p);
 if(!isset($_SESSION[$rid]) or $b or ses('dev'))$_SESSION[$rid]=$v($p);
 return $_SESSION[$rid]??[];}
@@ -130,9 +126,9 @@ while($f=readdir($dr))if($f!='..' && $f!='.' && $f!='_notes'){$df=$d.'/'.$f;
 	if(is_dir($df))$r=scanfiles($df,$r); else $r[]=$df;}
 return $r;}
 function mkdir_r($u){$nu=explode('/',$u); if(count($nu)>10)return;
-if(strpos($u,'Warning')!==false)return; $ret='';
-foreach($nu as $k=>$v){$ret.=$v.'/'; if(strpos($v,'.'))$v='';
-if(!is_dir($ret) && $v){if(!mkdir($ret))echo $v.':not_created ';}}}
+if(strpos($u,'Warning')!==false)return; $f='';
+foreach($nu as $k=>$v){$f.=$v.'/'; if(strpos($v,'.'))$v='';
+if(!is_dir($f) && $v){if(!mkdir($f))echo $f.':not_created ';}}}
 function rmdir_r($dr){$dir=opendir($dr); if(!auth(6))return;
 while($f=readdir($dir)){$drb=$dr.'/'.$f;
 if(is_dir($drb) && $f!='..' && $f!='.'){rmdir_r($drb); if(is_dir($drb))rmdir($drb);}

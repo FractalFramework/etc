@@ -1,6 +1,19 @@
 <?php
 class build{
 
+#popup
+static function popup($d,$t){
+$bt=btj('popclose','',ico('red'));
+$bt.=btj('poprepos','',ico('blue'));
+$bt.=btj('reduce','',ico('green'));
+$bt.=span($t,'tit');
+$ret=div($bt,'popa','popa').div($d,'popu','popu');
+return div($ret,'popup','','max-width:760px;');}
+
+function pagup($d,$t){$t=ses::$r['popt']??$t; $w=760;
+$ret=div(ljb('','Close','popup',picto('close')).tagb('small',$t),'popnav','popnav').div($d,'popu','popu');
+return div($ret,'','','margin:auto; max-width:'.$w.'px;');}
+
 #tables
 static function tabler($r,$h='',$keys='',$frame=''){$i=0; $td=''; $tr='';
 if(is_array($h)){array_unshift($r,$h); $h=1;}

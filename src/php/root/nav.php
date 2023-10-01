@@ -20,6 +20,7 @@ return $rt;}
 static function datas(){$rt=[]; $g=get('a');
 $r=json::call('cnfg/nav'); $ath=ses('auth');
 $r+=self::defaults();
+$rt[]=bj('popup|jedt,edit|a=cnfg/nav',ico('edit'));
 foreach($r as $com=>$v){[$bt,$ico,$auth]=$v;
 	if($bt)$bt=str_replace('#user',ses('usr'),$bt);
 	if(!$bt)$rt[]=div('','line');

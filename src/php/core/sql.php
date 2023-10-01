@@ -161,7 +161,7 @@ static function inner($d,$b1,$b2,$k2,$p,$q,$z=''){
 if($d==$k2)$d=$b2.'.'.$d; [$ra,$wh]=self::where($q); $rt=[]; $ret=$p=='v'?'':[];
 $sql='select '.self::sqcl($d,$b2).' from '.$b1.' b1 inner join '.$b2.' b2 on b1.id=b2.'.$k2.' '.$wh;
 //$stmt=self::prep($sql,$ra,$z);
-$sql=self::see($sql,$ra); $stmt=self::qr($sql,$z); //pr($sql); //echo $sql.br();
+$sql=self::see($sql,$ra); $stmt=self::qr($sql,$z); //pr($sql);
 if($stmt)$rt=self::fetch($stmt,$p);
 if($rt)$ret=self::format($rt,$p);
 return $ret;}

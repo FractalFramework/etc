@@ -17,7 +17,7 @@ static $doc='_docs/md/';
 static function doc(){$rt=[];
 $r=sql::read('page,func,vars','_prog','kkv',[]);
 $rb=sql::read('child,parent','_progr','kk',[]);
-foreach($r as $k=>$v){$ret='';
+foreach($r as $k=>$v){$ret=''; $d='';
 	$fa=self::$doc.'src/'.$k.'.md';
 	//$fb=self::$doc.'res/'.$k.'.md';
 	//if(is_file($fa))$da=getfile($fa);

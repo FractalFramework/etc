@@ -9,7 +9,7 @@ Converts Html into Connectors.
 ## Functions
 
 - `repair($d)`
-- `md2conn($d)` -- used in : `test::md`
+- `md2conn($d)` -- used in : `test::md`, `conns::md`
 - `tags($tag,$atb,$d)` -- used in : `conv::parse`
 - `cleanhtml($d)` -- used in : `conv::build`
 - `cleanconn($d)` -- used in : `conv::build`

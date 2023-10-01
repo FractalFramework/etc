@@ -11,4 +11,4 @@ Standalone application for the commentaries.
 - `form($a)` -- used in : `tracks::call`
 - `read($p)` -- used in : `tracks::save`
 - `stream($p)` -- used in : `tracks::call`
-- `call($p)` -- used in : `posts::read`
+- `call($p)` -- used in : `posts::read`, `blocks::shutter`

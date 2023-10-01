@@ -13,10 +13,11 @@ Actions on other containers of the main template can be given by ajax actions.
 
 ## Functions
 
+- `bkg()`
 - `banner($p)`
 - `footer($p)`
 - `shutter($p)`
 - `home($p)`
-- `user()`
-- `forbidden()`
+- `forbidden()` -- used in : `blocks::call`
+- `secure($a,$b)` -- used in : `blocks::call`
 - `call($p)` -- used in : `main::read`

@@ -17,4 +17,4 @@ Permet de produire des formulaires d'après les définitions des tables.
 - `entries($a,$b,$c)` -- used in : `edit::read`
 - `menu($a,$b,$c)` -- used in : `edit::read`
 - `list()` -- used in : `edit::call`
-- `call($p)` -- used in : `blocks::user`
+- `call($p)`

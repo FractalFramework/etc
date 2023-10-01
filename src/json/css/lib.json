@@ -261,7 +261,7 @@
         "outline-color":"#777"
     },
     ".editable.active":{
-        "outline-color":"red"
+        "outline-color":"black"
     },
 
     ".console":{
@@ -287,6 +287,26 @@
     },
     ".hidden":{
         "display":"none"
+    },
+	
+    ".popup":{
+        "border-color":"#000",
+        "border-style":"solid",
+        "border-width":"1px"
+    },
+    ".popa":{
+        "padding":"10px",
+        "background-color":"#aaa",
+		"cursor":"move"
+    },
+    ".popa .tit":{
+        "font-size":"16px",
+        "margin-left":"10px",
+        "color":"#000"
+    },
+    ".popu":{
+        "padding":"10px",
+        "background-color":"#eee"
     },
 
     ".topology ol":{"list-style-type":"upper-roman"},

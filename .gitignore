@@ -50,6 +50,7 @@ nodejs
 node_modules
 _trash.php
 cnfg/wapp.ovh.php
+cnfg/etc1.ovh.php
 settings.json
 dwsync.xml
 *.sh

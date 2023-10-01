@@ -54,25 +54,24 @@ if($c)return match($c){
     default=>''};}
 
 static function connectors($da,$rp=[]){
-$ret=''; $no=str_contains($da,'<')?1:0;
-[$p,$o,$c,$d]=self::poc($da);
-if(isimg($p) && !$no)return tagb('figure',img(imgroot($p)).($o?tagb('figcaption',$o):''));
-if(strpos($d,'://') && !$no){$ret=conns::socialk($p,$o); if($ret)return $ret;}
-if(method_exists('conns',$c))return conns::$c($p,$o);
-if(in_array($c,self::$cn))return tag($c,'',$d);//html
-if(self::$cb[$c]??'')return tag(self::$cb[$c],'',$d);
+[$p,$o,$c,$d]=self::poc($da); $ret=''; 
 if($c)$ret=match($c){
     'clr'=>tag('span',['style'=>'color:'.($o?$o:'red')],$p),
     'bkg'=>tag('span',['style'=>'background-color:'.($o?$o:'yellow')],$p),
-    'tn'=>tag('a',['href'=>'#fn'.$o,'id'=>'tn'.$o],'['.$o.']'),
-    'fn'=>tag('a',['href'=>'#tn'.$o,'id'=>'fn'.$o],'['.$o.']'),
+    'tn'=>tag('a',['href'=>'#fn'.$p,'id'=>'tn'.$p],'['.$p.']'),
+    'fn'=>tag('a',['href'=>'#tn'.$p,'id'=>'fn'.$p],'['.$p.']'),
     'console'=>div($d,'console'),
     'md'=>conns::md($da),
     'pre'=>tagb('pre',$d),
     'ko'=>tagb('pre',$da),
     'no'=>'',
     default=>''};
-if(!$ret)$ret=$da;
+if(!$ret)$ret=$da; $no=str_contains($da,'<')?1:0;
+if(method_exists('conns',$c))return conns::$c($p,$o);
+if(isimg($p) && !$no)return tagb('figure',img(imgroot($p)).($o?tagb('figcaption',$o):''));
+if(strpos($d,'://') && !$no){$ret=conns::lnk($p,$o); if($ret)return $ret;}
+if(in_array($c,self::$cn))return tag($c,'',$d);//html
+if(self::$cb[$c]??'')return tag(self::$cb[$c],'',$d);
 return $ret;}
 
 static function build($p){

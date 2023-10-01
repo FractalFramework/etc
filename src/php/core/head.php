@@ -4,7 +4,7 @@ head::json('cnfg/headers');//json defs
 echo head::run();
 */
 class head{static $r=[]; static $rid='';
-static $path='src/';
+static $path='/src';
 static function add($k,$v){self::$r[][$k]=$v;}
 static function json($a){self::$r=json::call($a);}
 static function ra($r){foreach($r as $k=>$v)self::$r[][$k]=$v;}
@@ -14,9 +14,9 @@ static function jslink($d){return tag('script',['src'=>$d],'')."\n";}
 static function csscode($d){return tag('style',['type'=>'text/css'],$d)."\n";}
 static function jscode($d){return tag('script',['type'=>'text/javascript'],$d)."\n";}
 static function css($d){$c=self::$rid;
-return taga('link',['href'=>self::$path.'css/'.$d.'.css'.$c,'rel'=>'stylesheet'])."\n";}
+return taga('link',['href'=>self::$path.'/css/'.$d.'.css'.$c,'rel'=>'stylesheet'])."\n";}
 static function js($d){$c=self::$rid; $b=ses('dev');
-return tag('script',['src'=>self::$path.'js/'.$d.'.js'.$c],'')."\n";}
+return tag('script',['src'=>self::$path.'/js/'.$d.'.js'.$c],'')."\n";}
 static function link($d,$v){return taga('link',['rel'=>$d,'href'=>$v])."\n";}
 static function relod($v){echo self::jscode('window.location="'.$v.'"');}
 
@@ -33,7 +33,8 @@ return implode('',$rt);}
 
 static function html($lg='fr'){return '<!DOCTYPE html>'."\n".'<html lang="'.$lg.'" xml:lang="'.$lg.'">'."\n";}
 static function run($lg='fr'){return self::html($lg).tag('head',[],self::build())."\n";}
-static function page($d,$lg='fr'){return self::run($lg).tag('body',[],$d).'</html>';}
+static function page($d,$lg='fr'){$rp=['onclick'=>'clpop(event)','onmousemove'=>'popslide(event)'];
+return self::run($lg).tag('body',$rp,$d).'</html>';}
 static function call($r=[]){if($r)self::$r=array_merge($r,self::$r); return self::build();}
 static function get(){return self::build();}}
 ?>

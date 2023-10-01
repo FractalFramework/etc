@@ -86,34 +86,34 @@ The last parameter `0` is the verbose of the action, used in dev.
 - `qrr($r)`
 - `qra($r)`
 - `qrw($r)`
-- `qr($sql,$z='')` -- used in : `sql::inner`, `sql::call`, `sql::backup`, `db::jsoncolfromattr`, `db::modifjsonvar`, `db::create`
+- `qr($sql,$z='')` -- used in : `db::jsoncolfromattr`, `db::modifjsonvar`, `db::create`, `sql::inner`, `sql::call`, `sql::backup`
 - `format($r,$p)` -- used in : `sql::read`, `sql::read2`, `sql::inner`, `sql::call`
 - `where($r)` -- used in : `sql::mkq`, `sql::read`, `sql::upd`, `sql::inner`
 - `sqcl($d,$b)` -- used in : `sql::read`, `sql::read2`, `sql::inner`
 - `mkv($r)` -- used in : `sql::sav`, `sql::sav2`
 - `mkvk($r)` -- used in : `sql::upd`
 - `mkvr($r)`
-- `mkq($r)` -- used in : `sql::read2`, `db::modifjsonvar`
+- `mkq($r)` -- used in : `db::modifjsonvar`, `sql::read2`
 - `mkvq($r)` -- used in : `sql::sav2`
 - `see($sql,$r)` -- used in : `sql::prep`, `sql::inner`
 - `fetch($stmt,$p)` -- used in : `sql::read`, `sql::read2`, `sql::inner`, `sql::call`, `sql::call2`
 - `bind($stmt,$r)` -- used in : `sql::prep`
 - `prep($sql,$r,$z='')` -- used in : `sql::read`, `sql::sav`, `sql::sav2`, `sql::upd`, `sql::inner`
-- `read($d,$b,$p,$q,$z='')` -- used in : `docs::mktree`, `docs::find_func`, `docs::count_cases`, `docs::state`, `edit::create`, `edit::edit`, `edit::play`, `edit::entries`, `login::uid`, `login::firstuser`, `login::response`, `login::resetip`, `login::recognize0`, `sql::alex`, `sql::ex`, `dbedt::upd2`, `dbedt::play`, `dbedt::read`, `docs::doc`, `docs::see2`, `docs::see`, `docs::vue`, `contact::read`, `posts::usrart`, `posts::catid`, `posts::content`, `posts::create`, `posts::read`, `posts::stream`, `tracks::edit`, `tracks::call`, `admin::pub`, `blocks::banner`, `conns::art`, `conns::read`, `conns::socials`
+- `read($d,$b,$p,$q,$z='')` -- used in : `contact::read`, `posts::usrart`, `posts::catid`, `posts::content`, `posts::create`, `posts::read`, `posts::stream`, `tracks::edit`, `tracks::call`, `dbedt::upd2`, `dbedt::play`, `dbedt::read`, `dbedt::entries`, `docs::doc`, `docs::see2`, `docs::see`, `docs::vue`, `docs::mktree`, `docs::find_func`, `docs::count_cases`, `docs::state`, `edit::create`, `edit::edit`, `edit::play`, `edit::entries`, `login::uid`, `login::firstuser`, `login::response`, `login::resetip`, `login::recognize2`, `sql::alex`, `sql::ex`, `admin::pub`, `admin::user`, `blocks::bkg`, `blocks::banner`, `conns::twalter`, `conns::art`, `conns::read`, `conns::socials`
 - `read2($d,$b,$p,$q,$z='')`
 - `alex($b,$r)` -- used in : `sql::sav`
 - `combine($b,$r)` -- used in : `sql::sav`
 - `integrity($b,$r)` -- used in : `sql::sav`
 - `complete($r)` -- used in : `sql::sav`
-- `sav($b,$q,$z='')` -- used in : `docs::save`, `edit::save`, `login::register`, `docs::save2`, `contact::save`, `posts::catid`, `posts::save`, `tracks::register`, `tracks::save`
+- `sav($b,$q,$z='')` -- used in : `contact::save`, `posts::catid`, `posts::save`, `tracks::register`, `tracks::save`, `docs::save2`, `docs::save`, `edit::save`, `login::register`
 - `sav2($b,$q,$z='')`
-- `upd($b,$r,$q,$z='')` -- used in : `edit::update`, `login::resetip`, `dbedt::upd2`, `dbedt::upd`, `posts::del`, `posts::update`, `tracks::del`, `admin::pub`
-- `inner($d,$b1,$b2,$k2,$p,$q,$z='')` -- used in : `login::identify`, `posts::datas`, `tracks::read`, `tracks::stream`, `admin::pending_tracks`, `admin::pending_posts`, `conns::profile`, `nav::defaults`
-- `call($sql,$p,$z='')` -- used in : `edit::list`, `sql::cols`, `db::cols`, `dbedt::menu`
+- `upd($b,$r,$q,$z='')` -- used in : `posts::del`, `posts::update`, `tracks::del`, `dbedt::upd2`, `dbedt::upd`, `edit::update`, `login::resetip`, `admin::pub`
+- `inner($d,$b1,$b2,$k2,$p,$q,$z='')` -- used in : `posts::datas`, `tracks::read`, `tracks::stream`, `login::identify`, `admin::pending_tracks`, `admin::pending_posts`, `conns::profile`, `nav::defaults`
+- `call($sql,$p,$z='')` -- used in : `db::cols`, `dbedt::menu`, `edit::list`, `sql::cols`
 - `call2($sql,$p)`
 - `com($sql)`
 - `cols($b,$n='')` -- used in : `sql::combine`
-- `drop($b)` -- used in : `sql::backup`, `db::trigger`, `db::create`
+- `drop($b)` -- used in : `db::trigger`, `db::create`, `sql::backup`
 - `trunc($b)` -- used in : `docs::save`
 - `setinc($b,$n)`
 - `unikey($b,$d)` -- used in : `db::create`

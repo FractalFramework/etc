@@ -14,4 +14,5 @@
 - `pending_posts()` -- used in : `admin::call`
 - `apps()` -- used in : `admin::appsmenu`
 - `appsmenu()`
+- `user()`
 - `call($p)`

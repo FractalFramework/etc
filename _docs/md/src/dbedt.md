@@ -40,5 +40,6 @@ The Sql motor will verify if the requests are conform to the known types ot the 
 - `upd($p)`
 - `play($p)` -- used in : `dbedt::read`
 - `read($p)` -- used in : `dbedt::call`
+- `entries($a)` -- used in : `dbedt::read`
 - `menu()` -- used in : `dbedt::call`
-- `call($p)` -- used in : `admin::call`
+- `call($p)` -- used in : `admin::user`, `admin::call`

@@ -43,6 +43,17 @@
         "msg":"text",
         "pub":"int"
     },
+	"twit":{
+		"ib":"bint",
+		"twid":"bint",
+		"name":"var",
+		"screen_name":"var",
+		"user_id":"bint",
+		"date":"int",
+		"text":"text",
+		"media":"svar",
+		"lang":"svar"
+	},
     "_prog":{
         "dir":"var",
         "page":"var",

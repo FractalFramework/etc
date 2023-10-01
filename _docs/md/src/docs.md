@@ -10,7 +10,7 @@ And it can produce the software's automatic documentation (*botdoc*).
 - `doc()` -- used in : `docs::find_func`, `docs::count_cases`, `docs::read`
 - `iter2($ka)` -- used in : `docs::see2`
 - `see2($p)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::read`
-- `iter($ka)` -- used in : `docs::mktree`, `docs::funcsee`, `docs::iter2`, `docs::iter`, `docs::see`
+- `iter($ka)` -- used in : `docs::iter2`, `docs::iter`, `docs::see`, `docs::mktree`, `docs::funcsee`
 - `see($p)` -- used in : `docs::find_func`, `docs::count_cases`, `docs::read`
 - `vue()` -- used in : `docs::find_func`, `docs::count_cases`, `docs::read`
 - `save2($r)` -- used in : `docs::mktree`
