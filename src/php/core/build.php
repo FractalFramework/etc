@@ -10,8 +10,8 @@ $bt.=span($t,'tit');
 $ret=div($bt,'popa','popa').div($d,'popu','popu');
 return div($ret,'popup','','max-width:760px;');}
 
-function pagup($d,$t){$t=ses::$r['popt']??$t; $w=760;
-$ret=div(ljb('','Close','popup',picto('close')).tagb('small',$t),'popnav','popnav').div($d,'popu','popu');
+static function pagup($d,$t){$t=ses::$r['popt']??$t; $w=760;
+$ret=div(btj('popclose','',ico('red')).span($t,'tit'),'popnav','popnav').div($d,'popu','popu');
 return div($ret,'','','margin:auto; max-width:'.$w.'px;');}
 
 #tables

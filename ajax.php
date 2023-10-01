@@ -18,5 +18,6 @@ if(isset($ret)){
         $ret=json_encode($ret,JSON_HEX_TAG);}
     else header('Content-Type: text/html; charset=utf-8');
 if(get('_tg')=='popup')$ret=build::popup($ret,$com);
+if(get('_tg')=='pagup')$ret=build::pagup($ret,$com);
 echo $ret;}
 ?>

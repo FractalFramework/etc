@@ -22,6 +22,6 @@ It's a sum of useful builders
 - `audio($d,$t='')`
 - `video($d,$w='',$h='',$o='')`
 - `iframe($d,$w='',$h='',$o='')` -- used in : `conns::youtube`
-- `editable($r,$j,$h=[],$edk='',$no=[])` -- used in : `dbedt::play`, `dbedt::read`, `jedt::edit`
+- `editable($r,$j,$h=[],$edk='',$no=[])` -- used in : `dbedt::play`, `dbedt::read`, `jedt::addrow`, `jedt::edit`
 - `ftp($d)` -- used in : `build::ftpchmod`
 - `ftpchmod($f,$n)` -- used in : `test::call`

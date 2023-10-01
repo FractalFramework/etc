@@ -2,7 +2,7 @@
 class jedt{
 
 //punctual
-static function add($a,$v){
+static function addnew($a,$v){
 $f=json::file($a);
 $d=getfile($f);
 $r=json_decode($d,true);
@@ -26,7 +26,7 @@ $d=json_encode($r);
 
 static function save($p){
 $com=array_shift($p);
-return jedt::add('cnfg/nav',$com,$p);}
+return jedt::addnew('cnfg/nav',$com,$p);}
 
 static function create(){
 $r=['com','bt','ico','auth'];
@@ -55,13 +55,18 @@ elseif($isr)$ty=$nkb?'rv':'ra';
 else $ty=$nk?'kv':'a';
 return $ty;}
 
+static function addrow($p){$ret='';
+$a=$p['a']; $r=json::call($a); $r[]=array_pad([],count(current($r)),''); $h=[];
+return build::editable($r,'jedt,modif|',$h,1);}
+
 static function edit($p){$ret='';
 $a=$p['a']; $r=json::call($a);
 $ty=self::artype($r); $h=[];
 if($ty=='a' or $ty=='rv')$ret=build::editable($r,'jedt,modif|',$h,1);
 else $ret=self::editxt($p);
 $bt=bj('jmnu|jedt,editxt|a='.$a,ico('edit').strend($a,'/').'('.$ty.')');
-return $bt.$ret.div('','','navedt');}
+if($ty=='a' or $ty=='rv')$bt.=bj('navedt|jedt,addrow|a='.$a,ico('plus'));
+return $bt.div($ret,'','navedt');}
 
 //txt format
 static function savext($p){

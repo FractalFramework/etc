@@ -57,7 +57,7 @@ th{color:#fff; text-align:left; background-color:#0000009c}
 a.bigbt{transition:all 0.3s ease}
 a.bigbt:hover{background:#fff}
 .tabs{line-height:20px}
-.tabs span{transition:all 0.3s ease; padding:2px 7px; border-radius:6px 6px 0px 0px; color:#333333; background-color:#e9e7e8; box-shadow:0px 0px 4px -3px #777777}
+.tabs span{transition:all 0.3s ease; padding:2px 7px; border-radius:6px 6px 0px 0px; color:#333333; background-color:#e9e7e8; box-shadow:0px 0px 4px -3px #777777; border-bottom:1px solid #777}
 .tabs span:hover{color:#171717; background-color:#ffffff}
 .tabs span.active{color:#171717; background-color:#ffffff}
 .tabs span.space{padding:2px 0px; border-width:0 0 1px 0; background:linear-gradient(to bottom,rgba(0,0,0,0),rgba(68,68,68,0.5))}

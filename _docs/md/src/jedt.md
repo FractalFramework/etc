@@ -8,12 +8,13 @@ The images are located in `/img`.
 
 ## Functions
 
-- `add($a,$v)` -- used in : `download::eye`
+- `addnew($a,$v)`
 - `update($a,$k,$col,$val)` -- used in : `jedt::modif`
 - `save($p)`
 - `create()`
 - `modif($p)`
 - `artype($r)` -- used in : `jedt::edit`
+- `addrow($p)`
 - `edit($p)`
 - `savext($p)`
 - `editxt($p)` -- used in : `jedt::edit`
