@@ -4,14 +4,14 @@ static $defaults=['surname'=>'etc','slogan'=>'...','banner'=>'','logo'=>''];
 
 static function bkg(){
 $id=ses('uid'); if(!$id)$id=cnfg('usrhome');
-$v=sql::read('banner','profile2','v',$id);
+$v=sql::read('banner','profile','v',$id);
 if(isimg($v??''))$v='url(/img/'.$v.')';
 return $v;}
 
 static function banner($p){
 [$a,$b]=vals($p,['a','b']);
 $id=ses('uid'); if(!$id)$id=cnfg('usrhome');
-$r=sql::read('surname,slogan,banner,logo','profile2','a',$id);
+$r=sql::read('surname,slogan,banner,logo','profile','a',$id);
 if(!$r)$r=self::$defaults;
 $r['surname']=bh('home',$r['surname']);
 $ret=view::call('banner',$r);

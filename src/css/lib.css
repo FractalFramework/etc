@@ -31,11 +31,11 @@ th{color:#fff; text-align:left; background-color:#0000009c}
 .grid-r2{grid-row:2}
 .grid-r3{grid-row:3}
 .grid-top{grid-column:1 / 3; grid-row:1}
-.grid-ban{grid-column:1; grid-row:1}
-.grid-left{grid-column:1; grid-row:2}
-.grid-body{grid-column:2; grid-row:1 / 2}
-.grid-right{grid-column:3; grid-row:1 / 2}
-.grid-footer{grid-column:1; grid-row:3}
+.grid-head{grid-column:1; grid-row:1}
+.grid-nav{grid-column:1; grid-row:2}
+.grid-main{grid-column:2; grid-row:1 / 2}
+.grid-aside{grid-column:3; grid-row:1 / 2}
+.grid-foot{grid-column:1; grid-row:3}
 .btn,.btsav,.btdel,.btno,.btoff,.bton{transition:all 0.3s ease; font-size:small; padding:1px 3px; background-color:#ffffff7d; border-width:1px; border-color:gray; border-style:solid; line-height:24px; color:#444}
 .btn:hover{background-color:white; border-color:black}
 .btsav{background-color:#0064ff4a; border-color:#0064ff; color:#222}

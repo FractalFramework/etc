@@ -16,7 +16,7 @@ $ex=self::firstuser(); $auth=$ex?1:6; $psw=self::hash($c);
 $ex=self::uid($a); if($ex)return alert('already_exists','red');
 if(!filter_var($b,FILTER_VALIDATE_EMAIL))return alert('bad_mail','red');
 if($a && $b && $c && !$ex)$ok=sql::sav('users',[$a,$auth,$b,$psw,uip()]);
-if($ok)$ak=sql::sav('profile2',[$ok,$a,'here',self::$default_ban,'']);
+if($ok)$ak=sql::sav('profile',[$ok,$a,'here',self::$default_ban,'']);
 if($ok)self::identify($ok);
 if($ok)$ret=alert('registered','blue');
 else $ret=alert('notregistered','red');
@@ -56,7 +56,7 @@ else{
 return $ret;}
 
 static function identify($id=''){
-$r=sql::inner('b1.id,uid,b1.name,auth,slogan,logo,ip','users','profile2','uid','a',['b1.id'=>$id]);
+$r=sql::inner('b1.id,uid,b1.name,auth,slogan,logo,ip','users','profile','uid','a',['b1.id'=>$id]);
 if(!$r)return;// pr($r); trace();
 cookie('uid',$r['id']);
 ses('uid',$r['id']);

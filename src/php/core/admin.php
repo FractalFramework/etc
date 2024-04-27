@@ -42,8 +42,8 @@ foreach($r as $v)$rb[]=bj('japp|'.$v.',call',span($v));
 return $rb;}
 
 static function user(){//if(!ses('uid'))return;
-$id=sql::read('id','profile2','v',['uid'=>ses('uid')]);
-$rt['profile']=dbedt::call(['a'=>'profile2','id'=>$id]);
+$id=sql::read('id','profile','v',['uid'=>ses('uid')]);
+$rt['profile']=dbedt::call(['a'=>'profile','id'=>$id]);
 $rt['socials']=dbedt::call(['a'=>'socials','id'=>'']);
 return build::tabs($rt);}
 

@@ -47,7 +47,7 @@ function jsonput(keys,json){var cb,k,typ,tg;
 var obj=JSON.parse(json);
 var rk=keys.split(','); var i=0; var rkx=rk.length>1?1:0;
 for(var k in obj){
-	tg=rkx?rk[i]:k; i++;
+	tg=rk[i]?rk[i]:k; i++;
 	cb=getbyid(tg);
 	if(cb!=null)typ=cb.type;
 	if(typ=='text'||typ=='textarea'||typ=='hidden')cb.value=obj[k];

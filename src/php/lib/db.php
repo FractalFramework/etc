@@ -8,7 +8,7 @@ sql::qr('create index '.$b.'_'.$c.'_'.$k.'_ix on '.$b.'('.$c.'_'.$k.');');}
 static function modifjsonvar($b,$c,$k,$v,$q=''){//impact colattr
 sql::qr('update '.$b.' set '.$c.' = json_replace('.$c.', "$.'.$k.'", "'.$v.'") '.sql::mkq($q,$b).';');}
 
-static function create_cols($r){$ret=''; $end='';
+static function createcols($r){$ret=''; $end='';
 //$collate='collate utf8mb4_uniocode_ci'; $set='CHARACTER SET utf8mb4';
 foreach($r as $k=>$v)
 if($v=='int')$ret.='`'.$k.'` int(11) default NULL,'."\n";
@@ -37,12 +37,14 @@ if(in_array($v['column_name']??'',$rz))unset($r[$k]);
 elseif(in_array($k,$rz))unset($r[$k]);
 return $r;}
 
-static function cols($b,$n=''){if($n)$b=cnfg('db').'.'.$b;
+static function realdbname($b){return cnfg('db').'.'.$b;}
+
+static function readcols($b,$n=''){if($n)$b=self::realdbname($b);
 $sql='select column_name,data_type,character_maximum_length from information_schema.columns where table_name="'.$b.'"';
 return sql::call($sql,'ra');}
 
-static function type_cols($b){
-$r=self::cols($b,0); $rt=[]; $r=self::cleanup($r);
+static function colstype($b){
+$r=self::readcols($b,1); $rt=[]; $r=self::cleanup($r);
 foreach($r as $k=>$v){['column_name'=>$nm,'data_type'=>$ty,'character_maximum_length'=>$sz]=$v;
 	$ty=match($ty){
 	'varchar'=>$sz<64?'svar':($sz>1000?'bvar':'var'),
@@ -64,7 +66,7 @@ return $rt;}
 
 static function trigger($b,$ra){
 if(!sql::ex($b))return;
-$rb=self::type_cols($b); $rnew=[]; $rold=[];
+$rb=self::colstype($b); $rnew=[]; $rold=[];
 if(isset($rb['id']))unset($rb['id']); if(isset($rb['up']))unset($rb['up']);
 if($rb){$rnew=array_diff_assoc($ra,$rb); $rold=array_diff_assoc($rb,$ra);}//old
 if($rnew or $rold){echo $b; pr([$rnew,$rold]);
@@ -85,7 +87,7 @@ if(!is_array($r) or !$b)return; reset($r);
 if($up=='z')sql::drop($b);
 if($up){$sql=self::trigger($b,$r); }
 sql::qr('create table if not exists `'.$b.'` (
-	`id` int(11) NOT NULL auto_increment,'.self::create_cols($r).'
+	`id` int(11) NOT NULL auto_increment,'.self::createcols($r).'
 	`up` timestamp on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB collate utf8mb4_unicode_ci;',0);

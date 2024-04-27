@@ -94,7 +94,7 @@ if(auth(4))$ret.=bh('create',icovoc('plus','create_bt','react'),'bigbt');
 foreach($r as $k=>$v){
     $r[$k]['date']=$v['up'];
     //$r[$k]['pub']=auth(4)?admin::bt($v['id'],$v['pub'],'posts'):'';
-    $r[$k]['author']=sql::read('surname','profile2','v',['uid'=>$v['uid']]);
+    $r[$k]['author']=sql::read('surname','profile','v',['uid'=>$v['uid']]);
     $r[$k]['tracks_nb']=sql::read('count(id)','tracks','v',['bid'=>$v['id']]);
     $r[$k]['tracks_nb_title']=voc('tracks_nb_title');}
 foreach($r as $k=>$v)$ret.=view::call('posts',$v);

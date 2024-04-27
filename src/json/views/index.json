@@ -9,17 +9,17 @@
         [
             [
                 "header",
-                {"class":"grid-ban"},
+                {"class":"grid-head"},
                 "{banner}"
             ],
             [
                 "nav",
-                {"id":"nav","class":"grid-left"},
+                {"id":"nav","class":"grid-nav"},
                 "{nav}"
             ],
             [
-                "div",
-                {"class":"wrapper grid-body"},
+                "main",
+                {"class":"wrapper grid-main"},
                 [
                     [
                     "div",
@@ -29,13 +29,13 @@
                 ]
             ],
             [
-                "div",
+                "aside",
                 {"class":"shutter grid-right"},
                 "{shutter}"
             ],
             [
                 "footer",
-                {"class":"grid-footer"},
+                {"class":"grid-foot"},
                 [
                     [
                         "div",

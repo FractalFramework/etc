@@ -88,7 +88,7 @@ return $d;}
 
 static function profile($id,$o=''){
 $uid=posts::usrart($id); if(!$uid)$uid=cnfg('usrhome'); //if(!$uid)$uid=ses('uid');
-$r=sql::inner('name,surname,mail,slogan,logo','users','profile2','uid','a',['b1.id'=>$uid]);
+$r=sql::inner('name,surname,mail,slogan,logo','users','profile','uid','a',['b1.id'=>$uid]);
 if(!$r)return;
 $ret=h2($r['surname']);
 $ret.=h3($r['slogan']); 

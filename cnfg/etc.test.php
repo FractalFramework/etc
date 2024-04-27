@@ -1,3 +1,3 @@
 <?php
-new sql(['localhost','root','dev','etc']);
+new sql(['localhost','pmauser','psw','etc']);
 ?>

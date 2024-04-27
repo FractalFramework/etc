@@ -1,5 +1,5 @@
 //states
-oldj='';
+oldj=''; var clp=[];
 //var maintg is defined from call
 
 function pr(d){return console.log(d);}

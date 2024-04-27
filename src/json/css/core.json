@@ -198,21 +198,21 @@
             "grid-template-columns":"50px auto auto",
             "grid-template-rows":"60px auto 42px"
         },
-        ".grid-ban":{
+        ".grid-head":{
             "grid-column":"2"
         },
-        ".grid-left":{
+        ".grid-nav":{
             "grid-column":"1",
             "grid-row":"2"
         },
-        ".grid-body":{
+        ".grid-main":{
             "grid-row":"2"
         },
-        ".grid-right":{
+        ".grid-aside":{
             "grid-column":"3",
             "grid-row":"1 / 2"
         },
-        ".grid-footer":{
+        ".grid-foot":{
             "grid-column":"2",
             "grid-row":"3"
         },

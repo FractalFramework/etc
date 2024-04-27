@@ -1,4 +1,4 @@
 <?php
-new sql(['localhost','root','27H2NDF40F3P0A41','etc']);
-ses::$r['ftp']=['etc','uZRsCiyYJHCpjftK','','ftp.etc1.ovh'];
+new sql(['localhost','root','46C430u7z7WMHFS1','etc']);
+ses::$r['ftp']=['etc','o3z220598363wEaS','','ftp.etc1.ovh'];
 ?>

@@ -40,9 +40,9 @@ nav a.admin:hover{border-color:#0d83ec}
 .category{border:1px solid silver; padding:2px 4px}
 .grid{grid-template-columns:280px auto auto; grid-template-rows:60px auto auto}
 @media only screen and (max-width: 720px){.grid{grid-template-columns:50px auto auto; grid-template-rows:60px auto 42px}
-.grid-ban{grid-column:2}
-.grid-left{grid-column:1; grid-row:2}
-.grid-body{grid-row:2}
-.grid-right{grid-column:3; grid-row:1 / 2}
-.grid-footer{grid-column:2; grid-row:3}
+.grid-head{grid-column:2}
+.grid-nav{grid-column:1; grid-row:2}
+.grid-main{grid-row:2}
+.grid-aside{grid-column:3; grid-row:1 / 2}
+.grid-foot{grid-column:2; grid-row:3}
 .wrapper{height:calc(100vh - 88px)}}
